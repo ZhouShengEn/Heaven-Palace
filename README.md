@@ -1,2 +1,2 @@
-# Heaven-Palace
+# Heaven-Palace —— 天宫
 为打造最强Java后端脚手架！将整合spring boot；持久化插件：mybatis-plus；消息中间件：kafka、rocketMq；二级缓存：redisson、caffine、jetcache；映射工具：orika；微服务：spring-cloud + nacos + Feign；安全框架：shiro + spring security + jwt；定时任务组件：XXL-JOB；搜索引擎：Elasticsearch；分布式事务：Seata；Socket：Atmosphere框架；其他：Javers组件、ShardingSphere、vert.x......
