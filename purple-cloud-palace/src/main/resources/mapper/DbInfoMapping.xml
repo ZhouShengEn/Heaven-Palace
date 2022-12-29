@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.purplecloudpalace.modular.code.dao.DbInfoDao">
+
+    <resultMap id="BaseResultMap" type="com.heaven.palace.purplecloudpalace.modular.code.model.DbInfoModel">
+        <result column="ID" property="id"/>
+        <result column="ALIAS" property="alias"/>
+        <result column="DB_DRIVER" property="dbDriver"/>
+        <result column="DB_URL" property="dbUrl"/>
+        <result column="DB_USER_NAME" property="dbUserName"/>
+        <result column="DB_PASSWORD" property="dbPassword"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="DB_TYPE" property="dbType"/>
+        <result column="CRT_USER_ID" property="crtUserId"/>
+        <result column="CRT_TIME" property="crtTime"/>
+        <result column="MDF_USER_ID" property="mdfUserId"/>
+        <result column="MDF_TIME" property="mdfTime"/>
+    </resultMap>
+
+
+    <select id="selectCount" resultMap="BaseResultMap">
+        select count(1) from code_dbinfo t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from code_dbinfo t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from code_dbinfo t
+        <where>
+            <include refid="select_content"/>
+            ${w.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.alIAS != null and e.alIAS != '' ">
+            AND t.ALIAS = #{e.alias}
+        </if>
+        <if test="e.dbDriver != null and e.dbDriver != '' ">
+            AND t.DB_DRIVER = #{e.dbDriver}
+        </if>
+        <if test="e.dbUrl != null and e.dbUrl != '' ">
+            AND t.DB_URL LIKE CONCAT('%',#{e.dbUrl},'%')
+        </if>
+        <if test="e.dbUserName != null and e.dbUserName != '' ">
+            AND t.DB_USER_NAME = #{e.dbUserName}
+        </if>
+        <if test="e.dbPassword != null and e.dbPassword != '' ">
+            AND t.DB_PASSWORD = #{e.dbPassword}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND (t.USER_ID = #{e.userId} or t.USER_ID is null)
+        </if>
+        <if test="e.dbType != null and e.dbType != '' ">
+            AND t.DB_TYPE = #{e.dbType}
+        </if>
+        <if test="e.crtUserId != null and e.crtUserId != '' ">
+            AND t.CRT_USER_ID = #{e.crtUserId}
+        </if>
+        <if test="e.crtTime != null and e.crtTime != '' ">
+            AND t.CRT_TIME = #{e.crtTime}
+        </if>
+        <if test="e.mdfUserId != null and e.mdfUserId != '' ">
+            AND t.MDF_USER_ID = #{e.mdfUserId}
+        </if>
+        <if test="e.mdfTime != null and e.mdfTime != '' ">
+            AND t.MDF_TIME = #{e.mdfTime}
+        </if>
+    </sql>
+
+</mapper>

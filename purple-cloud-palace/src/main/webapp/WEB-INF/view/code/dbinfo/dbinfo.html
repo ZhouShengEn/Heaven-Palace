@@ -1,0 +1,50 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>数据库管理管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="alias" name="别名" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="dbUrl" name="地址" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="dbType" name="类型" >
+                                    <option value="">全部</option>
+                                    <option value="mysql">Mysql</option>
+                                    <option value="oracle">Oracle</option>
+                                    <option value="sqlserver">Sqlserver</option>
+                                    <option value="postgresql">Postgresql</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="DbInfo.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="DbInfoTableToolbar" role="group">
+                            @if(shiro.hasPermission("/dbinfo/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="DbInfo.openAddDbInfo()"/>
+                            @}
+                            @if(shiro.hasPermission("/dbinfo/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="DbInfo.openDbInfoDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/dbinfo/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="DbInfo.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="DbInfoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/code/dbinfo/dbinfo.js"></script>
+@}

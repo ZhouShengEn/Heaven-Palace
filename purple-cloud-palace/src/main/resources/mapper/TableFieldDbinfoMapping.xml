@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.purplecloudpalace.modular.code.dao.TableFieldDbinfoDao">
+
+    <resultMap id="BaseResultMap" type="com.heaven.palace.purplecloudpalace.modular.code.model.TableFieldDbinfoModel">
+        <result column="id" property="id"/>
+        <result column="field_id" property="fieldId"/>
+        <result column="field_name" property="fieldName"/>
+        <result column="field_default" property="fieldDefault"/>
+        <result column="field_content" property="fieldContent"/>
+        <result column="field_length" property="fieldLength"/>
+        <result column="field_type" property="fieldType"/>
+        <result column="field_point_length" property="fieldPointLength"/>
+    </resultMap>
+    <insert id="batchInsert">
+<!--        <if test="_databaseType == 'MYSQL'">-->
+            INSERT INTO code_table_field_dbinfo
+            (FIELD_ID, FIELD_NAME, FIELD_DEFAULT, FIELD_CONTENT, FIELD_LENGTH, FIELD_TYPE, FIELD_POINT_LENGTH)
+            VALUES
+            <foreach collection="list" item="s" separator=",">
+                (#{s.fieldId},#{s.fieldName},#{s.fieldDefault},#{s.fieldContent},#{s.fieldLength},#{s.fieldType},#{s.fieldPointLength})
+            </foreach>
+<!--        </if>-->
+    </insert>
+
+    <delete id="deleteByFieldIds">
+        DELETE FROM code_table_field_dbinfo WHERE field_id IN
+        <foreach collection="fieldIds" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectCount" resultMap="BaseResultMap">
+        select count(1) from code_table_field_dbinfo t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from code_table_field_dbinfo t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from code_table_field_dbinfo t
+        <where>
+            <include refid="select_content"/>
+            ${w.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.fieldId != null and e.fieldId != '' ">
+            AND t.FIELD_ID = #{e.fieldId}
+        </if>
+        <if test="e.fieldName != null and e.fieldName != '' ">
+            AND t.FIELD_NAME = #{e.fieldName}
+        </if>
+        <if test="e.fieldDefault != null and e.fieldDefault != '' ">
+            AND t.FIELD_DEFAULT = #{e.fieldDefault}
+        </if>
+        <if test="e.fieldContent != null and e.fieldContent != '' ">
+            AND t.FIELD_CONTENT = #{e.fieldContent}
+        </if>
+        <if test="e.fieldLength != null and e.fieldLength != '' ">
+            AND t.FIELD_LENGTH = #{e.fieldLength}
+        </if>
+        <if test="e.fieldType != null and e.fieldType != '' ">
+            AND t.FIELD_TYPE = #{e.fieldType}
+        </if>
+        <if test="e.fieldPointLength != null and e.fieldPointLength != '' ">
+            AND t.FIELD_POINT_LENGTH = #{e.fieldPointLength}
+        </if>
+    </sql>
+
+</mapper>

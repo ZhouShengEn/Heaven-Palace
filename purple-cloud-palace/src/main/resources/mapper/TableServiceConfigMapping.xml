@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.purplecloudpalace.modular.code.dao.TableServiceConfigDao">
+
+	<resultMap id="BaseResultMap" type="com.heaven.palace.purplecloudpalace.modular.code.model.TableServiceConfigModel">
+		    <result column="id" property="id" />
+		    <result column="table_id" property="tableId" />
+		    <result column="type" property="type" />
+		    <result column="is_enable" property="isEnable" />
+		    <result column="is_permission" property="isPermission" />
+		    <result column="is_transactional" property="isTransactional" />
+		    <result column="transactional_type" property="transactionalType" />
+	</resultMap>
+    <insert id="batchInsert">
+<!--		<if test="_databaseType == 'MYSQL'">-->
+			INSERT INTO code_table_service_config
+			(TABLE_ID, TYPE, IS_ENABLE, IS_PERMISSION, IS_TRANSACTIONAL, TRANSACTIONAL_TYPE)
+			VALUES
+			<foreach collection="list" item="s" separator=",">
+				(#{s.tableId},#{s.type},#{s.isEnable},#{s.isPermission},#{s.isTransactional},#{s.transactionalType})
+			</foreach>
+<!--		</if>-->
+	</insert>
+
+
+    <select id="selectCount" resultMap="BaseResultMap">
+			select count(1) from code_table_service_config t
+		<where>
+			<include refid="select_content"/>
+		</where>
+	</select>
+	
+	<select id="selectList" resultMap="BaseResultMap">
+			select * from code_table_service_config t
+		<where>
+			<include refid="select_content"/>
+		</where>
+	</select>
+
+	<select id="selectPage" resultMap="BaseResultMap">
+			select * from code_table_service_config t
+		<where>
+			<include refid="select_content"/>
+			${w.sqlSegment}
+		</where>
+	</select>
+	
+	<sql id="select_content">	
+				<if test="e.id != null and e.id != '' ">
+					AND t.ID = #{e.id}
+				</if>
+				<if test="e.tableId != null and e.tableId != '' ">
+					AND t.TABLE_ID = #{e.tableId}
+				</if>
+				<if test="e.type != null and e.type != '' ">
+					AND t.TYPE = #{e.type}
+				</if>
+				<if test="e.isEnable != null and e.isEnable != '' ">
+					AND t.IS_ENABLE = #{e.isEnable}
+				</if>
+				<if test="e.isPermission != null and e.isPermission != '' ">
+					AND t.IS_PERMISSION = #{e.isPermission}
+				</if>
+				<if test="e.isTransactional != null and e.isTransactional != '' ">
+					AND t.IS_TRANSACTIONAL = #{e.isTransactional}
+				</if>
+				<if test="e.transactionalType != null and e.transactionalType != '' ">
+					AND t.TRANSACTIONAL_TYPE = #{e.transactionalType}
+				</if>
+	</sql>
+
+</mapper>

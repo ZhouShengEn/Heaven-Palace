@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-6">
+                    <#select id="fileType" name="语言" underline="true" >
+                        <option value="mysql">Mysql</option>
+                        <option value="oracle">Oracle</option>
+                        <option value="sqlserver">Sqlserver</option>
+                        <option value="postgresql">Postgresql</option>
+                    </#select>
+                </div>
+                <div class="col-sm-3">
+                    目前只支持MYSQL
+                </div>
+                <div class="col-sm-3">
+                    <#button btnCss="info" name="导入" id="ensure" icon="fa-check" clickFun="TableInfoSQLImportDlg.import()"/>
+                </div>
+                <div class="col-sm-12">
+                    <textarea id="file" name="file" class="form-control"
+                              rows="10"></textarea>
+                    <pre id="codeFile" style="display:none;height: 70%;">
+                            <code class="sql">
+
+                            </code>
+                    </pre>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/code/tableinfo/tableinfo_sqlimport.js"></script>
+@}

@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${tablebasefield.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+			     <#input id="id" name="Id" underline="true" value="${tablebasefield.id}"/>
+			     <#input id="userId" name="用户ID" underline="true" value="${tablebasefield.userId}"/>
+			     <#input id="name" name="基础字段组名称" underline="true" value="${tablebasefield.name}"/>
+			     <#input id="desc" name="描述" underline="true" value="${tablebasefield.desc}"/>
+			     <#input id="crtUserId" name="创建人" underline="true" value="${tablebasefield.crtUserId}"/>
+			     <#input id="crtTime" name="创建时间" underline="true" value="${tablebasefield.crtTime}"/>
+			     <#input id="mdfUserId" name="修改人" underline="true" value="${tablebasefield.mdfUserId}"/>
+			     <#input id="mdfTime" name="修改时间" underline="true" value="${tablebasefield.mdfTime}"/>
+                </div>
+
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="TableBaseFieldInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="TableBaseFieldInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/code/basefield/tablebasefield_info.js"></script>
+@}

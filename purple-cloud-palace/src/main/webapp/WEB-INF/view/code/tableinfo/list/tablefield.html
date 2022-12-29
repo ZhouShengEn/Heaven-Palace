@@ -1,0 +1,200 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div id="fieldInfoDiv" class="form-horizontal row">
+            <div class="fixed-table-header col-sm-10" style="margin-right: 0px;">
+                <table id="tableField" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center; vertical-align: middle; ">
+                            <div class="th-inner "><span style="cursor:pointer;"
+                                                         class="glyphicon glyphicon-plus fieldAdd"></span>
+                            </div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="fieldName">
+                            <div class="th-inner ">DB名称</div>
+
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; " data-field="name">
+                            <div class="th-inner ">名称</div>
+
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="content">
+                            <div class="th-inner ">功能</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; " data-field="type">
+                            <div class="th-inner ">类型</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; " data-field="isKey">
+                            <div class="th-inner ">主键</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="isShowList">
+                            <div class="th-inner ">列表</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="isQuery">
+                            <div class="th-inner ">查询</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="queryMode">
+                            <div class="th-inner ">查询类型</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="showType">
+                            <div class="th-inner ">显示</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="orderNum">
+                            <div class="th-inner ">排序</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="dictName">
+                            <div class="th-inner ">字典名称</div>
+                        </th>
+                        <th style="text-align: center; vertical-align: middle; "
+                            data-field="dictType">
+                            <div class="th-inner ">字典类型</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @ for(tf in tableinfo.tableFields!){
+                    <tr id="fieldTr${tfLP.index}" class="fieldTr">
+                        <td style="text-align: center; vertical-align: middle; ">
+                            <div class="th-inner "><span style="cursor:pointer;"
+                                                         class="glyphicon glyphicon-minus fieldTrRemove"></span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; "
+                            data-field="fieldName">
+                            <div class="td-inner "><input type="text" class="form-control required" name="fieldName"
+                                                          placeholder="数据库字段名称" value="${tf.fieldName}"></div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; " data-field="name">
+                            <div class="td-inner "><input type="text" class="form-control required" name="name"
+                                                          placeholder="代码字段名称" value="${tf.name}"></div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; "
+                            data-field="content">
+                            <div class="td-inner "><input type="text" class="form-control" required
+                                                          placeholder="功能" value="${tf.content}"></div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; " data-field="type">
+                            <div class="td-inner ">
+                                <#select value="${tf.type}" id="type_${tf.id}" class="form-control" style="width:90px;">
+                                    <option value="String">String</option>
+                                    <option value="Integer">Integer</option>
+                                    <option value="Float">Float</option>
+                                    <option value="Double">Double</option>
+                                    <option value="BigDecimal">BigDecimal</option>
+                                    <option value="Date">Date</option>
+                                    <option value="byte[]">byte[]</option>
+                                    <option value="Object">Object</option>
+                                </#select>
+                            </div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; " data-field="isKey">
+                            <div class="td-inner "><input type="checkbox" value="2"
+                                                          @if(tf.isKey== 2){
+                                                          checked="checked"
+                                                          @}
+                            ></div>
+
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; "
+                            data-field="isShowList">
+                            <div class="td-inner "><input type="checkbox" value="2"
+                                                          @if(tf.isShowList== 2){
+                                                          checked="checked"
+                                                          @}
+                            ></div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; "
+                            data-field="isQuery">
+                            <div class="td-inner "><input type="checkbox" value="2"
+                                                          @if(tf.isQuery== 2){
+                                checked="checked"
+                                @}
+                                ></div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;"
+                            data-field="queryMode">
+                            <div class="td-inner ">
+                                <#select class="form-control" id="queryMode_${tf.id}" value="${tf.queryMode}" style="width:90px;">
+                                    <option value="1">=</option>
+                                    <option value="2">!=</option>
+                                    <option value="3">&gt;</option>
+                                    <option value="4">&gt;=</option>
+                                    <option value="5">&lt;</option>
+                                    <option value="6">&lt;=</option>
+                                    <option value="7">like</option>
+                                    <option value="8">lift like</option>
+                                    <option value="9">right like</option>
+                                    <option value="10">between</option>
+                                </#select>
+                            </div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;"
+                            data-field="showType">
+                            <div class="td-inner ">
+                                <#select class="form-control" id="showType_${tf.id}" value="${tf.showType}" style="width:90px;">
+                                    <option value="1">文本</option>
+                                    <option value="2">下拉</option>
+                                    <option value="3">多行文本</option>
+                                    <option value="4">单选</option>
+                                    <option value="5">多选</option>
+                                    <option value="6">日期</option>
+                                    <option value="7">文件</option>
+                                </#select>
+                            </div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; "
+                            data-field="orderNum">
+                            <div class="td-inner "><input type="text" class="form-control" value="${tf.orderNum}"
+                                                          placeholder="排序"></div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; "
+                            data-field="dictName">
+                            <div class="td-inner "><input type="text" class="form-control" value="${tf.dictName}"
+                                                          placeholder="字典名称"></div>
+                        </td>
+                        <td style="text-align: center; vertical-align: middle; "
+                            data-field="dictType">
+                            <div class="td-inner ">
+                                <#select class="form-control" id="dictType_${tf.id}" value="${tf.dictType}" style="width:90px;">
+                                    <option value="1">枚举</option>
+                                    <option value="2">字典</option>
+                                    <option value="3">显示列表</option>
+                                </#select>
+                            </div>
+                        </td>
+                    </tr>
+                    @}
+                    </tbody>
+                </table>
+            </div>
+            @ for(tf in tableinfo.tableFields!){
+            <div id="fieldNav${tfLP.index}" class="col-sm-2 fieldNav" style="margin-right: 0px;
+                        @if(tfLP.index > 1){
+                        display:none;
+                        @}
+            ">
+                <ul class="fieldNavUl nav nav-tabs">
+                    <li role="presentation" class="active"><a href=".fieldShow">显示</a></li>
+                    <li role="presentation"><a href=".fieldDbinfo">DB</a></li>
+                    <li role="presentation"><a href=".fieldVerify">校验</a></li>
+                </ul>
+                <div class="tab-content fieldNavContent" style="margin-top: 10px;">
+                    @include("/code/tableinfo/list/tablefieldshow.html",{tf:tf}){}
+                    @include("/code/tableinfo/list/tablefielddbinfo.html",{db:tf.dbinfoModel}){}
+                    @include("/code/tableinfo/list/tablefieldverify.html",{vf:tf.verifyModel}){}
+                </div>
+            </div>
+            @}
+        </div>
+    </div>
+</div>
+
+<script src="${ctxPath}/static/modular/code/tablefield/tablefield.js"></script>

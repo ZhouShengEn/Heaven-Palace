@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.purplecloudpalace.modular.code.dao.TemplateDao">
+
+    <resultMap id="BaseResultMap" type="com.heaven.palace.purplecloudpalace.modular.code.model.TemplateModel">
+        <result column="ID" property="id"/>
+        <result column="TEMPLATE_NAME" property="templateName"/>
+        <result column="TEMPLATE_path" property="templatePath"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="TEMPLATE_DESC" property="templateDesc"/>
+        <result column="FILE_NAME" property="fileName"/>
+        <result column="LOCAL_PATH" property="localPath"/>
+        <result column="GROUP_ID" property="groupId"/>
+        <result column="CRT_USER_ID" property="crtUserId"/>
+        <result column="CRT_TIME" property="crtTime"/>
+        <result column="MDF_USER_ID" property="mdfUserId"/>
+        <result column="MDF_TIME" property="mdfTime"/>
+        <result column="TEMPLATE_TYPE" property="templateType"/>
+    </resultMap>
+
+
+    <select id="selectCount" resultMap="BaseResultMap">
+        select count(1) from code_template t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from code_template t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select t.ID, t.Template_NAME, t.Template_path, t.USER_ID, t.Template_DESC, t.FILE_NAME,
+        g.name as GROUP_ID, t.TEMPLATE_TYPE,LOCAL_PATH,
+        t.CRT_USER_ID, t.CRT_TIME, t.MDF_USER_ID, t.MDF_TIME from code_template t
+        LEFT OUTER JOIN code_template_group g ON g.id = t.GROUP_ID
+        <where>
+            <include refid="select_content"/>
+            ${w.sqlSegment}
+        </where>
+    </select>
+    <select id="getTemplateByIds"
+            resultType="com.heaven.palace.purplecloudpalace.modular.code.model.TemplateModel">
+        select * from code_template t where t.ID in
+        <foreach collection="ids" item="it" open="(" close=")" separator=",">#{it}</foreach>
+    </select>
+    <select id="getAllTemplateByGroupId"
+            resultType="com.heaven.palace.purplecloudpalace.modular.code.model.TemplateModel">
+        select * from code_template t where t.group_id = #{groupId}
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.templateName != null and e.templateName != '' ">
+            AND t.TEMPLATE_NAME = #{e.templateName}
+        </if>
+        <if test="e.templatePath != null and e.templatePath != '' ">
+            AND t.TEMPLATE_PATH = #{e.templatePath}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND (t.USER_ID = #{e.userId} or t.USER_ID is null or t.USER_ID = 0 )
+        </if>
+        <if test="e.templateDesc != null and e.templateDesc != '' ">
+            AND t.TEMPLATE_DESC = #{e.templateDesc}
+        </if>
+        <if test="e.fileName != null and e.fileName != '' ">
+            AND t.FILE_NAME = #{e.fileName}
+        </if>
+        <if test="e.groupId != null and e.groupId != '' ">
+            AND t.GROUP_ID = #{e.groupId}
+        </if>
+        <if test="e.templateType != null and e.templateType != '' ">
+            AND t.TEMPLATE_TYPE = #{e.templateType}
+        </if>
+    </sql>
+
+</mapper>

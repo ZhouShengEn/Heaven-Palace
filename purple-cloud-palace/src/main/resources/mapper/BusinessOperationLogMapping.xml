@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.purplecloudpalace.modular.system.dao.BusinessOperationLogDao">
+
+	<resultMap id="BaseResultMap" type="com.heaven.palace.purplecloudpalace.common.persistence.model.BusinessOperationLog">
+		    <result column="ID" property="id" />
+		    <result column="TITLE" property="title" />
+		    <result column="CONTENT" property="content" />
+		    <result column="TYPE" property="type" />
+		    <result column="ENV" property="env" />
+		    <result column="CREATE_BY" property="createBy" />
+		    <result column="CREATE_TIME" property="createTime" />
+		    <result column="UPDATE_BY" property="updateBy" />
+		    <result column="UPDATE_TIME" property="updateTime" />
+	</resultMap>
+	
+	
+	<sql id="select_content">	
+				<if test="e.id != null and e.id != '' ">
+					AND t.ID = #{e.id}
+				</if>
+				<if test="e.title != null and e.title != '' ">
+					AND t.TITLE = #{e.title}
+				</if>
+				<if test="e.content != null and e.content != '' ">
+					AND t.CONTENT = #{e.content}
+				</if>
+				<if test="e.type != null and e.type != '' ">
+					AND t.TYPE = #{e.type}
+				</if>
+				<if test="e.env != null and e.env != '' ">
+					AND t.ENV = #{e.env}
+				</if>
+				<if test="e.createBy != null and e.createBy != '' ">
+					AND t.CREATE_BY = #{e.createBy}
+				</if>
+				<if test="e.createTime != null and e.createTime != '' ">
+					AND t.CREATE_TIME = #{e.createTime}
+				</if>
+				<if test="e.updateBy != null and e.updateBy != '' ">
+					AND t.UPDATE_BY = #{e.updateBy}
+				</if>
+				<if test="e.updateTime != null and e.updateTime != '' ">
+					AND t.UPDATE_TIME = #{e.updateTime}
+				</if>
+	</sql>
+
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.purplecloudpalace.modular.code.dao.TableFieldVerifyDao">
+
+	<resultMap id="BaseResultMap" type="com.heaven.palace.purplecloudpalace.modular.code.model.TableFieldVerifyModel">
+		    <result column="id" property="id" />
+		    <result column="field_id" property="fieldId" />
+		    <result column="view_verification" property="viewVerification" />
+		    <result column="server_verification" property="serverVerification" />
+		    <result column="not_null" property="notNull" />
+		    <result column="min_num" property="minNum" />
+		    <result column="max_num" property="maxNum" />
+		    <result column="regex" property="regex" />
+		    <result column="regex_type" property="regexType" />
+	</resultMap>
+    <insert id="batchInsert">
+<!--		<if test="_databaseType == 'MYSQL'">-->
+			INSERT INTO code_table_field_verification
+			(FIELD_ID, VIEW_VERIFICATION, SERVER_VERIFICATION, NOT_NULL, MIN_NUM, MAX_NUM, REGEX, REGEX_TYPE)
+			VALUES
+			<foreach collection="list" item="s" separator=",">
+				(#{s.fieldId},#{s.viewVerification},#{s.serverVerification},#{s.notNull},#{s.minNum},#{s.maxNum},#{s.regex},#{s.regexType})
+			</foreach>
+<!--		</if>-->
+	</insert>
+    <delete id="deleteByFieldIds">
+		DELETE FROM code_table_field_verification WHERE field_id IN
+		<foreach collection="fieldIds" item="fieldId" separator="," open="(" close=")">
+			#{fieldId}
+		</foreach>
+	</delete>
+
+
+    <select id="selectCount" resultMap="BaseResultMap">
+			select count(1) from code_table_field_verification t
+		<where>
+			<include refid="select_content"/>
+		</where>
+	</select>
+	
+	<select id="selectList" resultMap="BaseResultMap">
+			select * from code_table_field_verification t
+		<where>
+			<include refid="select_content"/>
+		</where>
+	</select>
+
+	<select id="selectPage" resultMap="BaseResultMap">
+			select * from code_table_field_verification t
+		<where>
+			<include refid="select_content"/>
+			${w.sqlSegment}
+		</where>
+	</select>
+	
+	<sql id="select_content">	
+				<if test="e.id != null and e.id != '' ">
+					AND t.ID = #{e.id}
+				</if>
+				<if test="e.fieldId != null and e.fieldId != '' ">
+					AND t.FIELD_ID = #{e.fieldId}
+				</if>
+				<if test="e.viewVerification != null and e.viewVerification != '' ">
+					AND t.VIEW_VERIFICATION = #{e.viewVerification}
+				</if>
+				<if test="e.serverVerification != null and e.serverVerification != '' ">
+					AND t.SERVER_VERIFICATION = #{e.serverVerification}
+				</if>
+				<if test="e.notNull != null and e.notNull != '' ">
+					AND t.NOT_NULL = #{e.notNull}
+				</if>
+				<if test="e.minNum != null and e.minNum != '' ">
+					AND t.MIN_NUM = #{e.minNum}
+				</if>
+				<if test="e.maxNum != null and e.maxNum != '' ">
+					AND t.MAX_NUM = #{e.maxNum}
+				</if>
+				<if test="e.regex != null and e.regex != '' ">
+					AND t.REGEX = #{e.regex}
+				</if>
+				<if test="e.regexType != null and e.regexType != '' ">
+					AND t.REGEX_TYPE = #{e.regexType}
+				</if>
+	</sql>
+
+</mapper>

@@ -1,0 +1,57 @@
+@layout("/common/_container.html"){
+<div class="row" xmlns="">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>DB导入</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div style="padding-top: 10px; overflow: hidden"
+                             class="container-fluid">
+                            <div class="col-md-12">
+                                <div class="row admin-form">
+                                    <div class="col-md-4">
+                                        <h2 class="success">链接</h2>
+                                        <div class="list-group" id="dblinklist"
+                                             style="height: 400px; overflow-y: scroll">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h2 class="success">数据库</h2>
+                                        <div class="list-group" id="databaseslist"
+                                             style="height: 400px; overflow-y: scroll">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h2>数据表</h2>
+                                        <div class="list-group" id="tableslist"
+                                             style="height: 400px; overflow-y: scroll">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav nav-list">
+                            <li class="divider"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary mr10"
+                                onclick="TableInfoDbImportDlg.import()">
+                            <span style="padding: 5px 20px;">生成</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/code/gen/gen.js"></script>
+<script src="${ctxPath}/static/modular/code/tableinfo/tableinfo_dbimport.js"></script>
+@}
+

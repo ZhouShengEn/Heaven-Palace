@@ -1,0 +1,134 @@
+@layout("/common/_container.html"){
+<div class="row" xmlns="">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>新一代代码生成</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="form-horizontal" id="genForm">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <#select id="params" name="参数" >
+                                        <option value="">全部</option>
+                                        @ for(p in params!){
+                                        <option value="${p.id}">${p.alias}</option>
+                                        @}
+                                    </#select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="author" name="作者" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="codePackage" name="Code包名" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="htmlPackage" name="Html包名" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <#input id="jsPackage" name="Js包名" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="xmlPackage" name="Xml包名" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="className" name="类名" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#select id="encoded" name="编码" >
+                                        <option value="UTF-8">UTF-8</option>
+                                        <option value="GBK">GBK</option>
+                                    </#select>
+                                </div>
+                            </div>
+                            <div class="row" title="未指定路径时，浏览器自动下载" >
+                                <div class="col-sm-3" >
+                                    <#input id="localPath" name="本地路径" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="ipAddress" name="IP地址" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="sftpAccount" name="sftp账户" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <#input id="sftpPassword" name="sftp密码" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <#input id="name" name="功能" />
+                                </div>
+                                <div class="col-xs-1">
+                                    <button id="genBtn" disabled="disabled" type="button" class="btn btn-primary mr10"
+                                            onclick="GEN.genCode()">
+                                        <span style="padding: 5px 20px;">生成</span>
+                                    </button>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <a href="${ctxPath}/static/instruction.pdf">使用说明书</a>
+                                    </div>
+                                    <div class="row">
+                                        <a href="${ctxPath}/static/freeSSHd.rar" download="">使用sftp：freeSSHd工具下载</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top: 10px; overflow: hidden"
+                             class="container-fluid">
+                            <div class="col-md-12">
+                                <div class="row admin-form">
+                                    <div class="col-md-3">
+                                        <h2 class="success">链接</h2>
+                                        <div class="list-group" id="dblinklist"
+                                             style="height: 500px; overflow-y: scroll">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h2 class="success">数据库</h2>
+                                        <div class="list-group" id="databaseslist"
+                                             data-bind="foreach: databases"
+                                             style="height: 500px; overflow-y: scroll">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h2>数据表</h2>
+                                        <div class="list-group" id="tableslist"
+                                             data-bind="foreach: tables"
+                                             style="height: 500px; overflow-y: scroll">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span><h2>模板
+                                        </h2>
+                                       <#SelectCon id="groupId" name="组" >
+                                            <option value="">全部</option>
+                                            @ for(g in groups!){
+                                                <option value="${g.id}">${g.name}</option>
+                                            @}
+                                        </#SelectCon></span>
+                                        <div class="list-group" id="templatesList"
+                                             style="height: 500px; overflow-y: scroll">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav nav-list">
+                            <li class="divider"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/code/gen/gen.js"></script>
+@}
+

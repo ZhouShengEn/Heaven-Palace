@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.purplecloudpalace.modular.code.dao.GenParamDao">
+
+    <resultMap id="BaseResultMap" type="com.heaven.palace.purplecloudpalace.modular.code.model.GenParamModel">
+        <result column="id" property="id"/>
+        <result column="ALIAS" property="alias"/>
+        <result column="author" property="author"/>
+        <result column="code_package" property="codePackage"/>
+        <result column="xml_package" property="xmlPackage"/>
+        <result column="js_package" property="jsPackage"/>
+        <result column="html_package" property="htmlPackage"/>
+        <result column="local_path" property="localPath"/>
+        <result column="encoded" property="encoded"/>
+        <result column="user_id" property="userId"/>
+        <result column="CRT_USER_ID" property="crtUserId"/>
+        <result column="CRT_TIME" property="crtTime"/>
+        <result column="MDF_USER_ID" property="mdfUserId"/>
+        <result column="MDF_TIME" property="mdfTime"/>
+        <result column="IP_ADDRESS" property="ipAddress"/>
+        <result column="SFTP_ACCOUNT" property="sftpAccount"/>
+        <result column="SFTP_PASSWORD" property="sftpPassword"/>
+
+    </resultMap>
+
+
+    <select id="selectCount" resultMap="BaseResultMap">
+        select count(1) from code_gen_params t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from code_gen_params t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from code_gen_params t
+        <where>
+            <include refid="select_content"/>
+            ${w.sqlSegment}
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.author != null and e.author != '' ">
+            AND t.AUTHOR = #{e.author}
+        </if>
+        <if test="e.codePackage != null and e.codePackage != '' ">
+            AND t.CODE_PACKAGE = #{e.codePackage}
+        </if>
+        <if test="e.jsPackage != null and e.jsPackage != '' ">
+            AND t.JS_PACKAGE = #{e.jsPackage}
+        </if>
+        <if test="e.htmlPackage != null and e.htmlPackage != '' ">
+            AND t.HTML_PACKAGE = #{e.htmlPackage}
+        </if>
+        <if test="e.ipAddress != null and e.ipAddress != '' ">
+            AND t.IP_ADDRESS = #{e.ipAddress}
+        </if>
+        <if test="e.sftpAccount != null and e.sftpAccount != '' ">
+            AND t.SFTP_ACCOUNT = #{e.sftpAccount}
+        </if>
+        <if test="e.sftpPassword != null and e.sftpPassword != '' ">
+            AND t.SFTP_PASSWORD = #{e.sftpPassword}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND (t.USER_ID = #{e.userId} or t.USER_ID is null or t.USER_ID = 0 )
+        </if>
+    </sql>
+
+</mapper>

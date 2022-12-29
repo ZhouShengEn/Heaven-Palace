@@ -1,0 +1,15 @@
+@for(log in logList){
+<div class="vertical-timeline-content">
+    @if(log.title == "新增"){
+    <h2 style='color: greenyellow;font-weight:bold'>${log.title}</h2>
+    @}
+    @if(log.title == "修改"){
+    <h2 style='color: #00d9ff;font-weight:bold'>${log.title}</h2>
+    @}
+    @if(log.title == "删除"){
+    <h2 style='color: #ef7171;font-weight:bold' >${log.title}</h2>
+    @}
+    <p>${log.content}</p>
+    <i>${log.createBy}-${log.createTime}</i>
+</div>
+@}

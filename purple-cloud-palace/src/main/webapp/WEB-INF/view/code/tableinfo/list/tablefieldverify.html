@@ -1,0 +1,40 @@
+<div class="tab-pane fade fieldVerify">
+    <div class="row">
+        <div class="col-sm-12 b-r" data-field="viewVerification">
+            <#select id="viewVerification${vf.id}" name="前端校验" underline="true" value="${vf.viewVerification}">
+                <option value="2">否</option>
+                <option value="1">是</option>
+            </#select>
+        </div>
+        <div class="col-sm-12 b-r" data-field="serverVerification">
+            <#select id="serverVerification${vf.id}" name="后端校验" underline="true" value="${vf.serverVerification}">
+                <option value="2">否</option>
+                <option value="1">是</option>
+            </#select>
+        </div>
+        <div class="col-sm-12 b-r" data-field="notNull">
+            <#select id="notNull${vf.id}" name="非空" underline="true" value="${vf.notNull}">
+                <option value="2">否</option>
+                <option value="1">是</option>
+            </#select>
+        </div>
+        <div class="col-sm-12 b-r" data-field="minNum">
+            <#input id="minNum" name="最小值" underline="true" value="${vf.minNum}"/>
+        </div>
+        <div class="col-sm-12 b-r" data-field="maxNum">
+            <#input id="maxNum" name="最大值" underline="true" value="${vf.maxNum}"/>
+        </div>
+        <div class="col-sm-12 b-r" data-field="regex">
+            <#input id="regex" name="正则" underline="true" value="${vf.regex}"/>
+        </div>
+        <div class="col-sm-12 b-r" data-field="regexType">
+            <#select id="regexType${vf.id}" name="常用类型" underline="true" value="${vf.regexType}">
+                <option value="0">自定义</option>
+                <option value="1">邮箱</option>
+                <option value="2">手机</option>
+                <option value="3">电话</option>
+                <option value="4">身份证</option>
+            </#select>
+        </div>
+    </div>
+</div>

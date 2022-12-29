@@ -1,0 +1,68 @@
+<div class="row fixed-table-container">
+    <div class="fixed-table-header">
+        <table id="serviceConfigTable" class="table table-bordered">
+            <thead>
+            <tr>
+                <th style="text-align: center; vertical-align: middle; ">功能</th>
+                <th style="text-align: center; vertical-align: middle; ">启用</th>
+                <th style="text-align: center; vertical-align: middle; ">权限</th>
+                <th style="text-align: center; vertical-align: middle; ">事务</th>
+                <th style="text-align: center; vertical-align: middle; ">事务类型</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @ for(sc in tableinfo.serviceConfig!){
+            <tr>
+                <td style="text-align: center; vertical-align: middle; " type="${sc.type}">
+                    @if(sc.type == 'list'){
+                    列表
+                    @}
+                    @if(sc.type == 'add'){
+                    新增
+                    @}
+                    @if(sc.type == 'edit'){
+                    编辑
+                    @}
+                    @if(sc.type == 'delete'){
+                    删除
+                    @}
+                    @if(sc.type == 'detail'){
+                    详情
+                    @}
+                </td>
+                <td style="text-align: center; vertical-align: middle; " data-field="isEnable">
+                    <#select class="form-control" id="isEnable${scLP.index}" value="${sc.isEnable}">
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </#select>
+                </td>
+                <td style="text-align: center; vertical-align: middle; " data-field="isPermission">
+                    <#select class="form-control" id="isPermission${scLP.index}" value="${sc.isPermission}">
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </#select>
+                </td>
+                <td style="text-align: center; vertical-align: middle; " data-field="isTransactional">
+                    <#select class="form-control " id="isTransactional${scLP.index}" value="${sc.isTransactional}">
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </#select>
+                </td>
+                <td style="text-align: center; vertical-align: middle; " data-field="transactionalType">
+                    <#select class="form-control " id="transactionalType${scLP.index}" value="${sc.transactionalType}">
+                        <option value="01">REQUIRED</option>
+                        <option value="02">SUPPORTS</option>
+                        <option value="03">MANDATORY</option>
+                        <option value="04">REQUIRES_NEW</option>
+                        <option value="05">NOT_SUPPORTED</option>
+                        <option value="06">NEVER</option>
+                        <option value="07">NESTED</option>
+                    </#select>
+                </td>
+            </tr>
+            @}
+            </tbody>
+        </table>
+    </div>
+</div>

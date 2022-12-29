@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal"  id="dbinfoForm">
+
+            <input type="hidden" id="id" value="${dbinfo.id}">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input id="alias" name="别名" underline="true" value="${dbinfo.alias}"/>
+                </div>
+                <div class="col-sm-6">
+                    <#select id="dbType" name="类型" value="${dbinfo.dbType}">
+                        <option value="mysql">Mysql</option>
+                        <option value="oracle">Oracle</option>
+                        <option value="sqlserver">Sqlserver</option>
+                        <option value="postgresql">Postgresql</option>
+                    </#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 b-r">
+                    <#input id="dbUrl" name="数据库地址" underline="true" value="${dbinfo.dbUrl}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input id="dbUserName" name="数据库账户" underline="true" value="${dbinfo.dbUserName}"/>
+                </div>
+                <div class="col-sm-6">
+                    <#input id="dbPassword" name="连接密码" underline="true" type ="password" value="${dbinfo.dbPassword}"/>
+                </div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="DbInfoInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="DbInfoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/code/dbinfo/dbinfo_info.js"></script>
+@}

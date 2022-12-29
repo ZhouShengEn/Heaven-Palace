@@ -1,0 +1,58 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="genParamsForm">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input id="alias" name="别名" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+                    <#input id="author" name="作者" underline="true"/>
+                </div>
+                <div class="col-sm-6">
+                    <#input id="codePackage" name="code 包" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+                    <#input id="jsPackage" name="js 目录" underline="true"/>
+                </div>
+                <div class="col-sm-6">
+                    <#input id="htmlPackage" name="html 目录" underline="true"/>
+                </div>
+                <div class="col-sm-6">
+                    <#input id="xmlPackage" name="xml 目录" underline="true"/>
+                </div>
+                <div class="col-sm-6">
+                    <#input id="localPath" name="本地" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+                    <#input id="ipAddress" name="ip地址" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+                    <#input id="sftpAccount" name="sftp账户" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+                    <#input id="sftpPassword" name="sftp密码" underline="true"/>
+                </div>
+                <div class="col-sm-6">
+                    <#select id="encoded" name="编码" underline="true" >
+                        <option value="UTF-8">UTF-8</option>
+                        <option value="GBK">GBK</option>
+                    </#select>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="GenParamInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="GenParamInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/code/genparam/genparam_info.js"></script>
+@}
