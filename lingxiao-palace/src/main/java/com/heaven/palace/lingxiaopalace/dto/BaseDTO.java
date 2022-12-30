@@ -5,6 +5,7 @@ import com.heaven.palace.lingxiaopalace.context.CurrentBaseContext;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -41,7 +42,7 @@ public class BaseDTO implements Serializable {
     private Date updateTime;
 
     public static <T extends BaseDTO> T assembleBaseInfo(T baseDTO) {
-        Date date = new Date();
+        Date date = Date.from(ZonedDateTime.now().toInstant());
         String userId = CurrentBaseContext.get(CommonConst.KEY_USER_ID).toString();
         baseDTO.setCreateBy(userId);
         baseDTO.setCreateTime(date);
