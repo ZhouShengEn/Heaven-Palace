@@ -16,7 +16,15 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-       
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

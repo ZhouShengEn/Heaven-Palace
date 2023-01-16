@@ -11,6 +11,7 @@ import java.util.Date;
 /**
  * @author :zhoushengen
  * @date : 2022/12/30
+ * mybatis-plus 配置数据插入更新策略
  */
 public class EntityMetaObjectHandler implements MetaObjectHandler {
     @Override
