@@ -1,5 +1,7 @@
 package com.heaven.palace.lingxiaopalace.context;
 
+import com.heaven.palace.lingxiaopalace.constant.CommonConst;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,5 +25,16 @@ public class CurrentBaseContext {
         return THREAD_LOCAL.get().get(key);
     }
     
+    public static String getUserId(){
+        return (String) THREAD_LOCAL.get().get(CommonConst.KEY_USER_ID);
+    }
+    
+    public static String getUserName(){
+        return (String) THREAD_LOCAL.get().get(CommonConst.KEY_USER_NAME);
+    }
+    
+    public static String getUserToken(){
+        return (String) THREAD_LOCAL.get().get(CommonConst.KEY_USER_TOKEN);
+    }
     
 }
