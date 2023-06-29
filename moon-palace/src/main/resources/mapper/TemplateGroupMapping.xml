@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.moonpalace.modular.code.dao.TemplateGroupDao">
+
+    <resultMap id="BaseResultMap" type="com.heaven.palace.moonpalace.modular.code.model.TemplateGroupModel">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="CRT_USER_ID" property="crtUserId"/>
+        <result column="CRT_TIME" property="crtTime"/>
+        <result column="MDF_USER_ID" property="mdfUserId"/>
+        <result column="MDF_TIME" property="mdfTime"/>
+    </resultMap>
+
+
+    <select id="selectCount" resultMap="BaseResultMap">
+        select count(1) from code_template_group t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from code_template_group t
+        <where>
+            <include refid="select_content"/>
+        </where>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select * from code_template_group t
+        <where>
+            <include refid="select_content"/>
+            ${w.sqlSegment}
+        </where>
+    </select>
+
+    <select id="page" resultType="com.heaven.palace.moonpalace.modular.code.model.TemplateGroupModel"
+            parameterType="com.heaven.palace.moonpalace.modular.code.vo.GenTemplateGroupPageReqVO">
+        select * from code_template_group t
+        <where>
+            <if test="name != null and name != '' ">
+                INSTR(t.NAME, #{name})
+            </if>
+        </where>
+    </select>
+
+    <sql id="select_content">
+        <if test="e.id != null and e.id != '' ">
+            AND t.ID = #{e.id}
+        </if>
+        <if test="e.userId != null and e.userId != '' ">
+            AND (t.USER_ID = #{e.userId} or t.USER_ID is null or t.USER_ID = 0 )
+        </if>
+        <if test="e.name != null and e.name != '' ">
+            AND t.NAME = #{e.name}
+        </if>
+        <if test="e.description != null and e.description != '' ">
+            AND t.description = #{e.description}
+        </if>
+        <if test="e.crtUserId != null and e.crtUserId != '' ">
+            AND t.CRT_USER_ID = #{e.crtUserId}
+        </if>
+        <if test="e.crtTime != null and e.crtTime != '' ">
+            AND t.CRT_TIME = #{e.crtTime}
+        </if>
+        <if test="e.mdfUserId != null and e.mdfUserId != '' ">
+            AND t.MDF_USER_ID = #{e.mdfUserId}
+        </if>
+        <if test="e.mdfTime != null and e.mdfTime != '' ">
+            AND t.MDF_TIME = #{e.mdfTime}
+        </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.heaven.palace.moonpalace.modular.custom.authority.dao.CustomResourceAuthorityDao">
+
+
+
+    <select id="page" parameterType="com.heaven.palace.moonpalace.modular.custom.authority.vo.AuthorityPageReqVO"
+            resultType="com.heaven.palace.moonpalace.modular.custom.authority.entity.CustomResourceAuthority">
+        select * from base_resource_authority bra
+        <where>
+            1 = 1
+            <if test="id != null and id != '' ">
+                AND bra.id = #{id}
+            </if>
+            <if test="authorityId != null and authorityId != '' ">
+                AND bra.authority_id = #{authorityId}
+            </if>
+            <if test="authorityType != null and authorityType != '' ">
+                AND bra.authority_type = #{authorityType}
+            </if>
+            <if test="resourceId != null and resourceId != '' ">
+                AND bra.resource_id = #{resourceId}
+            </if>
+            <if test="resourceType != null and resourceType != '' ">
+                AND bra.resource_type = #{resourceType}
+            </if>
+            <if test="parentId != null and parentId != '' ">
+                AND bra.parent_id = #{parentId}
+            </if>
+            <if test="path != null and path != '' ">
+                AND INSTR(bra.path, #{path})
+            </if>
+
+        </where>
+    </select>
+
+    <select id="queryAuthoritySwitch" resultType="com.heaven.palace.moonpalace.modular.custom.ugroup.vo.CustomUserGroupSwitchVO">
+        SELECT bg.id, bg.name, bra.id as authorityId, bgt.code as typeCode, bgt.name as typeName
+        from base_group_type bgt, base_group bg
+        LEFT JOIN base_resource_authority bra
+        on bg.id = bra.authority_id
+        and bra.resource_id = #{resourceId}
+        and bra.resource_type = #{resourceType}
+        <where>
+            bgt.id = bg.group_type
+            <if test="groupTypeCodes != null and groupTypeCodes.size() > 0 ">
+                and bgt.code in
+                <foreach collection="groupTypeCodes" open="(" close=")" separator="," item="item">
+                    #{item}
+                </foreach>
+            </if>
+            order by bgt.id
+        </where>
+    </select>
+
+    <select id="selectByCondition" parameterType="com.heaven.palace.moonpalace.modular.custom.authority.entity.CustomResourceAuthority"
+            resultType="com.heaven.palace.moonpalace.modular.custom.authority.entity.CustomResourceAuthority">
+        select * from base_resource_authority bra
+        <where>
+            1 = 1
+            <if test="id != null and id != '' ">
+                AND bra.id = #{id}
+            </if>
+            <if test="authorityId != null and authorityId != '' ">
+                AND bra.authority_id = #{authorityId}
+            </if>
+            <if test="authorityType != null and authorityType != '' ">
+                AND bra.authority_type = #{authorityType}
+            </if>
+            <if test="resourceId != null and resourceId != '' ">
+                AND bra.resource_id = #{resourceId}
+            </if>
+            <if test="resourceType != null and resourceType != '' ">
+                AND bra.resource_type = #{resourceType}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -6,7 +6,7 @@ import ma.glasnost.orika.metadata.Type;
 
 /**
  * @author :zhoushengen
- * @date : 2022/8/2
+ * @date : 2022/9/7
  */
 public class String2IntConvert extends BidirectionalConverter<String, Integer> {
     @Override

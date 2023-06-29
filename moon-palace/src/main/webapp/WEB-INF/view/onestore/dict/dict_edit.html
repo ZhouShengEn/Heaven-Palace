@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="dictItemForm">
+
+            <input type="hidden" id="id" value="${dictItem.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input id="dictSort" name="序号" value="${dictItem.dictSort}" underline="true" />
+                    <#input id="name" name="名称" value="${dictItem.name}" underline="true" />
+                    <#input id="value" name="值" value="${dictItem.value}" underline="true" />
+                    <#input id="text" name="展示名" value="${dictItem.text}" underline="true" />
+                </div>
+                <div class="col-sm-6">
+                    <#input id="parentId" name="父节点id" value="${dictItem.parentId}" underline="true" />
+                    <#input id="level" name="层级关系" value="${dictItem.level}" underline="true" />
+                    <#input id="typeId" name="字典类型" value="${dictItem.typeId}" underline="true"
+                    hidden="typeId" hiddenValue="${dictItem.typeId}"
+                    clickFun="DictItemDlg.showMenuSelectTree(); return false;"
+                    style="background-color: #ffffff !important;"
+                    selectFlag="true" selectId="dictTypeTreeDiv" selectTreeId="dictTypeTree" selectStyle="width:244px !important;"/>
+                </div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="DictItemDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="DictItemDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="${ctxPath}/static/modular/custom/dict/dict_info.js"></script>
+@}

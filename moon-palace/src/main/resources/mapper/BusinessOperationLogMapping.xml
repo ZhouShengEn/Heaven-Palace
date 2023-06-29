@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heaven.palace.moonpalace.modular.system.dao.BusinessOperationLogDao">
+
+	<resultMap id="BaseResultMap" type="com.heaven.palace.moonpalace.common.persistence.model.BusinessOperationLog">
+		    <result column="ID" property="id" />
+		    <result column="TITLE" property="title" />
+		    <result column="CONTENT" property="content" />
+		    <result column="TYPE" property="type" />
+		    <result column="DB_ID" property="dbId" />
+		    <result column="USER_ID" property="userId" />
+		    <result column="SQL_TEXT" property="sqlText" />
+		    <result column="SYNC_STATUS" property="syncStatus" />
+		    <result column="PARENT_ID" property="parentId" />
+		    <result column="CREATE_BY" property="createBy" />
+		    <result column="CREATE_TIME" property="createTime" />
+		    <result column="UPDATE_BY" property="updateBy" />
+		    <result column="UPDATE_TIME" property="updateTime" />
+	</resultMap>
+	
+	
+	<sql id="select_content">	
+				<if test="e.id != null and e.id != '' ">
+					AND t.ID = #{e.id}
+				</if>
+				<if test="e.title != null and e.title != '' ">
+					AND t.TITLE = #{e.title}
+				</if>
+				<if test="e.content != null and e.content != '' ">
+					AND t.CONTENT = #{e.content}
+				</if>
+				<if test="e.type != null and e.type != '' ">
+					AND t.TYPE = #{e.type}
+				</if>
+				<if test="e.dbId != null and e.dbId != '' ">
+					AND t.DB_ID = #{e.dbId}
+				</if>
+				<if test="e.userId != null and e.userId != '' ">
+					AND t.USER_ID = #{e.userId}
+				</if>
+				<if test="e.sqlText != null and e.sqlText != '' ">
+					AND t.SQL_TEXT = #{e.sqlText}
+				</if>
+				<if test="e.syncStatus != null and e.syncStatus != '' ">
+					AND t.SYNC_STATUS = #{e.syncStatus}
+				</if>
+				<if test="e.parentId != null and e.parentId != '' ">
+					AND t.PARENT_ID = #{e.parentId}
+				</if>
+				<if test="e.createBy != null and e.createBy != '' ">
+					AND t.CREATE_BY = #{e.createBy}
+				</if>
+				<if test="e.createTime != null and e.createTime != '' ">
+					AND t.CREATE_TIME = #{e.createTime}
+				</if>
+				<if test="e.updateBy != null and e.updateBy != '' ">
+					AND t.UPDATE_BY = #{e.updateBy}
+				</if>
+				<if test="e.updateTime != null and e.updateTime != '' ">
+					AND t.UPDATE_TIME = #{e.updateTime}
+				</if>
+	</sql>
+
+
+	<select id="page" resultType="com.heaven.palace.moonpalace.modular.system.vo.BusinessLogPageResVO" parameterType="com.heaven.palace.moonpalace.modular.system.vo.BusinessLogPageReqVO">
+		select bol.*, cdb.ALIAS as dbAlias from business_operation_log bol, code_dbinfo cdb
+		<where>
+			bol.DB_ID = cdb.id
+			<if test="titles != null and titles.size() > 0 ">
+				AND bol.TITLE in
+				<foreach collection="titles" open="(" close=")" separator="," item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="type != null and type != '' ">
+				AND bol.TYPE = #{type}
+			</if>
+			<if test="dbId != null and dbId != '' ">
+				AND bol.DB_ID = #{dbId}
+			</if>
+			<if test="syncStatus != null and syncStatus != '' ">
+				AND bol.SYNC_STATUS = #{syncStatus}
+			</if>
+			<if test="parentId != null and parentId > 0 ">
+				AND bol.PARENT_ID = #{parentId}
+			</if>
+			<if test="userId != null and userId != '' ">
+				AND bol.USER_ID = #{userId}
+			</if>
+		</where>
+		order by id asc
+	</select>
+
+</mapper>

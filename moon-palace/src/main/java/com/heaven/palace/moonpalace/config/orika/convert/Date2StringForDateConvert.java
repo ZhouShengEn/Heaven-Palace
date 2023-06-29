@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author :zhoushengen
- * @date : 2022/9/7
+ * @date : 2022/8/3
  * date类型与String类型互转
  */
 public class Date2StringForDateConvert extends BidirectionalConverter<Date, String> {

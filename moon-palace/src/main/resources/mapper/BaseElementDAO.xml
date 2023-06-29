@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.heaven.palace.moonpalace.modular.custom.element.dao.CustomElementDAO">
+
+
+    <select id="page" resultType="com.heaven.palace.moonpalace.modular.custom.element.entity.CustomElement"
+            parameterType="com.heaven.palace.moonpalace.modular.custom.element.vo.CustomElementPageReqVO">
+        select * from base_element be
+        <where>
+            1 = 1
+            <if test="id != null and id > 0">
+                AND be.id = #{id}
+            </if>
+            <if test="fuzzyQuery != null and fuzzyQuery != '' ">
+                AND (INSTR(be.name, #{fuzzyQuery})
+                OR  INSTR(be.uri, #{fuzzyQuery}))
+            </if>
+            <if test="method != null and method != '' ">
+                AND be.method = #{method}
+            </if>
+            <if test="type != null and type != '' ">
+                AND be.type = #{type}
+            </if>
+        </where>
+    </select>
+</mapper>

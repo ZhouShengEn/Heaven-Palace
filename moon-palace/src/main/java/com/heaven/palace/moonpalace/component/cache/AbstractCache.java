@@ -1,8 +1,10 @@
 package com.heaven.palace.moonpalace.component.cache;
 
 
+
 import com.heaven.palace.moonpalace.component.cache.constants.CacheLockConst;
 import com.heaven.palace.moonpalace.component.cache.param.CacheParam;
+import com.heaven.palace.moonpalace.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -134,9 +136,9 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
             this.setAsync(cacheParam, value);
             // 由于异步设置缓存，为防止出现外部修改缓存造成数据错误
             return (V) SerializationUtils.clone((Serializable) value);
-        } catch (Exception e) {
+        } catch (BusinessException e) {
             log.info("cache get and set error！cachePrimaryKey:{}", getPrimaryCacheKey(cacheParam), e);
-            return null;
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -151,7 +153,7 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
             return this.getFromOther(cacheParam);
         } catch (Exception e) {
             log.info("cache get from DB error！cachePrimaryKey:{}", getPrimaryCacheKey(cacheParam), e);
-            return null;
+            throw new RuntimeException(e.getMessage());
         }
 
     }

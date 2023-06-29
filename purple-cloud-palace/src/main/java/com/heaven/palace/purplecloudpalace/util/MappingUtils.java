@@ -8,9 +8,8 @@ import java.util.List;
 
 /**
  * @author :zhoushengen
- * @date : 2022/8/2
+ * @date : 2022/9/7
  * orika对象映射
- * 由于内部存在bean注入，引入的时候需要在对应的项目启动类上加上扫描路径"com.github.wxiaoqi.security"才会被注入
  */
 public final class MappingUtils {
 
@@ -18,7 +17,7 @@ public final class MappingUtils {
 
     private static MapperFacade getMapperFacade() {
         if (null == mapperFacade) {
-            mapperFacade = SpringContextHolder.getBean(MapperFactory.class).getMapperFacade();
+            mapperFacade = SpringContextUtils.getBean(MapperFactory.class).getMapperFacade();
         }
         return mapperFacade;
 
