@@ -32,6 +32,17 @@
 
 ⑥IP工具，可识别多网段是否存在重叠 —— com.heaven.palace.purplecloudpalace.util.IpAddressUtils
 
+待完成：
+1、开发者后台集中管控低代码 前端
+2、用户中心 基于jwt redis OAuth2.0 统一认证
+3、整合阿里Sentinel组件
+4、结合阿里QLExpress、Velocity、Redis完成可视化接口机，专用于第三方平台业务接口对接，实现依靠redis的集群任务调度
+5、替换tk.mybatis 为 mybatis-flex
+6、微服务框架结合 springcloud+nacos
+7、原子级业务操作流程替代@Transactional rollback
+8、分布式rollback暂定阿里的seata
+9、部署方案暂定k8s+docker
+
 更新中................................
 
 
