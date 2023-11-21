@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @Description: TODO
  * @DateTime: 2023/11/21 17:33
  **/
-@FeignClient(name = "demo", path = "/test")
+@FeignClient(name = "demo-service", path = "/test")
 public interface DemoFeign {
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     void sayHello();

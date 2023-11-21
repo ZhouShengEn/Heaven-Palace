@@ -21,12 +21,15 @@ import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+/**
+ * @author zhoushengen
+ */
 @Slf4j
 @Configuration
 @ConfigurationProperties(prefix = "inner.access")
 @Data
 @Validated
-public class FeignConfig implements RequestInterceptor {
+public class AuthFeignInterceptor implements RequestInterceptor {
     // 需要外部注入
     @NotNull
     private Map<String, String> keyMap;

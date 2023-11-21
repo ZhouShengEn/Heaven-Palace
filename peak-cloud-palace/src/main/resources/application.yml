@@ -87,6 +87,21 @@ socketio:
     # 设置最大每帧处理数据的长度，防止他人利用大数据来攻击服务器
     maxFramePayloadLength: 1048576
 
+feign:
+  client:
+    config:
+      demo-service:
+        logger-level: BASIC
+        # 连接超时时间， 默认2s
+        connectTimeout: 5000
+        # 请求超时时间, 默认5s
+        readTimeout: 10000
+
+logging:
+  level:
+    com.heaven.palace: debug
+  file:
+    path: /home/logs/PeakCloudPalace/
 # 内部调用密钥配置
 inner:
   access:

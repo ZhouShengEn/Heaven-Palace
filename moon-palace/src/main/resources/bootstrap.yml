@@ -80,10 +80,8 @@ mybatis-plus:
 
 
 logging:
-  level.root: info
-  level.com.ict.ihs: debug
-  level.org.springframework: debug
-  level.org.apache.ibatis: debug
+  level:
+    com.heaven.palace: debug
   file:
     path: /home/logs/gencode/
 
