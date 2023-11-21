@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -14,6 +15,7 @@ import java.util.TimeZone;
 @EnableTransactionManagement
 @ServletComponentScan
 @ComponentScan({"com.heaven.palace"})
+@EnableFeignClients
 public class PeakCloudPalaceApplication {
 
     protected final static Logger logger = LoggerFactory.getLogger(PeakCloudPalaceApplication.class);

@@ -52,7 +52,7 @@ spring:
         # 防止网关和下游服务器同时支持跨域重复向请求头中添加Access-Control-Allow-Origin*，RETAIN_UNIQUE策略处理响应头重复
         - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
         - name: Retry
-            args:
+          args:
               retries: 3 # 重试次数，默认值是 3 次
               statuses: BAD_GATEWAY # HTTP 的状态返回码，取值请参考：org.springframework.http.HttpStatus
         - name: RequestRateLimiter

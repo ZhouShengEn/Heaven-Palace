@@ -1,6 +1,17 @@
+server:
+  port: 10001
 spring:
   application:
     name: peak_cloud_palace
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public
+#        ephemeral: false # false表示开启永久实例在nocos上不会从服务列表中删除
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -9,16 +20,23 @@ spring:
     multipart:
       max-file-size: 500MB
       max-request-size: 1024MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:127.0.0.1}
+    port: ${RABBIT_MQ_PORT:5672}
+    username: guest
+    password: guest
   redis:
-    database: 10
+    database: 0
     host: 127.0.0.1
     port: 6379
     jedis:
       pool:
         max-active: 20
   datasource:
-    name: test
-    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3606}/peak_cloud_palace?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:32606}/zse_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: admin
     password: 123456
     # 使用druid数据源application.yml
@@ -31,7 +49,7 @@ spring:
     minIdle: 1
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
-    validationQuery: select 'x'
+    validationQuery: select 1 FROM DUAL
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
@@ -52,6 +70,7 @@ socketio:
   # 检查token过期时间（单位：分钟）
   checkTokenExpiredTime: 2
   config:
+    port: 10008
     bossCount: 1
     # 连接数大小
     workCount: 1000
@@ -67,3 +86,8 @@ socketio:
     maxHttpContentLength: 1048576
     # 设置最大每帧处理数据的长度，防止他人利用大数据来攻击服务器
     maxFramePayloadLength: 1048576
+
+# 内部调用密钥配置
+inner:
+  access:
+    keyMap: {serverName: nkhLyBFs96bKeCpLj3bl6KKjH1GYymj1f/+yL/041rM=}
