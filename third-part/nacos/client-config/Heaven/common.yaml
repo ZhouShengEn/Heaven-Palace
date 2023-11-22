@@ -1,0 +1,12 @@
+server:
+  shutdown: graceful # 开启优雅停机，默认是立即停机IMMEDIATE
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    allow-bean-definition-overriding: true # 允许bean被重写

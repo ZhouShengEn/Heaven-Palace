@@ -1,30 +1,17 @@
-server:
-  port: 10001
 spring:
   application:
-    name: peak_cloud_palace
+    name: peak-cloud-palace
   cloud:
-    nacos:
-      server-addr: 127.0.0.1:8848
-      discovery:
-        username: nacos
-        password: nacos
-        namespace: public
-#        ephemeral: false # false表示开启永久实例在nocos上不会从服务列表中删除
-
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-    default-property-inclusion: non_null
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
   servlet:
     multipart:
       max-file-size: 500MB
       max-request-size: 1024MB
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   rabbitmq:
-    host: ${RABBIT_MQ_HOST:127.0.0.1}
+    #    host: ${RABBIT_MQ_HOST:127.0.0.1}
+    host: ${RABBIT_MQ_HOST:192.168.107.37}
     port: ${RABBIT_MQ_PORT:5672}
     username: guest
     password: guest
@@ -36,7 +23,8 @@ spring:
       pool:
         max-active: 20
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:32606}/zse_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
+    #    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:32606}/zse_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
+    url: jdbc:mysql://${MYSQL_HOST:192.168.107.2}:${MYSQL_PORT:32606}/zse_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: admin
     password: 123456
     # 使用druid数据源application.yml
@@ -92,9 +80,9 @@ feign:
     config:
       demo-service:
         logger-level: BASIC
-        # 连接超时时间， 默认2s
+        # 连接超时时间， 系统默认是2s
         connectTimeout: 5000
-        # 请求超时时间, 默认5s
+        # 请求超时时间, 系统默认是5s
         readTimeout: 10000
 
 logging:

@@ -1,4 +1,4 @@
-package com.heaven.palace.jasperpalace.base.handle;
+package com.heaven.palace.purplecloudpalace.handle;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;

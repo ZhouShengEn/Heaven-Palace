@@ -1,0 +1,83 @@
+logging:
+  level: 
+    com.heaven.palace: DEBUG
+    
+feign:
+  sentinel:
+    enabled: true
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true # 开启请求压缩
+      mime-types: text/html,text/xml,application/xml,application/json # 设置压缩的数据类型
+      min-request-size: 2048 # 设置压缩的大小下限
+    response:
+      enabled: true # 开启响应压缩
+    
+management:
+  # Actuator springboot 监控漏洞关闭
+  endpoints:
+    enabled-by-default: false #关闭监控
+    web:
+      exposure:
+        include: '*'
+        exclude: heapdump,dump,threaddump,configprops,env # 禁止访问这些路径，防止获取项目信息
+        
+# 白名单控制
+gate:
+  ignore:
+    startWith: /auth/jwt, /auth/verify
+            
+spring:
+  application:
+    name: heaven-source-gate
+  lifecycle:
+    timeout-per-shutdown-phase: 10s # 缓冲期 对应优雅停机 超时无论线程是否执行完毕都会立即停机
+  codec:
+    max-in-memory-size: -1 # 网关获取body时设置可以缓冲的字节数限制，-1表示无限制
+  cloud:
+    gateway:
+      default-filters:
+        # 请求头添加项目来源
+        - AddRequestHeader=project, ${spring.application.name}
+        # 防止网关和下游服务器同时支持跨域重复向请求头中添加Access-Control-Allow-Origin*，RETAIN_UNIQUE策略处理响应头重复
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+        - name: Retry
+          args:
+              retries: 3 # 重试次数，默认值是 3 次
+              statuses: BAD_GATEWAY # HTTP 的状态返回码，取值请参考：org.springframework.http.HttpStatus
+      globalcors: # 全局跨域处理
+        cors-configurations: 
+          '[/**]':
+            # 允许携带认证信息
+            allow-credentials: true
+            # 允许跨域的源(网站域名/ip)，设置*为全部
+            allowedOriginPatterns: "*"
+            # 允许跨域的method， 默认为GET和OPTIONS，设置*为全部
+            allowedMethods: "*"
+            # 允许跨域请求里的head字段，设置*为全部
+            allowedHeaders: "*"
+        # 因为ajax发起者会通过options请求来向服务器询问是否允许跨域，所以需要设置为true来解决options请求被拦截问题
+        add-to-simple-url-handler-mapping: true 
+      discovery:
+        locator:
+          # 是否与服务注册于发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为 false，设为 true 便开启通过服务中心的自动根据 serviceId 创建路由的功能
+          enabled: true
+          # 是将请求路径上的服务名配置为小写（因为服务注册的时候，向注册中心注册时将服务名转成大写的了）
+          lowerCaseServiceId: true
+      routes: 
+        - id: peak-cloud-palace
+          # 服务地址
+          # ws(websocket)方式: uri: ws://localhost:9000
+          # 第二种：http方式: uri: http://localhost:8130/
+          # 第三种：lb+(注册中心中服务名字)方式: uri: lb://lingxiao-palace
+          # (load-balance)负载均衡方式转发
+          uri: lb://peak-cloud-palace
+          order: 8000
+          # 断言
+          predicates: 
+            - Path=/api/peak-cloud/**
+          filters:
+            # 代表路由截取路径个数，比如/api/peak-cloud-palace/hello 转发后变成/hello
+            - StripPrefix=2
