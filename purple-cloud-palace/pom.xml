@@ -61,11 +61,6 @@
             <artifactId>easyexcel</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.heaven.palace</groupId>
-            <artifactId>jasper-palace</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.corundumstudio.socketio</groupId>
             <artifactId>netty-socketio</artifactId>
             <version>${netty-socketio.version}</version>
@@ -91,11 +86,6 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-context</artifactId>
         </dependency>
@@ -106,7 +96,7 @@
         <dependency>
             <groupId>com.heaven.palace.jasper-palace</groupId>
             <artifactId>base</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

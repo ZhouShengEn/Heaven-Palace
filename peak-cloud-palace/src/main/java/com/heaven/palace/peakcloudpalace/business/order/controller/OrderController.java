@@ -1,4 +1,4 @@
-package com.heaven.palace.peakcloudpalace.order.controller;
+package com.heaven.palace.peakcloudpalace.business.order.controller;
 
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
 import io.swagger.annotations.Api;

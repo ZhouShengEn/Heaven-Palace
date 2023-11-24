@@ -17,7 +17,11 @@
         <netty-socketio.version>1.7.23</netty-socketio.version>
     </properties>
     <dependencies>
-
+        <dependency>
+            <groupId>com.heaven.palace</groupId>
+            <artifactId>purple-cloud-palace</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
