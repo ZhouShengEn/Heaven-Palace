@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.heaven.palace</groupId>
     <artifactId>heaven-south-gate</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>heaven-south-gate</name>
     <description>南天门</description>
     <properties>
