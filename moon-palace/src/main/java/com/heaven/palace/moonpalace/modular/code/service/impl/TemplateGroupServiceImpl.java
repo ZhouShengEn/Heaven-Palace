@@ -8,7 +8,7 @@ import com.heaven.palace.moonpalace.modular.code.dao.TemplateGroupDao;
 import com.heaven.palace.moonpalace.modular.code.model.TemplateGroupModel;
 import com.heaven.palace.moonpalace.modular.code.service.ITemplateGroupService;
 import com.heaven.palace.moonpalace.modular.code.vo.GenTemplateGroupPageReqVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class TemplateGroupServiceImpl implements ITemplateGroupService {
 
-    @Autowired
+    @Resource
     private TemplateGroupDao templateGroupDao;
 
     @Override

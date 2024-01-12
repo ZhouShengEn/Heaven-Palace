@@ -5,7 +5,7 @@ import com.corundumstudio.socketio.SocketConfig;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.heaven.palace.purplecloudpalace.socket.auth.SocketAuthService;
 import com.heaven.palace.purplecloudpalace.socket.context.SocketNamespaceEnum;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
@@ -46,7 +46,7 @@ public class SocketIOConfig {
     @Value("${socketio.config.maxFramePayloadLength}")
     private int maxFramePayloadLength;
 
-    @Autowired
+    @Resource
     private SocketAuthService socketAuthService;
 
     @Bean

@@ -1,6 +1,7 @@
 package com.heaven.palace.moonpalace.common.persistence.model;
 
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -82,28 +83,28 @@ public class BusinessOperationLog implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_BY")
+    @TableField(value = "CREATE_BY", fill = FieldFill.INSERT)
     @ApiModelProperty(notes = "创建人")
     private String createBy;
 
     /**
      * 创建时间
      */
-    @TableField(value = "CREATE_TIME")
+    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
     @ApiModelProperty(notes = "创建时间")
     private Date createTime;
 
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_BY")
+    @TableField(value = "UPDATE_BY", fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(notes = "修改人")
     private String updateBy;
 
     /**
      * 修改时间
      */
-    @TableField(value = "UPDATE_TIME")
+    @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(notes = "修改时间")
     private Date updateTime;
 

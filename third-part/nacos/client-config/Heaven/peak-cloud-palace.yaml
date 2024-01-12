@@ -23,8 +23,7 @@ spring:
       pool:
         max-active: 20
   datasource:
-    #    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:32606}/zse_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
-    url: jdbc:mysql://${MYSQL_HOST:192.168.107.2}:${MYSQL_PORT:32606}/zse_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:32606}/zse_test?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2b8&useAffectedRows=true&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: admin
     password: 123456
     # 使用druid数据源application.yml

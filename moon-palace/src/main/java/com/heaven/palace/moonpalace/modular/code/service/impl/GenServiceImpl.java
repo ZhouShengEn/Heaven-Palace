@@ -48,7 +48,7 @@ import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -71,13 +71,13 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 public class GenServiceImpl implements IGenService {
 
-    @Autowired
+    @Resource
     private ITemplateFileService templateFileService;
 
-    @Autowired
+    @Resource
     private IDbInfoService dbInfoService;
 
-    @Autowired
+    @Resource
     private ITemplateService templateService;
 
     @Value(value = "${sftp.maxConnectTimeout:3000}")
@@ -86,10 +86,10 @@ public class GenServiceImpl implements IGenService {
     @Value(value = "${sftp.maxKexTimeout:5000}")
     private Integer sftpMaxKexTimeout;
 
-    @Autowired
+    @Resource
     private GunsProperties gunsProperties;
 
-    @Autowired
+    @Resource
     private ITableInfoService tableInfoService;
 
     @Override

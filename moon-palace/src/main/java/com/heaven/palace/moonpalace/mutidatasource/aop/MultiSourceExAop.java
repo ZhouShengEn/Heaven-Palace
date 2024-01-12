@@ -22,7 +22,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -40,10 +40,10 @@ import java.lang.reflect.Method;
 @Order(value = 1)
 public class MultiSourceExAop{
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
-    @Autowired
+    @Resource
     private CustomModuleDao customModuleDao;
 
     @Pointcut(value = "@annotation(com.heaven.palace.moonpalace.mutidatasource.annotion.DataSource)")

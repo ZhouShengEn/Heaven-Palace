@@ -4,9 +4,10 @@ import com.heaven.palace.moonpalace.config.properties.BeetlProperties;
 import com.heaven.palace.moonpalace.core.beetl.BeetlConfiguration;
 import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  * web 配置类
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeetlConfig {
 
-    @Autowired
+    @Resource
     BeetlProperties beetlProperties;
 
     /**
@@ -38,8 +39,8 @@ public class BeetlConfig {
     public BeetlSpringViewResolver beetlViewResolver() {
         BeetlSpringViewResolver beetlSpringViewResolver = new BeetlSpringViewResolver();
         beetlSpringViewResolver.setConfig(beetlConfiguration());
-        beetlSpringViewResolver.setContentType("text/html;charset=UTF-8");
-        beetlSpringViewResolver.setOrder(0);
+        // beetlSpringViewResolver.setContentType("text/html;charset=UTF-8");
+        // beetlSpringViewResolver.setOrder(0);
         return beetlSpringViewResolver;
     }
 }

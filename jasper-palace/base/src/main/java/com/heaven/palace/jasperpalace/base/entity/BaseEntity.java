@@ -1,9 +1,9 @@
 package com.heaven.palace.jasperpalace.base.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+
+import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,31 +21,46 @@ public class BaseEntity implements Serializable {
     /**
      * 主键id
      */
-    @TableId(type = IdType.ASSIGN_ID)
-    private String id;
+    @Id(keyType = KeyType.Auto)
+    private long id;
 
     /**
      * 创建人
      */
-    @TableField(fill = FieldFill.INSERT)
-    private String createBy;
+    private long createBy;
 
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 修改人
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String updateBy;
+    private long updateBy;
 
     /**
      * 修改时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
+
+    public static BaseEntity init(BaseEntity entity) {
+        long userId = CurrentBaseContext.getUserId();
+        Date nowDate = new Date();
+        entity.setCreateBy(userId);
+        entity.setCreateTime(nowDate);
+        entity.setUpdateBy(userId);
+        entity.setUpdateTime(nowDate);
+        return entity;
+    }
+
+    public static BaseEntity init(BaseEntity entity, Date nowDate) {
+        long userId = CurrentBaseContext.getUserId();
+        entity.setCreateBy(userId);
+        entity.setCreateTime(nowDate);
+        entity.setUpdateBy(userId);
+        entity.setUpdateTime(nowDate);
+        return entity;
+    }
 
 }

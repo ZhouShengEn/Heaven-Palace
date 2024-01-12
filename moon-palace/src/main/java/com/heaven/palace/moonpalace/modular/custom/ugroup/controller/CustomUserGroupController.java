@@ -5,7 +5,7 @@ import com.heaven.palace.moonpalace.base.controller.BaseController;
 import com.heaven.palace.moonpalace.modular.custom.ugroup.service.CustomUserGroupService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "基础角色管理")
 public class CustomUserGroupController extends BaseController {
 
-    @Autowired
+    @Resource
     private CustomUserGroupService customUserGroupService;
 
 }

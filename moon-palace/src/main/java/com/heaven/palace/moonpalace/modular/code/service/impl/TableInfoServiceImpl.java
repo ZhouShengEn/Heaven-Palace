@@ -11,7 +11,7 @@ import com.heaven.palace.moonpalace.modular.code.service.ITableFieldService;
 import com.heaven.palace.moonpalace.modular.code.service.ITableInfoService;
 import com.heaven.palace.moonpalace.modular.code.service.ITableServiceConfigService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +27,11 @@ import java.util.List;
 @Service
 public class TableInfoServiceImpl implements ITableInfoService {
 
-    @Autowired
+    @Resource
     private TableInfoDao tableInfoDao;
-    @Autowired
+    @Resource
     private ITableServiceConfigService tableServiceConfigService;
-    @Autowired
+    @Resource
     private ITableFieldService tableFieldService;
 
     @Override

@@ -22,7 +22,7 @@ import com.heaven.palace.moonpalace.util.ToolUtil;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,13 +42,13 @@ import java.util.List;
 @Controller
 public class LoginController extends BaseController {
 
-    @Autowired
+    @Resource
     MenuDao menuDao;
 
     @Resource
     private UserMgrDao managerDao;
 
-    @Autowired
+    @Resource
     UserMapper userMapper;
 
     /**

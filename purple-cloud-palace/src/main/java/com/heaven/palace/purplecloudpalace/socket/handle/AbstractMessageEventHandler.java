@@ -11,11 +11,11 @@ import com.heaven.palace.purplecloudpalace.socket.auth.SocketAuthService;
 import com.heaven.palace.purplecloudpalace.socket.task.SocketTask;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -40,10 +40,10 @@ public abstract class AbstractMessageEventHandler {
     public final static String SOCKET_REQUEST_PARAM_KEY = "requestParam";
     public final static String SOCKET_TOKEN_KEY = "token";
     private final static String DEFAULT_NAMESPACE_NAME = "";
-    @Autowired
+    @Resource
     public SocketIOServer socketIOServer;
 
-    @Autowired
+    @Resource
     public SocketAuthService socketAuthService;
 
     @Value("${socketio.maxCountInRoom:5}")
@@ -154,7 +154,7 @@ public abstract class AbstractMessageEventHandler {
     protected synchronized void connect(SocketIOClient client) {
         if (socketAuthService.auth(client.getHandshakeData(), null)) {
             leaveRoom(client);
-            String userId = CurrentBaseContext.getUserId();
+            String userId = String.valueOf(CurrentBaseContext.getUserId());
             // 同一个namespace下同一个room中最多只能允许5个socket实例
             Collection<SocketIOClient> clients = socketIOServer.getNamespace(client.getNamespace().getName())
                 .getRoomOperations(userId).getClients();

@@ -4,7 +4,7 @@ import com.heaven.palace.peakcloudpalace.mq.rabbitmq.sender.RabbitSenderService;
 import com.heaven.palace.purplecloudpalace.socket.dto.SocketMqMessageParamDTO;
 import com.heaven.palace.purplecloudpalace.socket.service.SocketEventTriggerService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SocketEventTriggerServiceImpl implements SocketEventTriggerService {
     
-    @Autowired
+    @Resource
     private RabbitSenderService rabbitSenderService;
     @Override
     public void sendSocketEventMsg(SocketMqMessageParamDTO socketMqMessageParamDTO) {

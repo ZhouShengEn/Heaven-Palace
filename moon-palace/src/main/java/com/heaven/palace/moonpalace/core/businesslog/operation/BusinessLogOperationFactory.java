@@ -16,7 +16,7 @@ import org.apache.ibatis.jdbc.SqlRunner;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -39,16 +39,16 @@ import static org.javers.core.diff.ListCompareAlgorithm.LEVENSHTEIN_DISTANCE;
 @Component
 public abstract class BusinessLogOperationFactory {
 
-    @Autowired
+    @Resource
     private Map<String, BusinessLogOperationFactory> logFactoryMap;
 
     @Resource
     private BusinessOperationLogDao operationLogDao;
 
-    @Autowired
+    @Resource
     public DynamicDataSource dynamicDateSource;
 
-    @Autowired
+    @Resource
     private DistributedLockManage distributedLockManage;
 
     private static final Map<String, BusinessLogOperationFactory> staticLogFactoryMap = new HashMap<>(1);

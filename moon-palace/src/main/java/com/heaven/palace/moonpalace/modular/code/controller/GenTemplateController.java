@@ -12,7 +12,7 @@ import com.heaven.palace.moonpalace.modular.code.vo.GenTemplatePageReqVO;
 import com.heaven.palace.moonpalace.modular.code.vo.GenTemplatePageResVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,10 +26,10 @@ import java.util.List;
 @RequestMapping("/gen/template")
 public class GenTemplateController {
 
-    @Autowired
+    @Resource
     private ITemplateService templateService;
 
-    @Autowired
+    @Resource
     private ITemplateFileService templateFileService;
 
     /**

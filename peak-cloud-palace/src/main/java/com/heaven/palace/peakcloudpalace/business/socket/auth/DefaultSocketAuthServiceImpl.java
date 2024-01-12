@@ -6,7 +6,7 @@ import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.purplecloudpalace.socket.auth.SocketAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,7 +21,7 @@ public class DefaultSocketAuthServiceImpl implements SocketAuthService {
 
     private final static String TOKEN = "Authorization";
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     @Override

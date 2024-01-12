@@ -14,7 +14,6 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.expression.EvaluationContext;
@@ -24,6 +23,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
@@ -38,7 +38,7 @@ import java.util.concurrent.ForkJoinPool;
 @Slf4j
 public class SocketEventTriggerAspect {
 
-    @Autowired
+    @Resource
     @Lazy
     private SocketEventTriggerService socketEventTriggerService;
     
@@ -63,7 +63,7 @@ public class SocketEventTriggerAspect {
         SocketEventTrigger annotation = AnnotationUtils.getAnnotation(socketEventTrigger, SocketEventTrigger.class);
         // 通过
         String room = StringUtils.isNotEmpty(annotation.roomSpEL())?spelExpressionParser.parseExpression(annotation.roomSpEL()).getValue(ctx, String.class) 
-                : CurrentBaseContext.getUserId();
+                : String.valueOf(CurrentBaseContext.getUserId());
         if (StringUtils.isNotEmpty(room)) {
             if (TransactionSynchronizationManager.isActualTransactionActive()) {
                 // 如果处于事务状态下，事务结束后触发

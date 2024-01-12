@@ -11,7 +11,7 @@ import com.heaven.palace.moonpalace.modular.system.vo.DbInfoPageReqVO;
 import com.heaven.palace.moonpalace.modular.system.vo.DbinfoPageResVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/v2/dbinfo")
 public class DbInfoV2Controller  extends BaseController {
 
-    @Autowired
+    @Resource
     private IDbInfoService dbInfoService;
 
 

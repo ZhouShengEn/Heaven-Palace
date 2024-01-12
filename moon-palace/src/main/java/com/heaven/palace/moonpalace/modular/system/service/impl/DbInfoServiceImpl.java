@@ -23,7 +23,7 @@ import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.Subject;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -46,13 +46,13 @@ import java.util.stream.Collectors;
 @Service
 public class DbInfoServiceImpl implements IDbInfoService {
 
-    @Autowired
+    @Resource
     private DbInfoDao dbInfoDao;
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
-    @Autowired
+    @Resource
     private CustomModuleDao customModuleDao;
 
     private final ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 10, 20

@@ -7,7 +7,7 @@ import com.heaven.palace.moonpalace.modular.code.model.DbInfoModel;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.util.Assert;
 
@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class DynamicDataSource extends AbstractRoutingDataSource implements InitializingBean {
     
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     private Map<Object, Object> resolvedDataSources = new ConcurrentHashMap<>(1);

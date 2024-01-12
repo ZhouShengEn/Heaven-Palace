@@ -9,7 +9,7 @@ import com.heaven.palace.moonpalace.intercept.CodeInsertInterceptor;
 import com.heaven.palace.moonpalace.intercept.CodeUpdateInterceptor;
 import com.heaven.palace.moonpalace.mutidatasource.DynamicDataSource;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -35,7 +35,7 @@ import java.util.HashMap;
 @AutoConfigureBefore({DataSourceAutoConfiguration.class})
 public class MybatisPlusConfig {
 
-    @Autowired
+    @Resource
     DruidProperties druidProperties;
 
     /**

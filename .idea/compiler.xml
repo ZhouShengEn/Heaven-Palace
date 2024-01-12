@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="bright-palace-rpc" />
+        <module name="peak-cloud-palace" />
+        <module name="heaven-south-gate" />
+        <module name="moon-palace" />
+        <module name="bright-palace-infrastructure" />
+        <module name="purple-cloud-palace" />
+        <module name="bright-palace-api" />
+        <module name="bright-palace-application" />
+        <module name="bright-palace-domain" />
+        <module name="bright-palace-start" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bright-palace-service" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base" options="-parameters" />
+      <module name="bright-palace" options="-parameters" />
+      <module name="bright-palace-api" options="-parameters" />
+      <module name="bright-palace-application" options="-parameters" />
+      <module name="bright-palace-domain" options="-parameters" />
+      <module name="bright-palace-infrastructure" options="-parameters" />
+      <module name="bright-palace-rpc" options="-parameters" />
+      <module name="bright-palace-start" options="-parameters" />
+      <module name="business" options="-parameters" />
+      <module name="heaven-palace" options="-parameters" />
+      <module name="heaven-south-gate" options="-parameters" />
+      <module name="jasper-palace" options="-parameters" />
+      <module name="moon-palace" options="-parameters" />
+      <module name="peak-cloud-palace" options="-parameters" />
+      <module name="purple-cloud-palace" options="-parameters" />
+    </option>
+  </component>
+</project>

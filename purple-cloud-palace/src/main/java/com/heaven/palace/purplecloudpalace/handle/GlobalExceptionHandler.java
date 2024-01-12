@@ -2,12 +2,14 @@ package com.heaven.palace.purplecloudpalace.handle;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
+import com.heaven.palace.jasperpalace.base.exception.auth.AuthenticationException;
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
@@ -204,6 +207,19 @@ public class GlobalExceptionHandler {
         baseResponse.setMessage("调用外部接口异常！请联系客服人员。");
         baseResponse.setStatusCode(500);
         return baseResponse;
+    }
+
+    /**
+     * 处理认证异常
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = AuthenticationException.class)
+    public BaseResponse exceptionHandler(HttpServletResponse response, AuthenticationException e) {
+        log.error("认证异常！原因是：", e);
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return new BaseResponse(e.getStatusCode(), e.getMessage());
     }
 
     /**

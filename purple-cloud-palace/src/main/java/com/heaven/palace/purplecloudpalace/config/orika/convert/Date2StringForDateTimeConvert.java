@@ -1,9 +1,12 @@
 package com.heaven.palace.purplecloudpalace.config.orika.convert;
 
-import com.alibaba.excel.util.DateUtils;
+
+import com.heaven.palace.purplecloudpalace.util.DateUtil;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;
 import ma.glasnost.orika.metadata.Type;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -18,7 +21,7 @@ public class Date2StringForDateTimeConvert extends BidirectionalConverter<Date, 
     public String convertTo(Date date, Type<String> type, MappingContext mappingContext) {
         String result = null;
         if (null != date) {
-            result = DateUtils.format(date, DateUtils.DATE_FORMAT_19);
+            result = DateFormatUtils.format(date, DateUtil.DEFAULT_DATE_FORMAT);
         }
         return result;
     }
@@ -27,7 +30,7 @@ public class Date2StringForDateTimeConvert extends BidirectionalConverter<Date, 
     public Date convertFrom(String s, Type<Date> type, MappingContext mappingContext) {
 
         try {
-            return DateUtils.parseDate(s, DateUtils.DATE_FORMAT_19);
+            return DateUtils.parseDate(s, DateUtil.DEFAULT_DATE_FORMAT);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

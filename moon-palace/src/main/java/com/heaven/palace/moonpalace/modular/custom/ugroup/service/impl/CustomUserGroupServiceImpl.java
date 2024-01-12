@@ -3,7 +3,7 @@ package com.heaven.palace.moonpalace.modular.custom.ugroup.service.impl;
 import com.heaven.palace.moonpalace.modular.custom.ugroup.dao.CustomUserGroupDao;
 import com.heaven.palace.moonpalace.modular.custom.ugroup.service.CustomUserGroupService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CustomUserGroupServiceImpl implements CustomUserGroupService {
 
-    @Autowired
+    @Resource
     private CustomUserGroupDao customUserGroupDao;
 
 }

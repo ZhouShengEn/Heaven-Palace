@@ -20,9 +20,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
@@ -41,10 +41,10 @@ import java.util.stream.Collectors;
 @Service
 public class CustomResourceAuthorityServiceImpl implements CustomResourceAuthorityService {
 
-    @Autowired
+    @Resource
     private CustomResourceAuthorityDao customResourceAuthorityDao;
 
-    @Autowired
+    @Resource
     private CustomResourceAuthorityServiceImpl proxy;
 
     private final ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 10, 20, TimeUnit.SECONDS,

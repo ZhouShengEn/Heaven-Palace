@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.heaven.palace.moonpalace.modular.code.dao.TableBaseFieldDao;
 import com.heaven.palace.moonpalace.modular.code.model.TableBaseFieldModel;
 import com.heaven.palace.moonpalace.modular.code.service.ITableBaseFieldService;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class TableBaseFieldServiceImpl implements ITableBaseFieldService {
 
-    @Autowired
+    @Resource
     private TableBaseFieldDao tableBaseFieldDao;
 
     @Override

@@ -3,7 +3,7 @@ package com.heaven.palace.purplecloudpalace.component.dlm;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class DistributedLockManage {
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     /**

@@ -15,10 +15,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.joda.time.DateTime;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 @Order(value = 2)
 public class GlobalLockAop {
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     @Pointcut(value = "@annotation(com.heaven.palace.moonpalace.component.distributedlock.annotion.GlobalLock)")

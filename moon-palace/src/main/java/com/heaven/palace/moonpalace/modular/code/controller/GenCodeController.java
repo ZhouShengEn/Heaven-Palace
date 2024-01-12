@@ -22,7 +22,7 @@ import com.heaven.palace.moonpalace.modular.code.vo.GenTableCodeCommitVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +43,7 @@ import java.util.List;
 @Api(tags = "代码生成模块")
 public class GenCodeController extends BaseController {
 
-    @Autowired
+    @Resource
     private IGenService genService;
 
     @RequestMapping(value = "queryDb", method = RequestMethod.GET)

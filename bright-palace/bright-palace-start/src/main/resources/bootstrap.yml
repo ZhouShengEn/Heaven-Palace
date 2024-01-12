@@ -1,0 +1,29 @@
+server:
+  port: 10002
+
+spring:
+  application:
+    name: bright-palace
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+        namespace: d09ef493-6a2e-4476-8a43-0585fe4507c3
+        group: Heaven
+        shared-configs:
+          - data-id: common.yaml
+            refresh: true
+            group: Heaven
+#        extension-configs:
+#          - data-id: xxx
+#            refresh: true
+#            group: Heaven
+      discovery:
+        namespace: d09ef493-6a2e-4476-8a43-0585fe4507c3
+        group: Heaven
+        server-addr: 127.0.0.1:8848
+        metadata:
+          preserved.heart.beat.interval: 3 #心跳间隔。时间单位:秒。心跳间隔
+          preserved.heart.beat.timeout: 6 #心跳暂停。时间单位:秒。 即服务端6秒收不到客户端心跳，会将该客户端注册的实例设为不健康：
+          preserved.ip.delete.timeout: 9 #Ip删除超时。时间单位:秒。即服务端9秒收不到客户端心跳，会将该客户端注册的实例删除：

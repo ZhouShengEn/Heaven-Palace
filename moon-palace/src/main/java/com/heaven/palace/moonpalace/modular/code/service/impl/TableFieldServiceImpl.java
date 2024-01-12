@@ -11,7 +11,7 @@ import com.heaven.palace.moonpalace.modular.code.service.ITableFieldDbinfoServic
 import com.heaven.palace.moonpalace.modular.code.service.ITableFieldService;
 import com.heaven.palace.moonpalace.modular.code.service.ITableFieldVerifyService;
 import com.heaven.palace.moonpalace.support.CollectionKit;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,12 +29,12 @@ import java.util.Map;
 @Service
 public class TableFieldServiceImpl implements ITableFieldService {
 
-    @Autowired
+    @Resource
     private TableFieldDao tableFieldDao;
 
-    @Autowired
+    @Resource
     private ITableFieldVerifyService tableFieldVerifyService;
-    @Autowired
+    @Resource
     private ITableFieldDbinfoService tableFieldDbinfoService;
 
     @Override

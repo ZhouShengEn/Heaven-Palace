@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.heaven.palace</groupId>
         <artifactId>jasper-palace</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <groupId>com.heaven.palace.jasper-palace</groupId>
     <artifactId>base</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>jasper-palace-base</name>
     <description>基础数据结构</description>

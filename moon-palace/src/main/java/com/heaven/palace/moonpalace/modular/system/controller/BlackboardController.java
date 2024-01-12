@@ -2,7 +2,7 @@ package com.heaven.palace.moonpalace.modular.system.controller;
 
 import com.heaven.palace.moonpalace.base.controller.BaseController;
 import com.heaven.palace.moonpalace.modular.system.dao.NoticeDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/blackboard")
 public class BlackboardController extends BaseController {
 
-    @Autowired
+    @Resource
     NoticeDao noticeDao;
 
     /**

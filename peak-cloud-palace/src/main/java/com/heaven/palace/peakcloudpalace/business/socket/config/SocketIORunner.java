@@ -4,7 +4,7 @@ import com.corundumstudio.socketio.SocketIONamespace;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.heaven.palace.purplecloudpalace.socket.context.SocketNamespaceEnum;
 import com.heaven.palace.purplecloudpalace.socket.handle.AbstractMessageEventHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +20,10 @@ import java.util.Optional;
 @Component
 public class SocketIORunner implements CommandLineRunner {
 
-    @Autowired(required = false)
+    @Resource(required = false)
     private SocketIOServer server;
 
-    @Autowired
+    @Resource
     private Map<String, AbstractMessageEventHandler> messageEventHandlerBeanMap;
 
 

@@ -54,7 +54,7 @@ import com.jcraft.jsch.SftpException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
@@ -86,19 +86,19 @@ public class GenController extends BaseController {
 
     private String PREFIX = "/code/gen/";
 
-    @Autowired
+    @Resource
     private IGenService genService;
-    @Autowired
+    @Resource
     private ITemplateService templateService;
-    @Autowired
+    @Resource
     private IDbInfoService dbInfoService;
-    @Autowired
+    @Resource
     private ITemplateGroupService templateGroupService;
-    @Autowired
+    @Resource
     private IGenParamService genParamService;
-    @Autowired
+    @Resource
     private GunsProperties gunsProperties;
-    @Autowired
+    @Resource
     private ITableInfoService tableInfoService;
     @Value(value = "${sftp.maxConnectTimeout:3000}")
     private Integer sftpMaxConnectTimeout;

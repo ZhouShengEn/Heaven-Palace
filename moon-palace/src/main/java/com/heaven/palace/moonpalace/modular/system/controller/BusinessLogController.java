@@ -7,7 +7,7 @@ import com.heaven.palace.moonpalace.modular.system.vo.BusinessLogPageReqVO;
 import com.heaven.palace.moonpalace.modular.system.vo.BusinessLogPageResVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/business/log")
 @Api(tags = "业务日志管理")
 public class BusinessLogController {
-    @Autowired
+    @Resource
     BusinessOperationLogService businessOperationLogService;
 
     @RequestMapping(value = "/page", method = RequestMethod.POST)

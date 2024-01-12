@@ -15,10 +15,10 @@ spring:
           - data-id: common.yaml
             refresh: true
             group: Heaven
-        extension-configs:
-          - data-id: xxx
-            refresh: true
-            group: Heaven
+#        extension-configs:
+#          - data-id: xxx
+#            refresh: true
+#            group: Heaven
       discovery:
         namespace: d09ef493-6a2e-4476-8a43-0585fe4507c3
         group: Heaven

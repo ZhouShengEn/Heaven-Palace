@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.heaven.palace.moonpalace.modular.code.dao.TableServiceConfigDao;
 import com.heaven.palace.moonpalace.modular.code.model.TableServiceConfigModel;
 import com.heaven.palace.moonpalace.modular.code.service.ITableServiceConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Service
 public class TableServiceConfigServiceImpl implements ITableServiceConfigService {
 
-    @Autowired
+    @Resource
     private TableServiceConfigDao tableServiceConfigDao;
 
     @Override

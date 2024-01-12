@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.heaven.palace</groupId>
     <artifactId>jasper-palace</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>jasper-palace</name>
     <description>玉清宫</description>
@@ -18,9 +18,22 @@
         <module>business</module>
     </modules>
     <dependencies>
+        <!-- 项目依赖 -->
+<!--        <dependency>-->
+<!--            <groupId>com.heaven.palace.jasper-palace</groupId>-->
+<!--            <artifactId>base</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.heaven.palace.jasper-palace</groupId>-->
+<!--            <artifactId>business</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
+
+        <!-- 组件依赖 -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <groupId>com.mybatis-flex</groupId>
+            <artifactId>mybatis-flex-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>

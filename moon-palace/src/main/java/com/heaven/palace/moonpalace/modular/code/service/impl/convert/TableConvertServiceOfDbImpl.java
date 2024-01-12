@@ -11,7 +11,7 @@ import com.heaven.palace.moonpalace.modular.code.model.TableServiceConfigModel;
 import com.heaven.palace.moonpalace.modular.code.service.ITableConvertServer;
 import com.heaven.palace.moonpalace.modular.code.service.ITableInfoService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.List;
 @Service("dbTableConvertServer")
 public class TableConvertServiceOfDbImpl implements ITableConvertServer {
 
-    @Autowired
+    @Resource
     private ITableInfoService tableInfoService;
 
     @Override

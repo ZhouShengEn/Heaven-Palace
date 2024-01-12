@@ -16,6 +16,7 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 项目依赖 -->
         <dependency>
             <groupId>com.heaven.palace</groupId>
             <artifactId>purple-cloud-palace</artifactId>
@@ -25,8 +26,9 @@
             <groupId>com.heaven.palace</groupId>
             <artifactId>jasper-palace</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
+
+        <!-- 组件依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
@@ -34,10 +36,6 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

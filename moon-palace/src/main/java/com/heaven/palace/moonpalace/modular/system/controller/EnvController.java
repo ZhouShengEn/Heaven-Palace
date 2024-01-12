@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,13 +36,13 @@ import java.util.stream.Collectors;
 @Api(tags = "环境管理")
 public class EnvController extends BaseController {
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
-    @Autowired
+    @Resource
     private DbInfoDao dbInfoDao;
 
-    @Autowired
+    @Resource
     private CustomModuleDao customModuleDao;
 
     /**

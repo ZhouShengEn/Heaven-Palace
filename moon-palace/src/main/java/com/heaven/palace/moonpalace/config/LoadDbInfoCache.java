@@ -6,7 +6,7 @@ import com.heaven.palace.moonpalace.modular.code.model.DbInfoModel;
 import com.heaven.palace.moonpalace.modular.system.dao.DbInfoDao;
 import com.heaven.palace.moonpalace.modular.system.enums.DbCategoryEnum;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.CollectionUtils;
@@ -20,10 +20,10 @@ import java.util.List;
 @Configuration
 public class LoadDbInfoCache implements CommandLineRunner {
     
-    @Autowired
+    @Resource
     private DbInfoDao dbInfoDao;
     
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
     
     @Override

@@ -8,7 +8,7 @@ import com.heaven.palace.moonpalace.modular.code.dao.GenParamDao;
 import com.heaven.palace.moonpalace.modular.code.model.GenParamModel;
 import com.heaven.palace.moonpalace.modular.code.service.IGenParamService;
 import com.heaven.palace.moonpalace.modular.code.vo.GenParamPageReqVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class GenParamServiceImpl implements IGenParamService {
 
-    @Autowired
+    @Resource
     private GenParamDao genParamDao;
 
     @Override

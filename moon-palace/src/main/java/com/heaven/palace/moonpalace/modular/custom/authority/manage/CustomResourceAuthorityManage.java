@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.shiro.subject.Subject;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 
 import java.util.Date;
 import java.util.List;
@@ -40,13 +40,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CustomResourceAuthorityManage<T extends BaseModel<T>> {
 
-    @Autowired
+    @Resource
     private IService<T> baseService;
 
-    @Autowired
+    @Resource
     private CustomResourceAuthorityService resourceAuthorityService;
 
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     private final ThreadPoolExecutor exec = new ThreadPoolExecutor(5, 10, 10, TimeUnit.SECONDS, new LinkedBlockingDeque<>(1), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());

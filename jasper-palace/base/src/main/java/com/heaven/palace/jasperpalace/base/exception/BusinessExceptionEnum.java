@@ -1,8 +1,8 @@
 package com.heaven.palace.jasperpalace.base.exception;
 
 /**
- * 错误码规范：业务场景编码（两位） + 错误类型编码（两位）
- * 示例：1001
+ * 错误码规范：系统编码（两位） + 业务场景编码（三位） + 错误类型编码（三位）
+ * 示例：10001001
  *
  * @author ZhouShengEn
  * @Description 所有业务异常的枚举
@@ -15,6 +15,12 @@ public enum BusinessExceptionEnum {
      */
     REQUEST_NULL(400, "请求有错误"),
     SERVER_ERROR(500, "服务器异常"),
+
+    /**
+     * 认证错误
+     */
+    TOKEN_EMPTY_ERROR(10001001, "Token empty!"),
+    TOKEN_EXPIRE_ERROR(10001002, "Token expired!"),
 
 
     ;

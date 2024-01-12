@@ -13,7 +13,7 @@ import com.heaven.palace.moonpalace.modular.code.service.ITableServiceConfigServ
 import com.heaven.palace.moonpalace.util.ToolUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +34,7 @@ public class TableServiceConfigController extends BaseController {
 
     private String PREFIX = "/biz/tableserviceconfig/";
 
-    @Autowired
+    @Resource
     private ITableServiceConfigService tableServiceConfigService;
 
     /**

@@ -8,7 +8,7 @@ import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +19,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class RabbitSenderService {
 
-    @Autowired
+    @Resource
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
+    @Resource
     private SocketIOServer socketIOServer;
 
     @Value("${mq.socket.broadcast.queue}")

@@ -1,6 +1,5 @@
 package com.heaven.palace.jasperpalace.base.dto;
 
-import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import lombok.Data;
 
@@ -19,12 +18,12 @@ public class BaseDTO implements Serializable {
     /**
      * 主键id
      */
-    private String id;
+    private long id;
 
     /**
      * 创建人
      */
-    private String createBy;
+    private long createBy;
 
     /**
      * 创建时间
@@ -34,7 +33,7 @@ public class BaseDTO implements Serializable {
     /**
      * 修改人
      */
-    private String updateBy;
+    private long updateBy;
 
     /**
      * 修改时间
@@ -43,7 +42,7 @@ public class BaseDTO implements Serializable {
 
     public static <T extends BaseDTO> T assembleBaseInfo(T baseDTO) {
         Date date = Date.from(ZonedDateTime.now().toInstant());
-        String userId = CurrentBaseContext.get(CommonConst.KEY_USER_ID).toString();
+        long userId = CurrentBaseContext.getUserId();
         baseDTO.setCreateBy(userId);
         baseDTO.setCreateTime(date);
         baseDTO.setUpdateBy(userId);

@@ -5,7 +5,7 @@ package com.heaven.palace.jasperpalace.base.exception;
  * @version 1.0
  * @date 2023/2/20 10:31
  */
-public class BusinessException extends RuntimeException{
+public class BusinessException extends RuntimeException {
     private static final long serialVersionUID = -2320033886855622442L;
     //友好提示的code码
     protected int statusCode;

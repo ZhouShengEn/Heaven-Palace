@@ -16,6 +16,14 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 项目依赖 -->
+        <dependency>
+            <groupId>com.heaven.palace.jasper-palace</groupId>
+            <artifactId>base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 组件依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -54,9 +62,8 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.heaven.palace</groupId>
-            <artifactId>purple-cloud-palace</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
         </dependency>
     </dependencies>
 

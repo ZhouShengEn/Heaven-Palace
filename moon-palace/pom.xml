@@ -27,6 +27,14 @@
         <commons-configuration2.version>2.9.0</commons-configuration2.version>
     </properties>
     <dependencies>
+        <!-- 项目依赖 -->
+        <dependency>
+            <groupId>com.heaven.palace.jasper-palace</groupId>
+            <artifactId>base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 组件依赖 -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
@@ -111,6 +119,14 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
@@ -161,10 +177,6 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.drtrang</groupId>
-            <artifactId>druid-spring-boot2-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
             <version>${kaptcha.version}</version>
@@ -188,11 +200,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.heaven.palace</groupId>
-            <artifactId>purple-cloud-palace</artifactId>
-            <version>${project.version}</version>
+            <version>3.3.2</version>
         </dependency>
     </dependencies>
 

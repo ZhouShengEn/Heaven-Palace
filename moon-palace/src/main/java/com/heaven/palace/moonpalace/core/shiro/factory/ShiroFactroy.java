@@ -13,7 +13,7 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,10 +26,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ShiroFactroy implements IShiro {
 
-    @Autowired
+    @Resource
     private UserMgrDao userMgrDao;
 
-    @Autowired
+    @Resource
     private MenuDao menuDao;
 
     public static IShiro me() {

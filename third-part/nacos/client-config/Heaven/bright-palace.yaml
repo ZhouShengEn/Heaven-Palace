@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: bright-palace
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 1024MB
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 20
+  datasource:
+    url: jdbc:mysql://127.0.0.1:32606/zse?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+    # 使用druid数据源application.yml
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      # SpringBoot因为默认是hikari数据源所以对于其他数据源默认是不注入这些属性的，需要手动配置
+      # druid数据源专有配置
+      # 初始化时建立物理连接的个数。默认0
+      initialSize: 5
+      validation-query: SELECT 1
+      # 最小连接池数量
+      minIdle: 2
+      # 最大连接池数量，默认8
+      maxActive: 20
+      # 获取连接时最大等待时间，单位毫秒。
+      maxWait: 600000
+      timeBetweenEvictionRunsMillis: 600000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+      poolPreparedStatements: false
+      # 配置监控统计拦截的filters：stat:监控统计、self4j(使用log4j的记得导入log4j的依赖）：日志记录、wall：防御sql注入 此处配置不能遗漏服务sql监控台不能监控sql
+      filter:
+        slf4j:
+          enabled: true
+        stat:
+          enabled: true
+          merge-sql: true
+          slow-sql-millis: 5000
+        wall:
+          # 开启SQL防火墙功能
+          enabled: true
+          config:
+            # 允许执行Select查询操作
+            select-allow: true
+            # 不允许执行delete操作
+            delete-allow: false
+            # 不允许创建表
+            create-table-allow: false
+      # StatViewServlet监控器。开启后，访问http://域名/druid/index.html
+      stat-view-servlet:
+        enabled: true
+        # 访问监控页面时登录的账号
+        login-username: admin
+        login-password: 123456
+        # 是否允许重置数据（在页面的重置按钮）。（停用后，依然会有重置按钮，但重置后不会真的重置数据）
+        reset-enable: false
+        # Servlet的映射地址，不填写默认为"/druid/*"。如填写其它地址，访问监控页面时，要使用相应的地址
+        url-pattern: /druid/*
+      # 配置 WebStatFilter（StatFilter监控器中的Web模板）
+      web-stat-filter:
+        enabled: true
+        # 映射地址，即统计指定地址的web请求
+        url-pattern: /*
+        # 不统计的web请求，如下是不统计静态资源及druid监控页面本身的请求
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+feign:
+  client:
+    config:
+      demo-service:
+        logger-level: BASIC
+        # 连接超时时间， 系统默认是2s
+        connectTimeout: 5000
+        # 请求超时时间, 系统默认是5s
+        readTimeout: 10000
+
+logging:
+  level:
+    com.heaven.palace: debug
+  file:
+    path: /home/logs/BrightPalace/
+# 内部调用密钥配置
+inner:
+  access:
+    keyMap: {serverName: nkhLyBFs96bKeCpLj3bl6KKjH1GYymj1f/+yL/041rM=}

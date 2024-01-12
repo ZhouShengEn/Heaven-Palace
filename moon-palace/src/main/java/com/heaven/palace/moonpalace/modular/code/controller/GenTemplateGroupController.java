@@ -12,7 +12,7 @@ import com.heaven.palace.moonpalace.modular.code.vo.GenTemplateGroupPageReqVO;
 import com.heaven.palace.moonpalace.util.ToolUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +25,7 @@ import java.util.List;
 @Api(tags = "模板组管理")
 @RequestMapping("/gen/templategroup")
 public class GenTemplateGroupController {
-    @Autowired
+    @Resource
     private ITemplateGroupService templateGroupService;
 
     /**

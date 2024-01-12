@@ -14,7 +14,7 @@ import com.heaven.palace.moonpalace.modular.code.model.TemplateModel;
 import com.heaven.palace.moonpalace.modular.code.service.ITemplateService;
 import com.heaven.palace.moonpalace.modular.code.vo.GenTemplatePageReqVO;
 import com.heaven.palace.moonpalace.modular.code.vo.GenTemplatePageResVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -29,11 +29,11 @@ import java.util.List;
 @Service
 public class TemplateServiceImpl implements ITemplateService {
 
-    @Autowired
+    @Resource
     private TemplateDao templateDao;
-    @Autowired
+    @Resource
     private TemplateFileDao templateFileDao;
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Override
