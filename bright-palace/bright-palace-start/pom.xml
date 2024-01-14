@@ -6,7 +6,7 @@
     <artifactId>bright-palace-start</artifactId>
     <version>1.0.0</version>
     <name>bright-palace-start</name>
-    <description>bright-palace-start</description>
+    <description>光明宫-应用启动</description>
     <parent>
         <groupId>com.heaven.palace</groupId>
         <artifactId>bright-palace</artifactId>
@@ -19,6 +19,14 @@
         <spring-boot.version>2.6.13</spring-boot.version>
     </properties>
     <dependencies>
+        <!-- 项目依赖 -->
+        <dependency>
+            <groupId>com.heaven.palace.bright-palace</groupId>
+            <artifactId>bright-palace-rpc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 组件依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -54,7 +62,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.heaven.palace.brightpalacestart.BrightPalaceStartApplication</mainClass>
+                    <mainClass>com.heaven.palace.brightpalace.start.BrightPalaceStartApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>

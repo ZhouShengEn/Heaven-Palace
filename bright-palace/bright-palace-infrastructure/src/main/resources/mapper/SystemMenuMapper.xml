@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heaven.palace.brightpalace.infrastructure.mapper.SystemMenuMapper">
+<mapper namespace="com.heaven.palace.brightpalaceinfrastructure.mapper.SystemMenuMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.SystemMenu" id="SystemMenuMap">
+    <resultMap type="com.heaven.palace.brightpalaceinfrastructure.entity.SystemMenu" id="SystemMenuMap">
         <result column="id" property="id" />
         <result column="title" property="title" />
         <result column="href" property="href" />

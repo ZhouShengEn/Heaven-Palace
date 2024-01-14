@@ -6,7 +6,7 @@
     <artifactId>bright-palace-domain</artifactId>
     <version>1.0.0</version>
     <name>bright-palace-domain</name>
-    <description>bright-palace-domain</description>
+    <description>光明宫-业务领域层</description>
     <parent>
         <groupId>com.heaven.palace</groupId>
         <artifactId>bright-palace</artifactId>
@@ -19,6 +19,9 @@
         <spring-boot.version>2.6.13</spring-boot.version>
     </properties>
     <dependencies>
+        <!-- 项目依赖 -->
+
+        <!-- 组件依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

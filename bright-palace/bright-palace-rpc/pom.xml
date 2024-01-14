@@ -6,7 +6,7 @@
     <artifactId>bright-palace-rpc</artifactId>
     <version>1.0.0</version>
     <name>bright-palace-rpc</name>
-    <description>bright-palace-rpc</description>
+    <description>光明宫-对外api服务实现</description>
     <parent>
         <groupId>com.heaven.palace</groupId>
         <artifactId>bright-palace</artifactId>
@@ -19,6 +19,14 @@
         <spring-boot.version>2.6.13</spring-boot.version>
     </properties>
     <dependencies>
+        <!-- 项目依赖 -->
+        <dependency>
+            <groupId>com.heaven.palace.bright-palace</groupId>
+            <artifactId>bright-palace-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 组件依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

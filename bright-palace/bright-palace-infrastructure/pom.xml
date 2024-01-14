@@ -6,7 +6,7 @@
     <artifactId>bright-palace-infrastructure</artifactId>
     <version>1.0.0</version>
     <name>bright-palace-infrastructure</name>
-    <description>bright-palace-infrastructure</description>
+    <description>光明宫-基础设施层</description>
     <parent>
         <groupId>com.heaven.palace</groupId>
         <artifactId>bright-palace</artifactId>
@@ -22,8 +22,9 @@
 
         <!-- 项目依赖 -->
         <dependency>
-            <groupId>com.heaven.palace</groupId>
-            <artifactId>purple-cloud-palace</artifactId>
+            <groupId>com.heaven.palace.bright-palace</groupId>
+            <artifactId>bright-palace-domain</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- 组件依赖 -->

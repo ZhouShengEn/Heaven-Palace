@@ -65,7 +65,7 @@
         <commons-lang3.version>3.6</commons-lang3.version>
         <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
         <seata.version>1.4.2</seata.version>
-        <hutool.version>5.8.24</hutool.version>
+        <hutool.version>5.8.25</hutool.version>
         <knife4j.version>3.0.3</knife4j.version>
         <joda-time.version>2.9.5</joda-time.version>
         <druid.version>1.2.19</druid.version>

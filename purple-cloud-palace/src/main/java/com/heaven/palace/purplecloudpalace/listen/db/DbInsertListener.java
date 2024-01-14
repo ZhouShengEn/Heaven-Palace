@@ -17,6 +17,6 @@ public class DbInsertListener extends AbstractInsertListener<BaseEntity> {
 
     @Override
     public void doInsert(BaseEntity entity) {
-        BaseEntity.init(entity);
+        BaseEntity.assembleBaseInfo(entity);
     }
 }

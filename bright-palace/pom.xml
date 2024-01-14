@@ -22,7 +22,7 @@
         <module>bright-palace-start</module>
     </modules>
 
-    <dependencyManagement>
+<!--    <dependencyManagement>-->
         <dependencies>
             <dependency>
                 <groupId>com.heaven.palace</groupId>
@@ -30,6 +30,6 @@
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+<!--    </dependencyManagement>-->
 
 </project>

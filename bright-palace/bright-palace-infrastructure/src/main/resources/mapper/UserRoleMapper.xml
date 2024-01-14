@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.heaven.palace.brightpalace.infrastructure.mapper.UserRoleMapper">
+<mapper namespace="com.heaven.palace.brightpalaceinfrastructure.mapper.UserRoleMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.UserRole" id="UserRoleMap">
+    <resultMap type="com.heaven.palace.brightpalaceinfrastructure.entity.UserRole" id="UserRoleMap">
         <result column="id" property="id" />
         <result column="role_name" property="roleName" />
         <result column="description" property="description" />

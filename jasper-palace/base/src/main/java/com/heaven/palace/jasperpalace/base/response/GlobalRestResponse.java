@@ -2,11 +2,19 @@ package com.heaven.palace.jasperpalace.base.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
 
+/**
+ * @author 10733
+ * @date 2024/1/14 22:38
+ * @description: 全局通用泛型响应对象
+ */
+@Getter
 @ApiModel(description = "全局通用泛型响应对象")
 public class GlobalRestResponse<T> extends BaseResponse {
     @ApiModelProperty(notes = "响应数据，泛型")
     T data;
+
 
     public GlobalRestResponse data(T data) {
         this.setData(data);
@@ -22,11 +30,8 @@ public class GlobalRestResponse<T> extends BaseResponse {
         this.setStatusCode(code);
         return this;
     }
-    public T getData() {
-        return data;
-    }
 
-    public GlobalRestResponse setData(T data) {
+    public GlobalRestResponse<T> setData(T data) {
         this.data = data;
         return this;
     }

@@ -7,6 +7,7 @@ import com.mybatisflex.annotation.KeyType;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -44,23 +45,25 @@ public class BaseEntity implements Serializable {
      */
     private Date updateTime;
 
-    public static BaseEntity init(BaseEntity entity) {
+
+
+    public static <T extends BaseEntity> T assembleBaseInfo(T baseEntity) {
+        Date date = Date.from(ZonedDateTime.now().toInstant());
         long userId = CurrentBaseContext.getUserId();
-        Date nowDate = new Date();
-        entity.setCreateBy(userId);
-        entity.setCreateTime(nowDate);
-        entity.setUpdateBy(userId);
-        entity.setUpdateTime(nowDate);
-        return entity;
+        baseEntity.setCreateBy(userId);
+        baseEntity.setCreateTime(date);
+        baseEntity.setUpdateBy(userId);
+        baseEntity.setUpdateTime(date);
+        return baseEntity;
     }
 
-    public static BaseEntity init(BaseEntity entity, Date nowDate) {
+    public static <T extends BaseEntity> T assembleBaseInfo(T baseEntity, Date nowDate) {
         long userId = CurrentBaseContext.getUserId();
-        entity.setCreateBy(userId);
-        entity.setCreateTime(nowDate);
-        entity.setUpdateBy(userId);
-        entity.setUpdateTime(nowDate);
-        return entity;
+        baseEntity.setCreateBy(userId);
+        baseEntity.setCreateTime(nowDate);
+        baseEntity.setUpdateBy(userId);
+        baseEntity.setUpdateTime(nowDate);
+        return baseEntity;
     }
 
 }

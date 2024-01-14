@@ -9,7 +9,6 @@
     <groupId>com.heaven.palace.jasper-palace</groupId>
     <artifactId>base</artifactId>
     <version>1.0.0</version>
-    <packaging>pom</packaging>
     <name>jasper-palace-base</name>
     <description>基础数据结构</description>
 </project>
