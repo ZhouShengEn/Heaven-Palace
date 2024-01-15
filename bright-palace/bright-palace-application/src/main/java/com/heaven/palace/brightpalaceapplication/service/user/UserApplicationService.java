@@ -1,6 +1,7 @@
 package com.heaven.palace.brightpalaceapplication.service.user;
 
 import com.heaven.palace.brightpalaceapi.api.user.dto.UserAuthDTO;
+import com.heaven.palace.brightpalaceapi.api.user.vo.UserRegisterVO;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
 /**
@@ -16,4 +17,10 @@ public interface UserApplicationService {
      * @return
      */
     UserAuthDTO auth(HttpRequestHandlerServlet request);
+
+    /**
+     * 用户注册
+     * @param userRegisterVO
+     */
+    void register(UserRegisterVO userRegisterVO);
 }

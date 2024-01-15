@@ -1,6 +1,7 @@
 package com.heaven.palace.brightpalaceapplication.service.user.impl;
 
 import com.heaven.palace.brightpalaceapi.api.user.dto.UserAuthDTO;
+import com.heaven.palace.brightpalaceapi.api.user.vo.UserRegisterVO;
 import com.heaven.palace.brightpalaceapplication.service.user.UserApplicationService;
 import com.heaven.palace.brightpalaceinfrastructure.mapper.BaseUserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -25,5 +26,10 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     @Override
     public UserAuthDTO auth(HttpRequestHandlerServlet request) {
         return null;
+    }
+
+    @Override
+    public void register(UserRegisterVO userRegisterVO) {
+
     }
 }
