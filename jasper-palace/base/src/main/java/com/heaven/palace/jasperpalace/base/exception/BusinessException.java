@@ -13,11 +13,6 @@ public class BusinessException extends RuntimeException {
     //友好提示
     protected String message;
 
-    public BusinessException(BusinessExceptionEnum exceptionEnum) {
-        this.message = exceptionEnum.getMessage();
-        this.statusCode = exceptionEnum.getCode();
-    }
-
     public BusinessException(int statusCode, String message) {
         this.message = message;
         this.statusCode = statusCode;

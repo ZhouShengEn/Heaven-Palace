@@ -1,7 +1,6 @@
 package com.heaven.palace.jasperpalace.base.exception.auth;
 
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
-import com.heaven.palace.jasperpalace.base.exception.BusinessExceptionEnum;
 
 /**
  * @Author: zhoushengen
@@ -10,9 +9,7 @@ import com.heaven.palace.jasperpalace.base.exception.BusinessExceptionEnum;
  **/
 public class AuthenticationException extends BusinessException {
 
-    public AuthenticationException(BusinessExceptionEnum exceptionEnum) {
-        super(exceptionEnum);
-    }
+    private static final long serialVersionUID = 1117836506049981575L;
 
     public AuthenticationException(int statusCode, String message) {
         super(statusCode, message);

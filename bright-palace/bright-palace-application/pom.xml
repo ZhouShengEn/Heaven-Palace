@@ -16,15 +16,9 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.6.13</spring-boot.version>
     </properties>
     <dependencies>
         <!-- 项目依赖 -->
-        <dependency>
-            <groupId>com.heaven.palace.bright-palace</groupId>
-            <artifactId>bright-palace-infrastructure</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.heaven.palace.bright-palace</groupId>
             <artifactId>bright-palace-api</artifactId>

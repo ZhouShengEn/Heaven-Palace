@@ -18,7 +18,7 @@
         <module>bright-palace-domain</module>
         <module>bright-palace-infrastructure</module>
         <module>bright-palace-application</module>
-        <module>bright-palace-rpc</module>
+        <module>bright-palace-web</module>
         <module>bright-palace-start</module>
     </modules>
 

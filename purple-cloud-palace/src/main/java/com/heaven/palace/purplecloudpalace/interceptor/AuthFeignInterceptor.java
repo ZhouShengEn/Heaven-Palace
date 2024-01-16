@@ -4,7 +4,6 @@ package com.heaven.palace.purplecloudpalace.interceptor;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
-import com.heaven.palace.jasperpalace.base.exception.BusinessExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.EncryptException;
 import com.heaven.palace.purplecloudpalace.feign.FeignExecuteContext;
 import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
