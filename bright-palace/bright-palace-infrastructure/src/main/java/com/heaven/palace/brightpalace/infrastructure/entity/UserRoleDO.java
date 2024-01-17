@@ -11,28 +11,33 @@ import lombok.experimental.Accessors;
 
 
 /**
- * UserMemberRelate
+ * UserRole
  *
  * @author ZhouShengEn
  * @date 2024-01-12 12:45
  */
-@Table(value = "user_member_relate", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
+@Table(value = "user_role", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
 @Data(staticConstructor = "create")
 @EqualsAndHashCode(callSuper = true)
-public class UserMemberRelate extends BaseEntity {
+public class UserRoleDO extends BaseEntity {
 
-    private static final long serialVersionUID = 7131709088965009435L;
+    private static final long serialVersionUID = 2768242548759081552L;
     /**
-     * 角色id
+     * 角色名称
      * 
      */
-    private Long roleId;
+    private String roleName;
     /**
      * 组织id
-     * 
+     *
      */
     private Long orgId;
+    /**
+     * 父级角色id
+     *
+     */
+    private Long parentId;
     /**
      * 描述
      * 

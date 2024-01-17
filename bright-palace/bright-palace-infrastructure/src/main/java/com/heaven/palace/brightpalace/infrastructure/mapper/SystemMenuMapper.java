@@ -1,6 +1,6 @@
 package com.heaven.palace.brightpalace.infrastructure.mapper;
 
-import com.heaven.palace.brightpalace.infrastructure.entity.SystemMenu;
+import com.heaven.palace.brightpalace.infrastructure.entity.SystemMenuDO;
 import com.mybatisflex.core.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2024-01-12 12:46
  */
 @Mapper
-public interface SystemMenuMapper extends BaseMapper<SystemMenu> {
+public interface SystemMenuMapper extends BaseMapper<SystemMenuDO> {
 
 }

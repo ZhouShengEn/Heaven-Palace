@@ -3,6 +3,8 @@ package com.heaven.palace.brightpalace.application.service.user.impl;
 import com.heaven.palace.brightpalace.api.api.user.dto.UserAuthDTO;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserRegisterVO;
 import com.heaven.palace.brightpalace.application.service.user.UserApplicationService;
+import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
+import com.heaven.palace.purplecloudpalace.util.MappingUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
@@ -17,6 +19,7 @@ import org.springframework.web.context.support.HttpRequestHandlerServlet;
 public class UserApplicationServiceImpl implements UserApplicationService {
 
 
+
     @Override
     public UserAuthDTO auth(HttpRequestHandlerServlet request) {
         return null;
@@ -24,6 +27,6 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     @Override
     public void register(UserRegisterVO userRegisterVO) {
-
+        UserAggregate userAggregate = MappingUtils.beanConvert(userRegisterVO, UserAggregate.class);
     }
 }

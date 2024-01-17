@@ -11,23 +11,53 @@ import lombok.experimental.Accessors;
 
 
 /**
- * UserRole
+ * SystemMenu
  *
  * @author ZhouShengEn
- * @date 2024-01-12 12:45
+ * @date 2024-01-12 12:46
  */
-@Table(value = "user_role", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
+@Table(value = "system_menu", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
 @Data(staticConstructor = "create")
 @EqualsAndHashCode(callSuper = true)
-public class UserRole extends BaseEntity {
+public class SystemMenuDO extends BaseEntity {
 
-    private static final long serialVersionUID = 2768242548759081552L;
+    private static final long serialVersionUID = 7628037020567460811L;
     /**
-     * 角色名称
+     * 标题
      * 
      */
-    private String roleName;
+    private String title;
+    /**
+     * 资源路径
+     * 
+     */
+    private String href;
+    /**
+     * 图标
+     * 
+     */
+    private String icon;
+    /**
+     * 父级菜单id
+     * 
+     */
+    private Long parentId;
+    /**
+     * 菜单级别
+     * 
+     */
+    private Integer level;
+    /**
+     * 类型：0-系统；1-路由；2-菜单
+     * 
+     */
+    private Integer type;
+    /**
+     * 状态：0-禁用；1-启用
+     * 
+     */
+    private Integer status;
     /**
      * 描述
      * 

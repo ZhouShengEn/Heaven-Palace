@@ -11,48 +11,33 @@ import lombok.experimental.Accessors;
 
 
 /**
- * SystemResource
+ * UserOrganization
  *
  * @author ZhouShengEn
- * @date 2024-01-12 12:46
+ * @date 2024-01-12 12:45
  */
-@Table(value = "system_resource", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
+@Table(value = "user_organization", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
 @Data(staticConstructor = "create")
 @EqualsAndHashCode(callSuper = true)
-public class SystemResource extends BaseEntity {
+public class UserOrganizationDO extends BaseEntity {
 
-    private static final long serialVersionUID = 144466244946845603L;
+    private static final long serialVersionUID = -7929630669927545847L;
     /**
-     * 资源编码
-     * 
-     */
-    private String code;
-    /**
-     * 资源名称
+     * 组织名称
      * 
      */
     private String name;
-    /**
-     * 资源数据
-     * 
-     */
-    private String value;
-    /**
-     * 资源类型：0-uri
-     * 
-     */
-    private Integer type;
-    /**
-     * 状态：0-禁用；1-启用
-     * 
-     */
-    private Integer status;
     /**
      * 描述
      * 
      */
     private String description;
+    /**
+     * 父级组织id
+     * 
+     */
+    private Long parentId;
     /**
      * true-已删除，false-未删除
      * 

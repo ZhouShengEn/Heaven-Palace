@@ -1,6 +1,6 @@
 package com.heaven.palace.jasperpalace.base.response.auth;
 
-import com.heaven.palace.jasperpalace.base.exception.BusinessExceptionEnum;
+import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 
 /**
@@ -11,6 +11,6 @@ import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 public class TokenEmptyResponse extends BaseResponse {
 
     public TokenEmptyResponse() {
-        super(BusinessExceptionEnum.TOKEN_EMPTY_ERROR.getCode(), BusinessExceptionEnum.TOKEN_EMPTY_ERROR.getMessage());
+        super(CommonExceptionEnum.TOKEN_EMPTY_ERROR.getCode(), CommonExceptionEnum.TOKEN_EMPTY_ERROR.getMessage());
     }
 }

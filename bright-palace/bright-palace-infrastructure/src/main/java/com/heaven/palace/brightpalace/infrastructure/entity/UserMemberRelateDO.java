@@ -11,33 +11,28 @@ import lombok.experimental.Accessors;
 
 
 /**
- * AuthorityResourceMenu
+ * UserMemberRelate
  *
  * @author ZhouShengEn
- * @date 2024-01-12 12:44
+ * @date 2024-01-12 12:45
  */
-@Table(value = "authority_resource_menu", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
+@Table(value = "user_member_relate", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
 @Data(staticConstructor = "create")
 @EqualsAndHashCode(callSuper = true)
-public class AuthorityResourceMenu extends BaseEntity {
+public class UserMemberRelateDO extends BaseEntity {
 
-    private static final long serialVersionUID = 3348008165275559813L;
+    private static final long serialVersionUID = 7131709088965009435L;
     /**
      * 角色id
      * 
      */
     private Long roleId;
     /**
-     * 元素id
-     * 
+     * 用户id
+     *
      */
-    private Long elementId;
-    /**
-     * 元素类型：0-resource；1-menu
-     * 
-     */
-    private Integer elementType;
+    private Long userId;
     /**
      * 描述
      * 

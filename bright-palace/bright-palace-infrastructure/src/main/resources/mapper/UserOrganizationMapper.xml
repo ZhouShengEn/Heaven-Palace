@@ -4,7 +4,7 @@
 <mapper namespace="com.heaven.palace.brightpalace.infrastructure.mapper.UserOrganizationMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.UserOrganization" id="UserOrganizationMap">
+    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.UserOrganizationDO" id="UserOrganizationMap">
         <result column="id" property="id" />
         <result column="name" property="name" />
         <result column="description" property="description" />

@@ -4,6 +4,7 @@ package com.heaven.palace.purplecloudpalace.interceptor;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
+import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.EncryptException;
 import com.heaven.palace.purplecloudpalace.feign.FeignExecuteContext;
 import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
@@ -67,7 +68,7 @@ public class AuthFeignInterceptor implements RequestInterceptor {
             } catch (EncryptException e) {
                 log.error("feignConfig exception", e);
                 FeignExecuteContext.removeLocalInstance();
-                throw new BusinessException(BusinessExceptionEnum.SERVER_ERROR);
+                throw new BusinessException(CommonExceptionEnum.SERVER_ERROR);
             }
         }
     }

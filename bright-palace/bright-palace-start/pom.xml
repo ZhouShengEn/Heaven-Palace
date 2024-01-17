@@ -24,11 +24,6 @@
             <artifactId>bright-palace-web</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.heaven.palace.bright-palace</groupId>
-            <artifactId>bright-palace-infrastructure</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- 组件依赖 -->
         <dependency>

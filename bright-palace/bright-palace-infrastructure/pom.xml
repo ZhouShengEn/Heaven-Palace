@@ -22,7 +22,12 @@
         <!-- 项目依赖 -->
         <dependency>
             <groupId>com.heaven.palace.bright-palace</groupId>
-            <artifactId>bright-palace-application</artifactId>
+            <artifactId>bright-palace-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.heaven.palace.bright-palace</groupId>
+            <artifactId>bright-palace-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 

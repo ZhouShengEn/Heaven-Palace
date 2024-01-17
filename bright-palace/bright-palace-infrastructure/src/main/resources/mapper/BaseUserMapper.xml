@@ -4,7 +4,7 @@
 <mapper namespace="com.heaven.palace.brightpalace.infrastructure.mapper.BaseUserMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.BaseUser" id="BaseUserMap">
+    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.BaseUserDO" id="BaseUserMap">
         <result column="id" property="id" />
         <result column="username" property="username" />
         <result column="nickname" property="nickname" />

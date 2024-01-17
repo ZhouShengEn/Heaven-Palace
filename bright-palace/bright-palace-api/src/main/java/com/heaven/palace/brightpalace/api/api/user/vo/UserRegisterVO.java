@@ -2,6 +2,7 @@ package com.heaven.palace.brightpalace.api.api.user.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @DateTime: 2024/1/15 14:23
  **/
 @ApiModel(value = "用户注册类")
+@Data
 public class UserRegisterVO implements Serializable {
     private static final long serialVersionUID = -6393643173758422524L;
 

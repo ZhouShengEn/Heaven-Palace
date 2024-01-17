@@ -11,53 +11,33 @@ import lombok.experimental.Accessors;
 
 
 /**
- * SystemMenu
+ * AuthorityResourceMenu
  *
  * @author ZhouShengEn
- * @date 2024-01-12 12:46
+ * @date 2024-01-12 12:44
  */
-@Table(value = "system_menu", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
+@Table(value = "authority_resource_menu", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
 @Data(staticConstructor = "create")
 @EqualsAndHashCode(callSuper = true)
-public class SystemMenu extends BaseEntity {
+public class AuthorityResourceMenuDO extends BaseEntity {
 
-    private static final long serialVersionUID = 7628037020567460811L;
+    private static final long serialVersionUID = 3348008165275559813L;
     /**
-     * 标题
+     * 角色id
      * 
      */
-    private String title;
+    private Long roleId;
     /**
-     * 资源路径
+     * 元素id
      * 
      */
-    private String href;
+    private Long elementId;
     /**
-     * 图标
+     * 元素类型：0-resource；1-menu
      * 
      */
-    private String icon;
-    /**
-     * 父级菜单id
-     * 
-     */
-    private Long parentId;
-    /**
-     * 菜单级别
-     * 
-     */
-    private Integer level;
-    /**
-     * 类型：0-系统；1-路由；2-菜单
-     * 
-     */
-    private Integer type;
-    /**
-     * 状态：0-禁用；1-启用
-     * 
-     */
-    private Integer status;
+    private Integer elementType;
     /**
      * 描述
      * 

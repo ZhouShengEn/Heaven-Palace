@@ -4,7 +4,7 @@
 <mapper namespace="com.heaven.palace.brightpalace.infrastructure.mapper.SystemMenuMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.SystemMenu" id="SystemMenuMap">
+    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.SystemMenuDO" id="SystemMenuMap">
         <result column="id" property="id" />
         <result column="title" property="title" />
         <result column="href" property="href" />

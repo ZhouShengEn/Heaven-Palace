@@ -1,6 +1,6 @@
 package com.heaven.palace.brightpalace.infrastructure.mapper;
 
-import com.heaven.palace.brightpalace.infrastructure.entity.UserMemberRelate;
+import com.heaven.palace.brightpalace.infrastructure.entity.UserMemberRelateDO;
 import com.mybatisflex.core.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2024-01-12 12:45
  */
 @Mapper
-public interface UserMemberRelateMapper extends BaseMapper<UserMemberRelate> {
+public interface UserMemberRelateMapper extends BaseMapper<UserMemberRelateDO> {
 
 }

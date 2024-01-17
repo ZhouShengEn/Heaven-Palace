@@ -6,7 +6,8 @@ package com.heaven.palace.jasperpalace.base.exception;
  * @author zhoushengen
  */
 public class EncryptException extends Exception {
-    private Integer code;
+    private static final long serialVersionUID = 5658708798486506578L;
+    private final Integer code;
     public EncryptException(int code, String message, Throwable e){
         super(message,e);
         this.code = code;

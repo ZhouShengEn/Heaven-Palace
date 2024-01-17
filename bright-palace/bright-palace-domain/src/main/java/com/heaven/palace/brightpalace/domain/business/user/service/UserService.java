@@ -6,4 +6,6 @@ package com.heaven.palace.brightpalace.domain.business.user.service;
  * @DateTime: 2024/1/16 12:24
  **/
 public interface UserService {
+
+    void register()
 }

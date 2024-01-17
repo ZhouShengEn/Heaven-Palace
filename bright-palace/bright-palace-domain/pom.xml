@@ -19,6 +19,12 @@
     </properties>
     <dependencies>
         <!-- 项目依赖 -->
+        <dependency>
+            <groupId>com.heaven.palace.jasper-palace</groupId>
+            <artifactId>business</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
         <!-- 组件依赖 -->
         <dependency>

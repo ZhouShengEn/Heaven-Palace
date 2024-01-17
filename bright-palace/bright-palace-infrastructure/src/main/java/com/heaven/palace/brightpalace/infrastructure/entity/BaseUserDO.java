@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @Table(value = "base_user", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
 @Data(staticConstructor = "create")
-public class BaseUser extends BaseEntity {
+public class BaseUserDO extends BaseEntity {
 
     private static final long serialVersionUID = 846218296240178591L;
     /**

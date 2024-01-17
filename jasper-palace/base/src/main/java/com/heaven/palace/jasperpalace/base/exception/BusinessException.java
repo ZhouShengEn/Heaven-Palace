@@ -5,17 +5,26 @@ package com.heaven.palace.jasperpalace.base.exception;
  * @version 1.0
  * @date 2023/2/20 10:31
  */
-public class BusinessException extends RuntimeException {
+public class BusinessException extends RuntimeException implements BaseResult {
     private static final long serialVersionUID = -2320033886855622442L;
-    //友好提示的code码
+    /**
+     * 状态码
+     */
     protected int statusCode;
 
-    //友好提示
+    /**
+     * 异常描述
+     */
     protected String message;
 
     public BusinessException(int statusCode, String message) {
         this.message = message;
         this.statusCode = statusCode;
+    }
+
+    public BusinessException(BaseResult baseResult) {
+        this.message = baseResult.getMessage();
+        this.statusCode = baseResult.getStatusCode();
     }
 
     public int getStatusCode() {

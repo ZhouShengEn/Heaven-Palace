@@ -4,7 +4,7 @@
 <mapper namespace="com.heaven.palace.brightpalace.infrastructure.mapper.SystemResourceMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.SystemResource" id="SystemResourceMap">
+    <resultMap type="com.heaven.palace.brightpalace.infrastructure.entity.SystemResourceDO" id="SystemResourceMap">
         <result column="id" property="id" />
         <result column="code" property="code" />
         <result column="name" property="name" />

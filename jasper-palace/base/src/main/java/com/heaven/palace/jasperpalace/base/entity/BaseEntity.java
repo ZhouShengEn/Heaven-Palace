@@ -23,12 +23,12 @@ public class BaseEntity implements Serializable {
      * 主键id
      */
     @Id(keyType = KeyType.Auto)
-    private long id;
+    private Long id;
 
     /**
      * 创建人
      */
-    private long createBy;
+    private Long createBy;
 
     /**
      * 创建时间
@@ -38,7 +38,7 @@ public class BaseEntity implements Serializable {
     /**
      * 修改人
      */
-    private long updateBy;
+    private Long updateBy;
 
     /**
      * 修改时间
