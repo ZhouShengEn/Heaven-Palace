@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Table(value = "base_user", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
-@Data(staticConstructor = "create")
+@Data
 public class BaseUserDO extends BaseEntity {
 
     private static final long serialVersionUID = 846218296240178591L;

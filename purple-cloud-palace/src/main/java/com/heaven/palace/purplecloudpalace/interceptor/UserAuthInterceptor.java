@@ -36,7 +36,7 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
 
         String token = AuthUtil.obtainAuthorization(request);
         if (StringUtils.isEmpty(token)) {
-            throw new AuthenticationException(CommonExceptionEnum.TOKEN_EMPTY_ERROR.getCode(),
+            throw new AuthenticationException(CommonExceptionEnum.TOKEN_EMPTY_ERROR.getStatusCode(),
                 CommonExceptionEnum.TOKEN_EMPTY_ERROR.getMessage());
         }
         RedissonClient redissonClient = SpringContextUtils.getBean(RedissonClient.class);
@@ -44,7 +44,7 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
             = redissonClient.getBucket(CommonCacheConst.AUTH_TOKEN_KEY_PREFIX.concat(token));
         UserCache userCache;
         if (null == (userCache = userInfoBucketByToken.get())) {
-            throw new AuthenticationException(CommonExceptionEnum.TOKEN_EXPIRE_ERROR.getCode(),
+            throw new AuthenticationException(CommonExceptionEnum.TOKEN_EXPIRE_ERROR.getStatusCode(),
                 CommonExceptionEnum.TOKEN_EXPIRE_ERROR.getMessage());
         }
         CurrentBaseContext.setUserCache(userCache);

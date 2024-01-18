@@ -1,12 +1,16 @@
 package com.heaven.palace.brightpalace.domain.business.user.aggregate;
 
+import com.heaven.palace.brightpalace.api.enums.user.BaseUserConst.Status;
+import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserOrganizationEntity;
+import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserRoleEntity;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.Email;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.MobilePhone;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.Password;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.Username;
+import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
 import com.heaven.palace.jasperpalace.base.ddd.AggregateRoot;
 import com.heaven.palace.jasperpalace.base.ddd.PrimaryKey;
-import lombok.Builder;
+import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import lombok.Data;
 
 /**
@@ -15,7 +19,7 @@ import lombok.Data;
  * @DateTime: 2024/1/16 12:50
  **/
 @Data
-@Builder
+// @Builder
 public class UserAggregate implements AggregateRoot<PrimaryKey> {
 
     private PrimaryKey id;
@@ -40,18 +44,25 @@ public class UserAggregate implements AggregateRoot<PrimaryKey> {
      */
     private Email email;
     /**
-     * 角色id
+     * 角色
      *
      */
-    private Long roleId;
+    private UserRoleEntity role;
     /**
-     * 组织id
+     * 组织
      *
      */
-    private Long orgId;
+    private UserOrganizationEntity organization;
     /**
-     * 状态：0-使用中
+     * @see Status#getCode()
      *
      */
     private Integer status;
+
+    public void checkRegister() {
+        if (null == this.role || null == this.organization
+            || null == this.role.getId() || null == this.organization.getId()) {
+            throw new BusinessException(BusinessExceptionEnum.REGISTER_ROLE_OR_ORG_QUERY_NULL_ERROR);
+        }
+    }
 }

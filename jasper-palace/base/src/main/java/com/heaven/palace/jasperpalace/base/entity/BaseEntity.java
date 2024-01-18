@@ -49,7 +49,7 @@ public class BaseEntity implements Serializable {
 
     public static <T extends BaseEntity> T assembleBaseInfo(T baseEntity) {
         Date date = Date.from(ZonedDateTime.now().toInstant());
-        long userId = CurrentBaseContext.getUserId();
+        Long userId = CurrentBaseContext.getUserId();
         baseEntity.setCreateBy(userId);
         baseEntity.setCreateTime(date);
         baseEntity.setUpdateBy(userId);
@@ -58,7 +58,7 @@ public class BaseEntity implements Serializable {
     }
 
     public static <T extends BaseEntity> T assembleBaseInfo(T baseEntity, Date nowDate) {
-        long userId = CurrentBaseContext.getUserId();
+        Long userId = CurrentBaseContext.getUserId();
         baseEntity.setCreateBy(userId);
         baseEntity.setCreateTime(nowDate);
         baseEntity.setUpdateBy(userId);

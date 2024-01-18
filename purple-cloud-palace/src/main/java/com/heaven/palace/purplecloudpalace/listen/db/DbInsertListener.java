@@ -12,7 +12,7 @@ public class DbInsertListener extends AbstractInsertListener<BaseEntity> {
 
     @Override
     public Class<BaseEntity> supportType() {
-        return null;
+        return BaseEntity.class;
     }
 
     @Override

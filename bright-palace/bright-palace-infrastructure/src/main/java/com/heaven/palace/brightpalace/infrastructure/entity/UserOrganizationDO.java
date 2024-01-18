@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
  */
 @Table(value = "user_organization", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
-@Data(staticConstructor = "create")
+@Data
 @EqualsAndHashCode(callSuper = true)
 public class UserOrganizationDO extends BaseEntity {
 
@@ -28,6 +28,11 @@ public class UserOrganizationDO extends BaseEntity {
      * 
      */
     private String name;
+    /**
+     * 组织编码
+     *
+     */
+    private String code;
     /**
      * 描述
      * 

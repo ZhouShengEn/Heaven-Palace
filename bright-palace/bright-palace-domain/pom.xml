@@ -24,7 +24,16 @@
             <artifactId>business</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.heaven.palace.bright-palace</groupId>
+            <artifactId>bright-palace-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.heaven.palace</groupId>
+            <artifactId>purple-cloud-palace</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- 组件依赖 -->
         <dependency>

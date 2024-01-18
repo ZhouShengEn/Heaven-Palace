@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan
 @ComponentScan({"com.heaven.palace"})
 @EnableFeignClients
-@MapperScan({"com.heaven.palace.brightpalaceinfrastructure.mapper"})
+@MapperScan({"com.heaven.palace.brightpalace.infrastructure.mapper"})
 public class BrightPalaceStartApplication {
 
     public static void main(String[] args) {

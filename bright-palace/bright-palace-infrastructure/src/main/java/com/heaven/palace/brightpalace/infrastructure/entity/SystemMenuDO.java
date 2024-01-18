@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
  */
 @Table(value = "system_menu", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
-@Data(staticConstructor = "create")
+@Data
 @EqualsAndHashCode(callSuper = true)
 public class SystemMenuDO extends BaseEntity {
 

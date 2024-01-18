@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
  */
 @Table(value = "user_role", onInsert = DbInsertListener.class, onUpdate = DbUpdateListener.class)
 @Accessors(chain = true)
-@Data(staticConstructor = "create")
+@Data
 @EqualsAndHashCode(callSuper = true)
 public class UserRoleDO extends BaseEntity {
 
@@ -28,6 +28,11 @@ public class UserRoleDO extends BaseEntity {
      * 
      */
     private String roleName;
+    /**
+     * 角色编码
+     *
+     */
+    private String code;
     /**
      * 组织id
      *

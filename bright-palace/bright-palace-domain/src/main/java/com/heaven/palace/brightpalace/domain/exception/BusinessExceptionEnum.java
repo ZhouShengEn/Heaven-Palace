@@ -31,6 +31,7 @@ public enum BusinessExceptionEnum implements BaseResult {
     REGISTER_MOBILE_PHONE_VALID_ERROR(11001006, "手机号不符合规范！"),
     REGISTER_EMAIL_NULL(11001007, "邮箱不能为空！"),
     REGISTER_EMAIL_VALID_ERROR(11001008, "邮箱不符合规范！"),
+    REGISTER_ROLE_OR_ORG_QUERY_NULL_ERROR(11001009, "未查询到相关信息，请联系工作人员！"),
 
 
 

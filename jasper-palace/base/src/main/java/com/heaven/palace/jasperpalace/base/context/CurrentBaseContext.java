@@ -23,21 +23,33 @@ public class CurrentBaseContext {
     public static void set(String key, Object value){
         THREAD_LOCAL.get().put(key, value);
     }
-    
-    public static Object get(String key){
-        return THREAD_LOCAL.get().get(key);
+
+    public static Object get(String key) {
+        Map<String, Object> map = THREAD_LOCAL.get();
+        if (map == null) {
+            map = new HashMap<String, Object>();
+            THREAD_LOCAL.set(map);
+        }
+        return map.get(key);
     }
     
-    public static long getUserId(){
-        return ((UserCache) THREAD_LOCAL.get().get(CommonConst.KEY_USER_CACHE)).getUserId();
+    public static Long getUserId(){
+        UserCache userCache = (UserCache) get(CommonConst.KEY_USER_CACHE);
+        return null == userCache ? null : userCache.getUserId();
     }
     
     public static String getUserName(){
-        return ((UserCache) THREAD_LOCAL.get().get(CommonConst.KEY_USER_CACHE)).getUsername();
+        UserCache userCache = (UserCache) get(CommonConst.KEY_USER_CACHE);
+        return null == userCache ? null : userCache.getUsername();
     }
-    
+
+    public static String getUserOrgCode(){
+        UserCache userCache = (UserCache) get(CommonConst.KEY_USER_CACHE);
+        return null == userCache ? null : userCache.getOrgCode();
+    }
+
     public static String getUserToken(){
-        return (String) THREAD_LOCAL.get().get(CommonConst.KEY_USER_TOKEN);
+        return (String)get(CommonConst.KEY_USER_TOKEN);
     }
     public static void setUserToken(String userToken){
         THREAD_LOCAL.get().put(CommonConst.KEY_USER_TOKEN, userToken);
@@ -57,12 +69,17 @@ public class CurrentBaseContext {
         /**
          * 用户id
          */
-        private long userId;
+        private Long userId;
 
         /**
          * 用户名称
          */
         private String username;
+
+        /**
+         * 用户所在组织编码
+         */
+        private String orgCode;
     }
 
 }

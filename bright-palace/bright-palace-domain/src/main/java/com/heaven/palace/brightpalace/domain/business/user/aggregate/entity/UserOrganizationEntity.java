@@ -7,38 +7,32 @@ import lombok.experimental.Accessors;
 
 /**
  * @Author: zhoushengen
- * @Description: 实体-用户角色
- * @DateTime: 2024/1/17 15:58
+ * @Description: 实体-用户所在组织
+ * @DateTime: 2024/1/18 14:45
  **/
 @Data
 @Accessors(chain = true)
-public class UserRoleEntity implements Entity<PrimaryKey> {
+public class UserOrganizationEntity implements Entity<PrimaryKey> {
 
     private PrimaryKey id;
-
     /**
-     * 角色名称
+     * 组织名称
      *
      */
-    private String roleName;
+    private String name;
     /**
-     * 角色编码
+     * 组织编码
      *
      */
     private String code;
-    /**
-     * 组织id
-     *
-     */
-    private Long orgId;
-    /**
-     * 父级角色id
-     *
-     */
-    private Long parentId;
     /**
      * 描述
      *
      */
     private String description;
+    /**
+     * 父级组织id
+     *
+     */
+    private Long parentId;
 }
