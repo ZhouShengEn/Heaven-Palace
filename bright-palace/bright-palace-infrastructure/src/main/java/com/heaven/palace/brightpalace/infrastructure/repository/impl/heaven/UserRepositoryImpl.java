@@ -1,17 +1,14 @@
 package com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven;
 
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
-import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserOrganizationEntity;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserRoleEntity;
 import com.heaven.palace.brightpalace.domain.business.user.repository.UserRepository;
 import com.heaven.palace.brightpalace.domain.factory.repository.context.RepoRegisterConst;
+import com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO;
 import com.heaven.palace.brightpalace.infrastructure.entity.BaseUserDO;
 import com.heaven.palace.brightpalace.infrastructure.entity.UserMemberRelateDO;
-import com.heaven.palace.brightpalace.infrastructure.entity.UserOrganizationDO;
-import com.heaven.palace.brightpalace.infrastructure.entity.UserRoleDO;
 import com.heaven.palace.brightpalace.infrastructure.mapper.BaseUserMapper;
 import com.heaven.palace.brightpalace.infrastructure.mapper.UserMemberRelateMapper;
-import com.heaven.palace.brightpalace.infrastructure.mapper.UserOrganizationMapper;
 import com.heaven.palace.brightpalace.infrastructure.mapper.UserRoleMapper;
 import com.heaven.palace.jasperpalace.business.system.context.SystemOrganizationCodeConst;
 import com.heaven.palace.purplecloudpalace.util.MappingUtils;
@@ -38,32 +35,32 @@ public class UserRepositoryImpl implements UserRepository {
     @Resource
     private UserRoleMapper userRoleMapper;
 
-    @Resource
-    private UserOrganizationMapper userOrganizationMapper;
 
     @Override
     public Long save(UserAggregate userAggregate) {
         userAggregate.checkRegister();
         BaseUserDO baseUserDO = MappingUtils.beanConvert(userAggregate, BaseUserDO.class);
         baseUserMapper.insert(baseUserDO);
-        UserMemberRelateDO userMemberRelateDO = new UserMemberRelateDO().setUserId(baseUserDO.getId())
-            .setRoleId(userAggregate.getRole().getId().getId());
-        userMemberRelateMapper.insert(userMemberRelateDO);
+        userAggregate.getUserRoleEntities().forEach(role -> {
+            UserMemberRelateDO userMemberRelateDO = new UserMemberRelateDO().setUserId(baseUserDO.getId())
+                    .setRoleId(role.getId().getId());
+            userMemberRelateMapper.insert(userMemberRelateDO);
+        });
         return baseUserDO.getId();
     }
 
     @Override
     public List<UserRoleEntity> selectRole(UserRoleEntity userRoleEntity) {
-        UserRoleDO userRoleDO = MappingUtils.beanConvert(userRoleEntity, UserRoleDO.class);
-        return MappingUtils.beanListConvert(userRoleMapper.selectListByQuery(QueryWrapper.create(userRoleDO)),
+        UserRoleBO userRoleBo = MappingUtils.beanConvert(userRoleEntity, UserRoleBO.class);
+        return MappingUtils.beanListConvert(userRoleMapper.select(userRoleBo),
             UserRoleEntity.class);
     }
 
+
     @Override
-    public List<UserOrganizationEntity> selectOrg(UserOrganizationEntity userOrganizationEntity) {
-        UserOrganizationDO userOrganizationDO = MappingUtils.beanConvert(userOrganizationEntity, UserOrganizationDO.class);
-        return MappingUtils.beanListConvert(userOrganizationMapper.selectListByQuery(QueryWrapper.create(userOrganizationDO)),
-            UserOrganizationEntity.class);
+    public List<UserAggregate> selectUser(UserAggregate userAggregate) {
+        BaseUserDO baseUserDO = MappingUtils.beanConvert(userAggregate, BaseUserDO.class);
+        return MappingUtils.beanListConvert(baseUserMapper.selectListByQuery(QueryWrapper.create(baseUserDO)), UserAggregate.class);
     }
 
     @Override

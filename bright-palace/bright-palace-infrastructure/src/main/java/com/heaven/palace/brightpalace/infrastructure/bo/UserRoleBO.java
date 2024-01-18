@@ -1,21 +1,19 @@
-package com.heaven.palace.brightpalace.domain.business.user.aggregate.entity;
+package com.heaven.palace.brightpalace.infrastructure.bo;
 
-import com.heaven.palace.jasperpalace.base.ddd.Entity;
-import com.heaven.palace.jasperpalace.base.ddd.PrimaryKey;
 import lombok.Data;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
- * @Author: zhoushengen
- * @Description: 实体-用户角色
- * @DateTime: 2024/1/17 15:58
- **/
+ * @author 10733
+ * @date 2024/1/18 23:21
+ * @description: 用户组织关联BO
+ */
 @Data
-@Accessors(chain = true)
-public class UserRoleEntity implements Entity<PrimaryKey> {
+public class UserRoleBO implements Serializable {
+    private static final long serialVersionUID = 2421136906637567812L;
 
-    private PrimaryKey id;
-
+    private Long id;
     /**
      * 角色名称
      *
@@ -56,4 +54,5 @@ public class UserRoleEntity implements Entity<PrimaryKey> {
      *
      */
     private Long orgParentId;
+
 }

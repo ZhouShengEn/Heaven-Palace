@@ -16,5 +16,33 @@
         <result column="update_by" property="updateBy" />
         <result column="update_time" property="updateTime" />
     </resultMap>
-
+    <select id="select" resultType="com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO"
+            parameterType="com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO">
+        SELECT ur.*, uo.id as orgId, uo.name as orgName, uo.code as orgCode, uo.parent_id as orgParentId
+        FROM user_role ur LEFT JOIN user_organization uo ON ur.org_id = uo.id
+        <where>
+            ur.is_delete = 0 AND uo.is_delete = 0
+            <if test="code != null and code !='' ">
+                AND ur.code = #{code}
+            </if>
+            <if test="orgCode != null and orgCode !='' ">
+                AND uo.code = #{orgCode}
+            </if>
+            <if test="orgId != null and orgId !='' ">
+                AND uo.id = #{orgId}
+            </if>
+            <if test="parentId != null and parentId !='' ">
+                AND ur.parent_id = #{parentId}
+            </if>
+            <if test="orgParentId != null and orgParentId !='' ">
+                AND uo.parent_id = #{orgParentId}
+            </if>
+            <if test="roleName != null and roleName !='' ">
+                AND INSTR(ur.role_name, #{roleName})
+            </if>
+            <if test="orgName != null and orgName !='' ">
+                AND INSTR(uo.name, #{orgName})
+            </if>
+        </where>
+    </select>
 </mapper>

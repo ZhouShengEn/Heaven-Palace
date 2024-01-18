@@ -2,10 +2,12 @@ package com.heaven.palace.purplecloudpalace.handle;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
+import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.auth.AuthenticationException;
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
 import lombok.extern.slf4j.Slf4j;
+import ma.glasnost.orika.MappingException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
@@ -228,13 +230,49 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
+    @ExceptionHandler(value = MappingException.class)
+    public BaseResponse exceptionHandler(MappingException e) {
+        log.error("orika map 映射异常！原因是：", e);
+        BaseResponse baseResponse = new BaseResponse();
+        Throwable finalCause = getFinalCause(e.getCause());
+        if (finalCause instanceof BusinessException) {
+            baseResponse.setMessage(finalCause.getMessage());
+            baseResponse.setStatusCode(((BusinessException) finalCause).getStatusCode());
+        } else {
+            baseResponse.setMessage(CommonExceptionEnum.SERVER_ERROR.getMessage());
+            baseResponse.setStatusCode(CommonExceptionEnum.SERVER_ERROR.getStatusCode());
+        }
+
+
+        return baseResponse;
+    }
+
+    /**
+     * 处理其他异常
+     *
+     * @param e
+     * @return
+     */
     @ExceptionHandler(value = Exception.class)
     public BaseResponse exceptionHandler(Exception e) {
         log.error("服务器内部未知异常！原因是：", e);
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setMessage("服务器内部未知异常！请联系客服人员。");
-        baseResponse.setStatusCode(500);
+        baseResponse.setMessage("服务器内部异常！请联系客服人员。");
+        baseResponse.setStatusCode(CommonExceptionEnum.SERVER_ERROR.getStatusCode());
         return baseResponse;
+    }
+
+    /**
+     * 获取被原始异常
+     * @param e
+     * @return
+     */
+    public Throwable getFinalCause(Throwable e) {
+        Throwable cause = e.getCause();
+        if (null != cause) {
+            return getFinalCause(cause);
+        }
+        return e;
     }
 
 }

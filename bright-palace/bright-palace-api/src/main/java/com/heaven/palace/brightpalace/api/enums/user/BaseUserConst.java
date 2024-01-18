@@ -1,5 +1,7 @@
 package com.heaven.palace.brightpalace.api.enums.user;
 
+import lombok.Getter;
+
 /**
  * @Author: zhoushengen
  * @Description: 基础用户枚举
@@ -7,7 +9,8 @@ package com.heaven.palace.brightpalace.api.enums.user;
  **/
 public interface BaseUserConst {
 
-    enum Status {
+    @Getter
+    public enum Status {
         ACTIVE(0, "使用中"),
         ;
 
@@ -20,13 +23,6 @@ public interface BaseUserConst {
             this.code = code;
         }
 
-        public String getDesc() {
-            return desc;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
     }
 
 }

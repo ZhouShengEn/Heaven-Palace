@@ -1,7 +1,7 @@
 package com.heaven.palace.brightpalace.domain.business.user.aggregate;
 
+import com.heaven.palace.brightpalace.api.enums.user.BaseUserConst;
 import com.heaven.palace.brightpalace.api.enums.user.BaseUserConst.Status;
-import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserOrganizationEntity;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserRoleEntity;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.Email;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.MobilePhone;
@@ -12,6 +12,10 @@ import com.heaven.palace.jasperpalace.base.ddd.AggregateRoot;
 import com.heaven.palace.jasperpalace.base.ddd.PrimaryKey;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import lombok.Data;
+import lombok.experimental.Accessors;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * @Author: zhoushengen
@@ -19,7 +23,7 @@ import lombok.Data;
  * @DateTime: 2024/1/16 12:50
  **/
 @Data
-// @Builder
+@Accessors(chain = true)
 public class UserAggregate implements AggregateRoot<PrimaryKey> {
 
     private PrimaryKey id;
@@ -44,25 +48,31 @@ public class UserAggregate implements AggregateRoot<PrimaryKey> {
      */
     private Email email;
     /**
-     * 角色
+     * 用户角色组织
      *
      */
-    private UserRoleEntity role;
-    /**
-     * 组织
-     *
-     */
-    private UserOrganizationEntity organization;
+    private List<UserRoleEntity> userRoleEntities;
     /**
      * @see Status#getCode()
      *
      */
     private Integer status;
 
+    /**
+     * 用户注册校验，不允许存在空无意义的组织和角色
+     */
     public void checkRegister() {
-        if (null == this.role || null == this.organization
-            || null == this.role.getId() || null == this.organization.getId()) {
+        if (CollectionUtils.isEmpty(this.userRoleEntities) || userRoleEntities.stream().anyMatch(role ->
+                null == role.getId().getId() || null == role.getOrgId())) {
             throw new BusinessException(BusinessExceptionEnum.REGISTER_ROLE_OR_ORG_QUERY_NULL_ERROR);
         }
+    }
+
+    /**
+     * 变更状态
+     * @param status
+     */
+    public void changeStatus(BaseUserConst.Status status) {
+        this.status = status.getCode();
     }
 }

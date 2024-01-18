@@ -1,8 +1,11 @@
 package com.heaven.palace.brightpalace.infrastructure.mapper;
 
+import com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO;
 import com.heaven.palace.brightpalace.infrastructure.entity.UserRoleDO;
 import com.mybatisflex.core.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * UserRoleMapper
@@ -12,5 +15,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserRoleMapper extends BaseMapper<UserRoleDO> {
+
+    List<UserRoleBO> select(UserRoleBO userRoleBO);
+
 
 }

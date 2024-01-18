@@ -1,7 +1,6 @@
 package com.heaven.palace.brightpalace.domain.business.user.repository;
 
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
-import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserOrganizationEntity;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserRoleEntity;
 import com.heaven.palace.jasperpalace.base.repository.MultiRepoInterface;
 
@@ -15,13 +14,23 @@ import java.util.List;
 public interface UserRepository extends MultiRepoInterface {
 
     /**
-     *
+     * 保存新用户
      * @param userAggregate
      * @return 用户id
      */
     Long save(UserAggregate userAggregate);
 
+    /**
+     * 根据实体查询用户角色信息
+     * @param userRoleEntity
+     * @return
+     */
     List<UserRoleEntity> selectRole(UserRoleEntity userRoleEntity);
 
-    List<UserOrganizationEntity> selectOrg(UserOrganizationEntity userOrganizationEntity);
+    /**
+     * 根据实体仅查询用户信息
+     * @param userAggregate
+     * @return
+     */
+    List<UserAggregate> selectUser(UserAggregate userAggregate);
 }
