@@ -1,6 +1,7 @@
 package com.heaven.palace.brightpalace.application.service.user.impl;
 
 import com.heaven.palace.brightpalace.api.api.user.dto.UserAuthDTO;
+import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserRegisterVO;
 import com.heaven.palace.brightpalace.api.enums.user.BaseUserConst;
 import com.heaven.palace.brightpalace.application.service.user.UserApplicationService;
@@ -41,7 +42,21 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     }
 
     @Override
+    public void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO) {
+        // 参数校验放在映射时的构造方法里
+        UserAggregate userAggregate = MappingUtils.beanConvert(userLoginPhoneAndPasswordVO, UserAggregate.class);
+        // todo 验证码校验
+        UserRepository userRepository = (UserRepository) multiRepoFactory.getMultiDateSource(RepoRegisterConst.USER);
+        List<UserAggregate> userAggregates = userRepository.selectUser(userAggregate);
+        if (CollectionUtils.isEmpty(userAggregates)) {
+            throw new BusinessException(BusinessExceptionEnum.LOGIN_USER_QUERY_NULL_ERROR);
+        }
+
+    }
+
+    @Override
     public void register(UserRegisterVO userRegisterVO) {
+        // 参数校验放在映射时的构造方法里
         UserAggregate userAggregate = MappingUtils.beanConvert(userRegisterVO, UserAggregate.class);
         UserRepository userRepository = (UserRepository) multiRepoFactory.getMultiDateSource(RepoRegisterConst.USER);
         List<UserAggregate> queryPhoneAggregates = userRepository.selectUser(

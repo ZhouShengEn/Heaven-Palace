@@ -19,10 +19,10 @@ public class GatewayUtil {
     public static String obtainAuthorization(ServerHttpRequest request) {
         String authorization;
         if (null == request || request.getHeaders().isEmpty()
-            || StringUtils.isEmpty(authorization = request.getHeaders().getFirst(CommonConst.AUTH_HEADER))
-            || !authorization.startsWith(CommonConst.AUTH_HEADER_BEARER.concat(" "))) {
+            || StringUtils.isEmpty(authorization = request.getHeaders().getFirst(CommonConst.Header.AUTH_HEADER))
+            || !authorization.startsWith(CommonConst.Header.AUTH_HEADER_BEARER.concat(" "))) {
             return null;
         }
-        return authorization.replaceFirst(CommonConst.AUTH_HEADER_BEARER.concat(" "), "");
+        return authorization.replaceFirst(CommonConst.Header.AUTH_HEADER_BEARER.concat(" "), "");
     }
 }

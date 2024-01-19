@@ -18,6 +18,7 @@ public class Password extends ValidValueObject<String> {
     public static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#$%^*])[A-Za-z\\d][A-Za-z\\d~!@#$%^*]{7,14}$";
 
     public Password(String password) {
+        // todo 密码解密
         super(BusinessExceptionEnum.REGISTER_PASSWORD_NULL
             , BusinessExceptionEnum.REGISTER_PASSWORD_VALID_ERROR
             , password, () -> {

@@ -9,10 +9,10 @@ import java.io.Serializable;
 
 /**
  * @Author: zhoushengen
- * @Description: 用户注册类
+ * @Description: 用户注册——入参
  * @DateTime: 2024/1/15 14:23
  **/
-@ApiModel(value = "用户注册类")
+@ApiModel(value = "用户注册——入参")
 @Data
 public class UserRegisterVO implements Serializable {
     private static final long serialVersionUID = -6393643173758422524L;

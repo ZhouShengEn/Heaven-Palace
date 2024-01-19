@@ -18,16 +18,6 @@ public interface CommonConst {
     String KEY_USER_CACHE = "currentThreadUserCache";
 
     /**
-     * 请求头：认证信息
-     */
-    String AUTH_HEADER = "Authorization";
-
-    /**
-     * 认证token前缀
-     */
-    String AUTH_HEADER_BEARER = "Bearer";
-
-    /**
      * 内部访问请求头：日志链路追踪痕迹
      */
     String LOG_TRACE_ID_HEADER = "traceId";
@@ -36,6 +26,26 @@ public interface CommonConst {
      * 内部访问请求头：日志链路追踪请求跨度次数
      */
     String LOG_SPAN_ID_HEADER = "spanId";
+
+
+    interface Header {
+        /**
+         * 请求头：认证信息
+         */
+        String AUTH_HEADER = "Authorization";
+
+        /**
+         * 认证token前缀
+         */
+        String AUTH_HEADER_BEARER = "Bearer";
+
+        /**
+         * 请求头：客户端标识
+         */
+        String CLIENT_HEADER = "Client";
+
+
+    }
 
 
 }

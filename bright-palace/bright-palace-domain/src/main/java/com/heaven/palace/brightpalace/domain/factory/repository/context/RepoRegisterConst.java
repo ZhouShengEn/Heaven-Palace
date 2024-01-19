@@ -8,4 +8,5 @@ package com.heaven.palace.brightpalace.domain.factory.repository.context;
 public interface RepoRegisterConst {
 
     String USER = "user";
+    String OAUTH2 = "oauth2";
 }

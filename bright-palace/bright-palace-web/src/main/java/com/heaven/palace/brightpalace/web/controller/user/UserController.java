@@ -1,6 +1,7 @@
 package com.heaven.palace.brightpalace.web.controller.user;
 
 import com.heaven.palace.brightpalace.api.api.user.dto.UserAuthDTO;
+import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserRegisterVO;
 import com.heaven.palace.brightpalace.application.service.user.UserApplicationService;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @Author: zhoushengen
@@ -33,6 +35,14 @@ public class UserController {
     public GlobalRestResponse<UserAuthDTO> auth(HttpRequestHandlerServlet request) {
         return new GlobalRestResponse<>().data(userApplicationService.auth(request));
     }
+
+    @PostMapping(value = "/login")
+    @ApiOperation(value = "用户账户密码手机号双因子登录")
+    public GlobalRestResponse<Void> login(@RequestBody @Valid UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO) {
+        userApplicationService.login(userLoginPhoneAndPasswordVO);
+        return new GlobalRestResponse<>().message("登录成功！");
+    }
+
 
     @PostMapping(value = "/register")
     @ApiOperation(value = "用户注册")

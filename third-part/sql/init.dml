@@ -1,3 +1,5 @@
 INSERT INTO `user_organization`(`id`, `name`, `code`, `description`) VALUES (1, 'HeavenPalace', 'HeavenPalace', '天宫');
 
 INSERT INTO `user_role`(`id`, `role_name`, `code`, `org_id`, `description`) VALUES (1, '用户', 'BaseUser', 1, '基础用户');
+
+INSERT INTO `auth_client`(`id`, `code`, `secret`, `login_url`, `description`) VALUES (1, 'heaven', '123456', 'http://127.0.0.1:10002/api/bright-palace/login', '天宫');

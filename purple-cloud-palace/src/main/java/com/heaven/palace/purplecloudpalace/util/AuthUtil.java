@@ -19,10 +19,10 @@ public class AuthUtil {
      */
     public static String obtainAuthorization(HttpServletRequest request) {
         String authorization;
-        if (null == request || StringUtils.isEmpty(authorization = request.getHeader(CommonConst.AUTH_HEADER))
-            || !authorization.startsWith(CommonConst.AUTH_HEADER_BEARER.concat(" "))) {
+        if (null == request || StringUtils.isEmpty(authorization = request.getHeader(CommonConst.Header.AUTH_HEADER))
+            || !authorization.startsWith(CommonConst.Header.AUTH_HEADER_BEARER.concat(" "))) {
             return null;
         }
-        return authorization.replaceFirst(CommonConst.AUTH_HEADER_BEARER.concat(" "), "");
+        return authorization.replaceFirst(CommonConst.Header.AUTH_HEADER_BEARER.concat(" "), "");
     }
 }

@@ -35,6 +35,18 @@ public enum BusinessExceptionEnum implements BaseResult {
     REGISTER_USER_NAME_REPEAT_ERROR(11001010, "名称已使用！"),
     REGISTER_USER_PHONE_REPEAT_ERROR(11001011, "手机号已使用！"),
 
+    /**
+     * 认证错误
+     */
+    AUTH_REQUEST_PARAM_NULL_ERROR(11002001, "认证失败，入参异常！"),
+    AUTH_REQUEST_CLIENT_NULL_ERROR(11002002, "认证失败，无客户端标识！"),
+    AUTH_CLIENT_QUERY_NULL_ERROR(11002003, "认证失败，无效的客户端标识！"),
+    AUTH_REDIRECT_CLIENT_URL_ERROR(11002004, "认证失败，客户端重定向授权链接调用失败！"),
+
+    /**
+     * 登录错误
+     */
+    LOGIN_USER_QUERY_NULL_ERROR(11003001, "密码输入不正确！"),
 
 
     ;
