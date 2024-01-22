@@ -25,7 +25,7 @@ public class SHAPasswordEncoder implements PasswordEncoder {
             return new String(Base64.encodeBase64(digest));
         } catch (Exception e) {
             log.error("encode password failed.", e);
-            throw new BusinessException(CommonExceptionEnum.PASSWORD_ENCODE_ERROR);
+            throw new BusinessException(CommonExceptionEnum.AUTH_PASSWORD_ENCODE_ERROR);
         }
     }
 

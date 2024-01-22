@@ -6,7 +6,7 @@ import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.auth.AuthenticationException;
 import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
-import com.heaven.palace.purplecloudpalace.component.cache.constants.CommonCacheConst;
+import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst;
 import com.heaven.palace.purplecloudpalace.util.AuthUtil;
 import com.heaven.palace.purplecloudpalace.util.SpringContextUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,16 +36,16 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
 
         String token = AuthUtil.obtainAuthorization(request);
         if (StringUtils.isEmpty(token)) {
-            throw new AuthenticationException(CommonExceptionEnum.TOKEN_EMPTY_ERROR.getStatusCode(),
-                CommonExceptionEnum.TOKEN_EMPTY_ERROR.getMessage());
+            throw new AuthenticationException(CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getStatusCode(),
+                CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getMessage());
         }
         RedissonClient redissonClient = SpringContextUtils.getBean(RedissonClient.class);
         RBucket<UserCache> userInfoBucketByToken
             = redissonClient.getBucket(CommonCacheConst.AUTH_TOKEN_KEY_PREFIX.concat(token));
         UserCache userCache;
         if (null == (userCache = userInfoBucketByToken.get())) {
-            throw new AuthenticationException(CommonExceptionEnum.TOKEN_EXPIRE_ERROR.getStatusCode(),
-                CommonExceptionEnum.TOKEN_EXPIRE_ERROR.getMessage());
+            throw new AuthenticationException(CommonExceptionEnum.AUTH_TOKEN_EXPIRE_ERROR.getStatusCode(),
+                CommonExceptionEnum.AUTH_TOKEN_EXPIRE_ERROR.getMessage());
         }
         CurrentBaseContext.setUserCache(userCache);
         CurrentBaseContext.setUserToken(token);

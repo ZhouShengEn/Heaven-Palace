@@ -26,11 +26,11 @@ public class OAuth2Controller {
     @Resource
     private Oauth2ApplicationService oauth2ApplicationService;
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = "code/auth")
     @ApiOperation(value = "基于授权码的登录接口")
     @IgnoreUserAuth
     public void login(ServerHttpRequest serverHttpRequest, HttpServletResponse response
-        , @RequestParam(required = false) String loginFor, @RequestParam(required = false) String code) {
-        oauth2ApplicationService.authLogin(serverHttpRequest, response, loginFor, code);
+        , @RequestParam String clientId, @RequestParam(required = false) String... args) {
+        oauth2ApplicationService.auth(serverHttpRequest, response, clientId, args);
     }
 }

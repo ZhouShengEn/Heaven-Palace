@@ -16,7 +16,7 @@ public interface Oauth2ApplicationService {
      * @param serverHttpRequest
      * @param response
      * @param loginFor
-     * @param code
+     * @param args
      */
-    void authLogin(ServerHttpRequest serverHttpRequest, HttpServletResponse response, String loginFor, String code);
+    void auth(ServerHttpRequest serverHttpRequest, HttpServletResponse response, String loginFor, String... args);
 }

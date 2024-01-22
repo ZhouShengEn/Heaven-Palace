@@ -1,9 +1,8 @@
-package com.heaven.palace.purplecloudpalace.component.cache.param;
+package com.heaven.palace.jasperpalace.base.cache.param;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.redisson.client.codec.Codec;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,11 +26,6 @@ public class CacheParam {
     private String primaryKey;
 
     /**
-     * 序列化方式
-     */
-    private Codec codec;
-
-    /**
      * 失效时间
      */
     private Long timeToLive;
@@ -41,4 +35,16 @@ public class CacheParam {
      */
     private TimeUnit timeUnit;
 
+    public CacheParam(ICacheParam param, String primaryKey) {
+        this.prefixKey = param.prefixKey();
+        this.primaryKey = primaryKey;
+        this.timeToLive = param.timeToLive();
+        this.timeUnit = param.timeUnit();
+    }
+
+    public CacheParam(ICacheParam param) {
+        this.prefixKey = param.prefixKey();
+        this.timeToLive = param.timeToLive();
+        this.timeUnit = param.timeUnit();
+    }
 }

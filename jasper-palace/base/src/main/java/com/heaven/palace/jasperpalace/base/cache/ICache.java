@@ -1,4 +1,4 @@
-package com.heaven.palace.purplecloudpalace.component.cache;
+package com.heaven.palace.jasperpalace.base.cache;
 
 /**
  * @author :zhoushengen

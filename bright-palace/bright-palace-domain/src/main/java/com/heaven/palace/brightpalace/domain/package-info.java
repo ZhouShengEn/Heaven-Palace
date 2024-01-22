@@ -1,5 +1,5 @@
 /**
- * @author 10733
+ * @author zhoushengen
  * @date 2024/1/14 23:12
  * @description: 业务领域层
  * Entity 具有唯一业务标识，持有自己的业务属性和业务行为，关注于生命周期，只能get不允许set

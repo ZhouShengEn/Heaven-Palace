@@ -1,4 +1,4 @@
-package com.heaven.palace.purplecloudpalace.component.cache.constants;
+package com.heaven.palace.jasperpalace.base.cache.constants;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

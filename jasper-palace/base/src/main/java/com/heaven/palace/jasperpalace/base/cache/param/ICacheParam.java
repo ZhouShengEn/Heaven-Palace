@@ -1,6 +1,5 @@
-package com.heaven.palace.purplecloudpalace.component.cache.param;
+package com.heaven.palace.jasperpalace.base.cache.param;
 
-import org.redisson.client.codec.Codec;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,11 +26,5 @@ public interface ICacheParam {
      * @return
      */
     TimeUnit timeUnit();
-
-    /**
-     * 序列转化类
-     * @return
-     */
-    Codec codec();
     
 }

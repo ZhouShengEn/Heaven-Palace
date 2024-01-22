@@ -1,19 +1,17 @@
-package com.heaven.palace.purplecloudpalace.component.cache;
+package com.heaven.palace.jasperpalace.base.cache;
 
 
-import com.heaven.palace.purplecloudpalace.component.cache.constants.CacheLockConst;
-import com.heaven.palace.purplecloudpalace.component.cache.param.CacheParam;
+import com.heaven.palace.jasperpalace.base.cache.constants.CacheLockConst;
+import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
 
 /**
  * @author :zhoushengen
@@ -21,9 +19,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K, V> {
-
-    @Resource
-    protected RedissonClient redissonClient;
     
     private final ThreadLocal<Integer> retryThreadLocal = ThreadLocal.withInitial(() -> 1);
     
@@ -42,6 +37,8 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
         setDataToRedisCachePool.allowCoreThreadTimeOut(Boolean.TRUE);
     }
 
+    public abstract Lock getLock(String cacheLockKey);
+
     @Override
     public final V get(K cacheParam) {
         // 简易布隆过滤器，防止缓存穿透
@@ -52,9 +49,12 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
             V v;
             if (null == (v = getFromCache(cacheParam))) {
                 String cacheLockKey = getCacheLockKey(cacheParam);
-                RLock lock = redissonClient.getLock(cacheLockKey);
+                Lock lock = getLock(cacheLockKey);
                 try {
-                    lock.lock(180, TimeUnit.SECONDS);
+                    boolean lockResult = lock.tryLock(180, TimeUnit.SECONDS);
+                    if (!lockResult) {
+                        throw new RuntimeException(cacheLockKey + "lock expire");
+                    }
                     if (null == (v = this.getFromCache(cacheParam))) {
                         v = getAndSet(cacheParam);
                     }
@@ -216,9 +216,9 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
         public void run() {
             String setCacheLockKey = this.abstractCache.setCacheLockKey(cacheParam);
 
-            RLock lock = redissonClient.getLock(setCacheLockKey);
+            Lock lock = getLock(setCacheLockKey);
             try {
-                boolean tryLock = lock.tryLock(1, 180, TimeUnit.SECONDS);
+                boolean tryLock = lock.tryLock(180, TimeUnit.SECONDS);
                 if (tryLock) {
                     if (null != value || (null != (value = this.abstractCache.getData(cacheParam)))) {
                         this.abstractCache.setToCache(cacheParam, value);
