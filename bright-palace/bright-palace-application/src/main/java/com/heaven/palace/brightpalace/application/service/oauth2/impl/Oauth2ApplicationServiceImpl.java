@@ -1,22 +1,18 @@
 package com.heaven.palace.brightpalace.application.service.oauth2.impl;
 
 import com.heaven.palace.brightpalace.application.service.oauth2.Oauth2ApplicationService;
-import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.entity.ClientEntity;
-import com.heaven.palace.brightpalace.domain.business.oauth2.repository.Oauth2Repository;
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
 import com.heaven.palace.brightpalace.domain.factory.repository.MultiRepoFactory;
-import com.heaven.palace.brightpalace.domain.factory.repository.context.RepoRegisterConst;
-import com.heaven.palace.jasperpalace.base.constant.CommonConst.Header;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.io.IOException;
 
 /**
  * @Author: zhoushengen
@@ -29,6 +25,9 @@ public class Oauth2ApplicationServiceImpl implements Oauth2ApplicationService {
 
     public static final String LOGIN_REDIRECT_TEMPLATE = "?code=%s&state=%s";
 
+    @Value("${oauth2.login.url}")
+    private String loginUrl;
+
     @Resource
     private MultiRepoFactory multiRepoFactory;
 
@@ -37,22 +36,24 @@ public class Oauth2ApplicationServiceImpl implements Oauth2ApplicationService {
 
 
     @Override
-    public void auth(ServerHttpRequest serverHttpRequest, HttpServletResponse response, String loginFor,
-        String... args) {
+    public void auth(HttpServletRequest request, HttpServletResponse response, String clientId,
+                     String... args) {
 
+//
+//        Oauth2Repository oauth2Repository = (Oauth2Repository) multiRepoFactory.getMultiDateSource(RepoRegisterConst.OAUTH2);
+//        List<ClientEntity> clientEntities = oauth2Repository.select(new ClientEntity().setCode(clientId));
+//        if (CollectionUtils.isEmpty(clientEntities)) {
+//            throw new BusinessException(BusinessExceptionEnum.AUTH_CLIENT_QUERY_NULL_ERROR);
+//        }
+//        ClientEntity clientEntity = clientEntities.get(0);
 
-        List<String> clientCodes = serverHttpRequest.getHeaders().get(Header.CLIENT_HEADER);
-        Oauth2Repository oauth2Repository = (Oauth2Repository) multiRepoFactory.getMultiDateSource(RepoRegisterConst.OAUTH2);
-        String clientCode = clientCodes.get(0);
-        List<ClientEntity> clientEntities = oauth2Repository.select(new ClientEntity().setCode(clientCode));
-
-        if (CollectionUtils.isEmpty(clientEntities)) {
-            throw new BusinessException(BusinessExceptionEnum.AUTH_CLIENT_QUERY_NULL_ERROR);
+        try {
+            response.sendRedirect(loginUrl.concat(request.getQueryString()));
+        } catch (IOException e) {
+            throw new BusinessException(BusinessExceptionEnum.AUTH_REDIRECT_LOGIN_URL_ERROR);
         }
-        ClientEntity clientEntity = clientEntities.get(0);
-        if (CollectionUtils.isEmpty(clientCodes)) {
-            throw new BusinessException(BusinessExceptionEnum.AUTH_REQUEST_CLIENT_NULL_ERROR);
-        }
+
+
 
     }
 }

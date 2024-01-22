@@ -30,6 +30,5 @@ public class UUIDUtils {
             builder.append(chars[x % 0x3E]);
         }
         return builder.toString();
-
     }
 }

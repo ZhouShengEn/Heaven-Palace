@@ -16,7 +16,14 @@ public interface CommonConst {
      * 当前线程持有用户信息
      */
     String KEY_USER_CACHE = "currentThreadUserCache";
-
+    /**
+     * 客户端id参数
+     */
+    String CLIENT_ID = "clientId";
+    /**
+     * 请求query连接符号
+     */
+    String REQUEST_QUERY_PARAM_LINK = "&";
     /**
      * 内部访问请求头：日志链路追踪痕迹
      */
@@ -38,12 +45,6 @@ public interface CommonConst {
          * 认证token前缀
          */
         String AUTH_HEADER_BEARER = "Bearer";
-
-        /**
-         * 请求头：客户端标识
-         */
-        String CLIENT_HEADER = "Client";
-
 
     }
 

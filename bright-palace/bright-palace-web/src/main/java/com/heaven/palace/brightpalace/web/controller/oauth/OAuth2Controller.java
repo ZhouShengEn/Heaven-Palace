@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -29,8 +30,8 @@ public class OAuth2Controller {
     @GetMapping(value = "code/auth")
     @ApiOperation(value = "基于授权码的登录接口")
     @IgnoreUserAuth
-    public void login(ServerHttpRequest serverHttpRequest, HttpServletResponse response
+    public void login(HttpServletRequest request, HttpServletResponse response
         , @RequestParam String clientId, @RequestParam(required = false) String... args) {
-        oauth2ApplicationService.auth(serverHttpRequest, response, clientId, args);
+        oauth2ApplicationService.auth(request, response, clientId, args);
     }
 }

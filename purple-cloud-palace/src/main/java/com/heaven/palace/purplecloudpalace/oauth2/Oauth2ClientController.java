@@ -1,5 +1,6 @@
 package com.heaven.palace.purplecloudpalace.oauth2;
 
+import cn.hutool.core.util.IdUtil;
 import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * @Author: zhoushengen
@@ -64,7 +64,7 @@ public class Oauth2ClientController {
         if (StringUtils.isEmpty(encryptCode)) {
             // 登录拦截，跳转至客户端对应的登录页面
 
-            String stateUuid = UUID.randomUUID().toString().replace("-", "");
+            String stateUuid = IdUtil.fastSimpleUUID();
             defaultObjectCache.setToCache(new CacheParam(CommonEnum.LOGIN_STATE_CACHE, stateUuid), loginFor);
 
             try {

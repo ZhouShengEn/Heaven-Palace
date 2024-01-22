@@ -1,7 +1,6 @@
 package com.heaven.palace.brightpalace.application.service.oauth2;
 
-import org.springframework.http.server.ServerHttpRequest;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -13,10 +12,10 @@ public interface Oauth2ApplicationService {
 
     /**
      * 登录认证
-     * @param serverHttpRequest
+     * @param request
      * @param response
-     * @param loginFor
+     * @param clientId
      * @param args
      */
-    void auth(ServerHttpRequest serverHttpRequest, HttpServletResponse response, String loginFor, String... args);
+    void auth(HttpServletRequest request, HttpServletResponse response, String clientId, String... args);
 }
