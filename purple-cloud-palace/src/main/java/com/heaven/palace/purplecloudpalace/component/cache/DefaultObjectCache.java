@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @DateTime: 2024/1/22 15:51
  **/
 @Component
-public class DefaultObjectCache extends AbstractRBucketCache<CacheParam, Object>{
+public class DefaultObjectCache extends AbstractRBucketCache<CacheParam, Object> {
 
     @Override
     protected Object getFromOther(CacheParam cacheParam) {

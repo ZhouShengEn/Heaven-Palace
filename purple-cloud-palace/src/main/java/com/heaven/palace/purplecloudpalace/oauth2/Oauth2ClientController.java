@@ -3,6 +3,7 @@ package com.heaven.palace.purplecloudpalace.oauth2;
 import cn.hutool.core.util.IdUtil;
 import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
+import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
@@ -39,7 +40,7 @@ public class Oauth2ClientController {
     /**
      * 服务端重定向认证模板
      */
-    public static final String SERVER_AUTH_REDIRECT_TEMPLATE = "?clientId=%s&redirectUrl=%s";
+    public static final String SERVER_AUTH_REDIRECT_TEMPLATE = "?clientId=%s&responseType=%sredirectUrl=%s";
 
     @Value("${oauth2.client.id}")
     private String clientId;
@@ -74,7 +75,8 @@ public class Oauth2ClientController {
             try {
                 String redirectUrl = URLEncoder.encode(loginUrl.concat("?stateUuid=").concat(stateUuid),
                     StandardCharsets.UTF_8.name());
-                response.sendRedirect(authUrl.concat(String.format(SERVER_AUTH_REDIRECT_TEMPLATE, clientId, redirectUrl)));
+                response.sendRedirect(authUrl.concat(String.format(SERVER_AUTH_REDIRECT_TEMPLATE, clientId
+                        , CommonConst.Oauth2ResponseType.CODE, redirectUrl)));
             } catch (IOException e) {
                 throw new BusinessException(CommonExceptionEnum.AUTH_REDIRECT_CLIENT_URL_ERROR);
             }

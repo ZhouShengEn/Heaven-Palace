@@ -26,7 +26,7 @@ public class MultiRepoFactory extends AbstractMultiFactory<MultiRepoInterface> {
     public MultiRepoInterface getMultiImplement(String repoRegisterCode) {
         // 默认使用天宫作为组织
         String orgCode =
-            Optional.ofNullable(CurrentBaseContext.getClientOrgCode()).orElse(SystemOrganizationCodeConst.HEAVEN_PALACE);
+            Optional.ofNullable(CurrentBaseContext.getOrgCode()).orElse(SystemOrganizationCodeConst.HEAVEN_PALACE);
         return multiInterfaceMap.get(repoRegisterCode.concat(orgCode));
     }
 

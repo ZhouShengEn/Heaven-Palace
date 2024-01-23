@@ -1,7 +1,7 @@
 package com.heaven.palace.brightpalace.web.controller.oauth2;
 
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
-import com.heaven.palace.brightpalace.application.service.oauth2.Oauth2ApplicationService;
+import com.heaven.palace.brightpalace.application.factory.auth.MultiOAuth2TypeFactory;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
 import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
 import io.swagger.annotations.Api;
@@ -29,13 +29,14 @@ import javax.validation.Valid;
 public class OAuth2Controller {
 
     @Resource
-    private Oauth2ApplicationService oauth2ApplicationService;
+    private MultiOAuth2TypeFactory multiOAuth2TypeFactory;
 
-    @GetMapping(value = "code/auth")
+    @GetMapping(value = "/auth")
     @ApiOperation(value = "OAuth2基于授权码认证")
     @IgnoreUserAuth
-    public void login(HttpServletRequest request, HttpServletResponse response, @RequestParam String clientId) {
-        oauth2ApplicationService.auth(request, response, clientId);
+    public void login(HttpServletRequest request, HttpServletResponse response, @RequestParam String clientId
+            , @RequestParam String responseType) {
+        multiOAuth2TypeFactory.getMultiImplement(responseType).auth(request, response, clientId);
     }
 
     @PostMapping(value = "/login")
@@ -43,7 +44,8 @@ public class OAuth2Controller {
     public GlobalRestResponse<Void> login(@RequestBody @Valid UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO
         , @RequestParam String responseType, @RequestParam String redirectUrl, HttpServletRequest request,
         HttpServletResponse response) {
-        oauth2ApplicationService.login(userLoginPhoneAndPasswordVO, responseType, redirectUrl, request, response);
+        multiOAuth2TypeFactory.getMultiImplement(responseType)
+                .login(userLoginPhoneAndPasswordVO, redirectUrl, request, response);
         return new GlobalRestResponse<>().message("登录成功！");
     }
 }

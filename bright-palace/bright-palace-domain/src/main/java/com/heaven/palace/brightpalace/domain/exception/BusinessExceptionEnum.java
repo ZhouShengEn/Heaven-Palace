@@ -43,6 +43,8 @@ public enum BusinessExceptionEnum implements BaseResult {
     AUTH_CLIENT_QUERY_NULL_ERROR(11002003, "认证失败，无效的客户端标识！"),
     AUTH_REDIRECT_LOGIN_URL_ERROR(11002004, "认证失败，重定向统一认证登陆页面失败！"),
     AUTH_REDIRECT_CLIENT_AUTH_URL_ERROR(11002005, "认证失败，重定向至客户端失败！"),
+    AUTH_RESPONSE_TYPE_MATCH_NULL_ERROR(11002006, "认证失败，不支持的认证类型！"),
+    AUTH_RESPONSE_TYPE_SERVICE_NULL_ERROR(11002007, "认证失败，未查询到可用的认证服务！"),
 
     /**
      * 登录错误

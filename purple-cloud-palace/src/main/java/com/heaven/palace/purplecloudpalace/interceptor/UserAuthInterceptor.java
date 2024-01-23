@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: zhoushengen
- * @Description: 用户认证拦截器
+ * @Description: 用户认证拦截器，要求所有业务系统必须注入此拦截器
  * @DateTime: 2024/1/10 9:39
  **/
 public class UserAuthInterceptor implements AsyncHandlerInterceptor {

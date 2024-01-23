@@ -13,6 +13,16 @@ public interface CommonConst {
     String KEY_USER_TOKEN = "currentThreadUserToken";
 
     /**
+     * 当前线程持有客户端ID
+     */
+    String KEY_CLIENT_ID = "currentThreadClientId";
+
+    /**
+     * 当前线程持有组织编码
+     */
+    String KEY_ORGANIZATION_CODE = "currentThreadOrgCode";
+
+    /**
      * 当前线程持有用户信息
      */
     String KEY_USER_CACHE = "currentThreadUserCache";
@@ -47,6 +57,17 @@ public interface CommonConst {
          * 认证token前缀
          */
         String AUTH_HEADER_BEARER = "Bearer";
+
+    }
+
+    /**
+     * 统一认证类型枚举
+     */
+    interface Oauth2ResponseType {
+        /**
+         * 授权码模式
+         */
+        String CODE = "code";
 
     }
 

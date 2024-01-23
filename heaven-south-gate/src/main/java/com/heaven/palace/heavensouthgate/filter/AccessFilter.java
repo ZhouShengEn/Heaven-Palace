@@ -3,9 +3,14 @@ package com.heaven.palace.heavensouthgate.filter;
 import com.alibaba.fastjson.JSON;
 import com.heaven.palace.heavensouthgate.enums.GlobalFilterConst;
 import com.heaven.palace.heavensouthgate.util.GatewayUtil;
+import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst;
+import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 import com.heaven.palace.jasperpalace.base.response.auth.TokenEmptyResponse;
+import com.heaven.palace.jasperpalace.base.response.auth.TokenExpireResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RBucket;
+import org.redisson.api.RedissonClient;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +37,9 @@ public class AccessFilter implements GlobalFilter {
     @Resource
     private WebClient.Builder webClientBuilder;
 
+    @Resource
+    private RedissonClient redissonClient;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
@@ -43,8 +51,17 @@ public class AccessFilter implements GlobalFilter {
         ServerHttpRequest request = exchange.getRequest();
 
         // token获取
-        if (null == GatewayUtil.obtainAuthorization(request)) {
+        String token;
+        if (null == (token = GatewayUtil.obtainAuthorization(request))) {
             return getVoidMono(exchange, new TokenEmptyResponse(), HttpStatus.UNAUTHORIZED);
+        }
+
+        // 这里直接引入redis不使用防腐层是因为不想引入紫霄宫庞大的组件依赖影响到网关应用，但同时需要网关读取缓存分担用户中心的压力
+        RBucket<CurrentBaseContext.UserCache> bucket = redissonClient
+                .getBucket(CommonCacheConst.AUTH_TOKEN_KEY_PREFIX + token);
+        CurrentBaseContext.UserCache userCache = bucket.get();
+        if (null == userCache) {
+            return getVoidMono(exchange, new TokenExpireResponse(), HttpStatus.UNAUTHORIZED);
         }
 
         // token认证+授权校验

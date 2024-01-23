@@ -44,14 +44,12 @@ public class CurrentBaseContext {
         return null == userCache ? null : userCache.getUsername();
     }
 
-    public static String getClientOrgCode(){
-        UserCache userCache = (UserCache) get(CommonConst.KEY_USER_CACHE);
-        return null == userCache ? null : userCache.getClientOrgCode();
+    public static String getOrgCode(){
+        return (String)get(CommonConst.KEY_ORGANIZATION_CODE);
     }
 
     public static String getClientId(){
-        UserCache userCache = (UserCache) get(CommonConst.KEY_USER_CACHE);
-        return null == userCache ? null : userCache.getClientId();
+        return (String)get(CommonConst.KEY_CLIENT_ID);
     }
 
     public static String getUserToken(){
@@ -62,6 +60,12 @@ public class CurrentBaseContext {
     }
     public static void setUserCache(UserCache userCache){
         THREAD_LOCAL.get().put(CommonConst.KEY_USER_CACHE, userCache);
+    }
+    public static void setClientId(String clientId){
+        THREAD_LOCAL.get().put(CommonConst.KEY_CLIENT_ID, clientId);
+    }
+    public static void setOrgCode(String orgCode){
+        THREAD_LOCAL.get().put(CommonConst.KEY_ORGANIZATION_CODE, orgCode);
     }
 
     public static void clear() {
@@ -82,16 +86,6 @@ public class CurrentBaseContext {
          * 用户名称
          */
         private String username;
-
-        /**
-         * 客户端所在组织编码
-         */
-        private String clientOrgCode;
-
-        /**
-         * 客户端id
-         */
-        private String clientId;
     }
 
 }

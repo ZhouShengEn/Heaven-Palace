@@ -1,14 +1,13 @@
 package com.heaven.palace.brightpalace.application.service.oauth2.impl;
 
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
+import com.heaven.palace.brightpalace.application.factory.auth.context.Oauth2TypeRegisterConst.ResponseTypeEnum;
 import com.heaven.palace.brightpalace.application.service.oauth2.Oauth2ApplicationService;
-import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.AuthAggregate;
 import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.entity.ClientEntity;
 import com.heaven.palace.brightpalace.domain.business.oauth2.repository.Oauth2Repository;
 import com.heaven.palace.brightpalace.domain.business.oauth2.service.Oauth2DomainService;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
-import com.heaven.palace.brightpalace.domain.factory.auth.context.Oauth2TypeRegisterConst.ResponseTypeEnum;
 import com.heaven.palace.brightpalace.domain.factory.repository.MultiRepoFactory;
 import com.heaven.palace.brightpalace.domain.factory.repository.context.RepoRegisterConst;
 import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
@@ -17,6 +16,7 @@ import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import com.heaven.palace.purplecloudpalace.util.AuthUtil;
 import com.heaven.palace.purplecloudpalace.util.MappingUtils;
+import com.heaven.palace.purplecloudpalace.util.UUIDUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -26,18 +26,20 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
  * @Author: zhoushengen
- * @Description: 统一认证应用服务接口实现
+ * @Description: 统一认证授权码应用服务实现
  * @DateTime: 2024/1/19 17:53
  **/
 @Service
 @Slf4j
-public class Oauth2ApplicationServiceImpl implements Oauth2ApplicationService {
+public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationService {
 
-    public static final String LOGIN_REDIRECT_TEMPLATE = "%s?responseType=%s&%s";
+    public static final String LOGIN_REDIRECT_TEMPLATE = "%s?%s";
 
     @Resource
     private MultiRepoFactory multiRepoFactory;
@@ -63,8 +65,8 @@ public class Oauth2ApplicationServiceImpl implements Oauth2ApplicationService {
         if (StringUtils.isEmpty(token) || null ==
             defaultObjectCache.getFromCache(new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE, token))) {
             try {
-                response.sendRedirect(String.format(LOGIN_REDIRECT_TEMPLATE, clientEntity.getLoginUrl(),
-                    ResponseTypeEnum.CODE.getType(), request.getQueryString()));
+                response.sendRedirect(String.format(LOGIN_REDIRECT_TEMPLATE, clientEntity.getLoginUrl()
+                        , request.getQueryString()));
             } catch (IOException e) {
                 throw new BusinessException(BusinessExceptionEnum.AUTH_REDIRECT_LOGIN_URL_ERROR);
             }
@@ -73,12 +75,21 @@ public class Oauth2ApplicationServiceImpl implements Oauth2ApplicationService {
     }
 
     @Override
-    public void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String responseType, String redirectUrl,
+    public void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String redirectUrl,
         HttpServletRequest request, HttpServletResponse response) {
+        oauth2DomainService
+                .loginByPasswordAndPhone(MappingUtils.beanConvert(userLoginPhoneAndPasswordVO, UserAggregate.class));
+        String code = UUIDUtils.generateUuid(8);
+        try {
+            String decodeUrl = URLDecoder.decode(redirectUrl, StandardCharsets.UTF_8.name());
+            response.sendRedirect(decodeUrl.concat("&code=").concat(code));
+        } catch (IOException e) {
+            throw new BusinessException(BusinessExceptionEnum.AUTH_REDIRECT_CLIENT_AUTH_URL_ERROR);
+        }
+    }
 
-        AuthAggregate authAggregate = oauth2DomainService.loginByPasswordAndPhone(
-            MappingUtils.beanConvert(userLoginPhoneAndPasswordVO, UserAggregate.class));
-
-
+    @Override
+    public String multiIdentity() {
+        return ResponseTypeEnum.CODE.getMarkIdentify();
     }
 }

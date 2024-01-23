@@ -93,3 +93,11 @@ logging:
 inner:
   access:
     keyMap: {serverName: nkhLyBFs96bKeCpLj3bl6KKjH1GYymj1f/+yL/041rM=}
+
+oauth2:
+  client:
+    id: peak-cloud-palace
+    secret: 123456
+    loginUrl: http://127.0.0.1:10003/peak-cloud/api/oauth2/login
+  server:
+    authUrl: http://127.0.0.1:10003/bright-palace/api/oauth2/auth

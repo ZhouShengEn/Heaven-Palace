@@ -11,6 +11,7 @@ import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 public class TokenEmptyResponse extends BaseResponse {
 
     public TokenEmptyResponse() {
-        super(CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getStatusCode(), CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getMessage());
+        super(CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getStatusCode()
+                , CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getMessage());
     }
 }
