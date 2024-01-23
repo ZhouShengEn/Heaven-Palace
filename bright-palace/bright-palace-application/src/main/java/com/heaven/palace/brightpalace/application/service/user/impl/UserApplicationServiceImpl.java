@@ -47,7 +47,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
         // 参数校验放在映射时的构造方法里
         UserAggregate userAggregate = MappingUtils.beanConvert(userLoginPhoneAndPasswordVO, UserAggregate.class);
         // todo 验证码校验
-        UserRepository userRepository = (UserRepository) multiRepoFactory.getMultiDateSource(RepoRegisterConst.USER);
+        UserRepository userRepository = (UserRepository) multiRepoFactory.getMultiImplement(RepoRegisterConst.USER);
         List<UserAggregate> userAggregates = userRepository.selectUser(userAggregate);
         if (CollectionUtils.isEmpty(userAggregates)) {
             throw new BusinessException(BusinessExceptionEnum.LOGIN_USER_QUERY_NULL_ERROR);
@@ -55,7 +55,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
         String query = request.getQueryString();
         if (null != query && query.contains(CommonConst.CLIENT_ID)) {
             String clientId = query.split(CommonConst.CLIENT_ID)[1].split(CommonConst.REQUEST_QUERY_PARAM_LINK)[0];
-            Oauth2Repository oauth2Repository = (Oauth2Repository) multiRepoFactory.getMultiDateSource(RepoRegisterConst.OAUTH2);
+            Oauth2Repository oauth2Repository = (Oauth2Repository) multiRepoFactory.getMultiImplement(RepoRegisterConst.OAUTH2);
             List<ClientEntity> clientEntities = oauth2Repository.select(new ClientEntity().setCode(clientId));
             if (CollectionUtils.isEmpty(clientEntities)) {
                 throw new BusinessException(BusinessExceptionEnum.AUTH_CLIENT_QUERY_NULL_ERROR);
@@ -76,7 +76,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     public void register(UserRegisterVO userRegisterVO) {
         // 参数校验放在映射时的构造方法里
         UserAggregate userAggregate = MappingUtils.beanConvert(userRegisterVO, UserAggregate.class);
-        UserRepository userRepository = (UserRepository) multiRepoFactory.getMultiDateSource(RepoRegisterConst.USER);
+        UserRepository userRepository = (UserRepository) multiRepoFactory.getMultiImplement(RepoRegisterConst.USER);
         List<UserAggregate> queryPhoneAggregates = userRepository.selectUser(
                 new UserAggregate()
                         .setMobilePhone(userAggregate.getMobilePhone())

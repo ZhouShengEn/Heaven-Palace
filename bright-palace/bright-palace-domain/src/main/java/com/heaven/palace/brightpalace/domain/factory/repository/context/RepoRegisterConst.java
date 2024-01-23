@@ -7,6 +7,11 @@ package com.heaven.palace.brightpalace.domain.factory.repository.context;
  **/
 public interface RepoRegisterConst {
 
-    String USER = "user";
-    String OAUTH2 = "oauth2";
+    /**
+     * 仓库注册名后缀
+     */
+    String REPO_REGISTER_SUFFIX = "Repo";
+
+    String USER = "user" + REPO_REGISTER_SUFFIX;
+    String OAUTH2 = "oauth2" + REPO_REGISTER_SUFFIX;
 }

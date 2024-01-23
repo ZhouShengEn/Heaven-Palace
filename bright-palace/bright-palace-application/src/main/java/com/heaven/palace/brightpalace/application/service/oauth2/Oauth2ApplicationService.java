@@ -1,5 +1,7 @@
 package com.heaven.palace.brightpalace.application.service.oauth2;
 
+import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,11 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 public interface Oauth2ApplicationService {
 
     /**
-     * 登录认证
+     * 认证
      * @param request
      * @param response
      * @param clientId
-     * @param args
      */
-    void auth(HttpServletRequest request, HttpServletResponse response, String clientId, String... args);
+    void auth(HttpServletRequest request, HttpServletResponse response, String clientId);
+
+    /**
+     * 用户登录
+     * @param userLoginPhoneAndPasswordVO
+     * @param responseType
+     * @param redirectUrl
+     * @param request
+     * @param response
+     */
+    void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String responseType, String redirectUrl
+        , HttpServletRequest request, HttpServletResponse response);
 }

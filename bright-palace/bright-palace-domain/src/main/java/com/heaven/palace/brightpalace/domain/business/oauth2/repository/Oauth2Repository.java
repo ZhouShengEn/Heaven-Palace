@@ -1,7 +1,7 @@
 package com.heaven.palace.brightpalace.domain.business.oauth2.repository;
 
 import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.entity.ClientEntity;
-import com.heaven.palace.jasperpalace.base.repository.MultiRepoInterface;
+import com.heaven.palace.jasperpalace.base.factory.repository.MultiRepoInterface;
 
 import java.util.List;
 

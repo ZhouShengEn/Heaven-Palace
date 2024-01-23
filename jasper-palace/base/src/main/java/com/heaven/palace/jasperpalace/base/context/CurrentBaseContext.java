@@ -3,6 +3,7 @@ package com.heaven.palace.jasperpalace.base.context;
 
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -43,9 +44,14 @@ public class CurrentBaseContext {
         return null == userCache ? null : userCache.getUsername();
     }
 
-    public static String getUserOrgCode(){
+    public static String getClientOrgCode(){
         UserCache userCache = (UserCache) get(CommonConst.KEY_USER_CACHE);
-        return null == userCache ? null : userCache.getOrgCode();
+        return null == userCache ? null : userCache.getClientOrgCode();
+    }
+
+    public static String getClientId(){
+        UserCache userCache = (UserCache) get(CommonConst.KEY_USER_CACHE);
+        return null == userCache ? null : userCache.getClientId();
     }
 
     public static String getUserToken(){
@@ -63,6 +69,7 @@ public class CurrentBaseContext {
     }
 
     @Data
+    @Accessors(chain = true)
     public static class UserCache implements Serializable {
         private static final long serialVersionUID = 9040610251351804329L;
 
@@ -77,9 +84,14 @@ public class CurrentBaseContext {
         private String username;
 
         /**
-         * 用户所在组织编码
+         * 客户端所在组织编码
          */
-        private String orgCode;
+        private String clientOrgCode;
+
+        /**
+         * 客户端id
+         */
+        private String clientId;
     }
 
 }

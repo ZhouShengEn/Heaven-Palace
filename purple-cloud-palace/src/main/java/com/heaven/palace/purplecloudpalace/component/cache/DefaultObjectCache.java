@@ -10,8 +10,16 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class DefaultObjectCache extends AbstractRBucketCache<CacheParam, Object>{
+
     @Override
     protected Object getFromOther(CacheParam cacheParam) {
         return null;
+    }
+    public <V> V getFromCache(CacheParam cacheParam, Class<V> clazz) {
+        Object fromCache = getFromCache(cacheParam);
+        return null != fromCache ? (V)fromCache : null;
+    }
+    public <V> void setToCache(CacheParam cacheParam, V value, Class<V> clazz) {
+        setToCache(cacheParam, value);
     }
 }

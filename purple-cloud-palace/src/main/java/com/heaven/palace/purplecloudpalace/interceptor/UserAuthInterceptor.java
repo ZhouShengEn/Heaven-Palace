@@ -1,17 +1,17 @@
 package com.heaven.palace.purplecloudpalace.interceptor;
 
 
+import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
+import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.auth.AuthenticationException;
 import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
-import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst;
+import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import com.heaven.palace.purplecloudpalace.util.AuthUtil;
 import com.heaven.palace.purplecloudpalace.util.SpringContextUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RBucket;
-import org.redisson.api.RedissonClient;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
@@ -39,11 +39,10 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
             throw new AuthenticationException(CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getStatusCode(),
                 CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR.getMessage());
         }
-        RedissonClient redissonClient = SpringContextUtils.getBean(RedissonClient.class);
-        RBucket<UserCache> userInfoBucketByToken
-            = redissonClient.getBucket(CommonCacheConst.AUTH_TOKEN_KEY_PREFIX.concat(token));
-        UserCache userCache;
-        if (null == (userCache = userInfoBucketByToken.get())) {
+        DefaultObjectCache defaultObjectCache = SpringContextUtils.getBean(DefaultObjectCache.class);
+        UserCache userCache = defaultObjectCache.getFromCache(new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE, token),
+            UserCache.class);
+        if (null == userCache) {
             throw new AuthenticationException(CommonExceptionEnum.AUTH_TOKEN_EXPIRE_ERROR.getStatusCode(),
                 CommonExceptionEnum.AUTH_TOKEN_EXPIRE_ERROR.getMessage());
         }

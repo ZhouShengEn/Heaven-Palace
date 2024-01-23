@@ -23,11 +23,15 @@ public class CommonCacheConst {
     public static final String OAUTH2_CACHE_PREFIX = BaseCacheConst.BASE_APPLICATION_CACHE_PRE_KEY + "oauth2:";
     public static final String LOGIN_STATE_PREFIX = OAUTH2_CACHE_PREFIX + "state:";
 
-    public enum CommonEnum implements ICacheParam {
+    public enum CommonCacheEnum implements ICacheParam {
         /**
          * 未授权目标url缓存
          */
-        LOGIN_STATE_CACHE(LOGIN_STATE_PREFIX, 5L, TimeUnit.MINUTES);
+        LOGIN_STATE_CACHE(LOGIN_STATE_PREFIX, 5L, TimeUnit.MINUTES),
+        /**
+         * token缓存
+         */
+        USER_AUTH_TOKEN_CACHE(AUTH_TOKEN_KEY_PREFIX, 5L, TimeUnit.HOURS),
         ;
 
         private final String prefixKey;
@@ -36,7 +40,7 @@ public class CommonCacheConst {
 
         private final TimeUnit timeUnit;
 
-        CommonEnum(String prefixKey, Long timeToLive, TimeUnit timeUnit) {
+        CommonCacheEnum(String prefixKey, Long timeToLive, TimeUnit timeUnit) {
             this.prefixKey = prefixKey;
             this.timeToLive = timeToLive;
             this.timeUnit = timeUnit;

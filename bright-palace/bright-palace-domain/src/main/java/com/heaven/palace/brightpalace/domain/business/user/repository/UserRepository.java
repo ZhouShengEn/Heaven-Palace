@@ -2,7 +2,7 @@ package com.heaven.palace.brightpalace.domain.business.user.repository;
 
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserRoleEntity;
-import com.heaven.palace.jasperpalace.base.repository.MultiRepoInterface;
+import com.heaven.palace.jasperpalace.base.factory.repository.MultiRepoInterface;
 
 import java.util.List;
 

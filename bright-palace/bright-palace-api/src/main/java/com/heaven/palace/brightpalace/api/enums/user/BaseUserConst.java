@@ -10,7 +10,7 @@ import lombok.Getter;
 public interface BaseUserConst {
 
     @Getter
-    public enum Status {
+    enum Status {
         ACTIVE(0, "使用中"),
         ;
 

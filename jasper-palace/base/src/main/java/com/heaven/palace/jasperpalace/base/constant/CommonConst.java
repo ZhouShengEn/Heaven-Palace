@@ -34,7 +34,9 @@ public interface CommonConst {
      */
     String LOG_SPAN_ID_HEADER = "spanId";
 
-
+    /**
+     * 请求头枚举
+     */
     interface Header {
         /**
          * 请求头：认证信息
