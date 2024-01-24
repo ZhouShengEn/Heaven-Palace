@@ -26,6 +26,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class UserAggregate implements AggregateRoot<PrimaryKey> {
 
+    private static final long serialVersionUID = -4470594073172746008L;
     private PrimaryKey id;
     /**
      * 用户名称

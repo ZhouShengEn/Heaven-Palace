@@ -1,4 +1,4 @@
-package com.heaven.palace.purplecloudpalace.interceptor;
+package com.heaven.palace.purplecloudpalace.feign.interceptor;
 
 
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;

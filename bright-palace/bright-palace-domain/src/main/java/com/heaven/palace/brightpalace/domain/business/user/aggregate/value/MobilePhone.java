@@ -16,11 +16,11 @@ public class MobilePhone extends ValidValueObject<String> {
     public MobilePhone(String phoneNumber) {
         // todo 手机号解密
         super(BusinessExceptionEnum.REGISTER_MOBILE_PHONE_NULL, BusinessExceptionEnum.REGISTER_MOBILE_PHONE_VALID_ERROR,
-            phoneNumber, null);
+            phoneNumber);
     }
 
     @Override
-    public Boolean isValid(String phoneNumber) {
+    public Boolean isValid(String phoneNumber, Object... validArgs) {
         return ReUtil.isMatch(PHONE_NUMBER_PATTERN, phoneNumber);
     }
 }

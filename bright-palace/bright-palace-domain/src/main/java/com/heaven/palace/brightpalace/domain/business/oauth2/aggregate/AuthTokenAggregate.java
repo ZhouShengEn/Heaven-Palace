@@ -14,23 +14,28 @@ import lombok.experimental.Accessors;
  **/
 @Data
 @Accessors(chain = true)
-public class AuthAggregate implements AggregateRoot<Token> {
+public class AuthTokenAggregate implements AggregateRoot<Token> {
 
+    private static final long serialVersionUID = 8690667130066042384L;
     private Token accessToken;
 
     private Token freshToken;
 
+    private Token clientToken;
+
     private UserAggregate userAggregate;
 
-    public AuthAggregate(UserAggregate userAggregate) {
+    public AuthTokenAggregate(UserAggregate userAggregate) {
         this.userAggregate = userAggregate;
         this.accessToken = new Token(generateToken());
         this.freshToken = new Token(generateToken());
+        this.clientToken = new Token(generateToken());
     }
 
-    public AuthAggregate() {
+    public AuthTokenAggregate() {
         this.accessToken = new Token(generateToken());
         this.freshToken = new Token(generateToken());
+        this.clientToken = new Token(generateToken());
     }
 
     /**

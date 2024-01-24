@@ -16,11 +16,11 @@ public class Email extends ValidValueObject<String> {
     public Email(String email) {
         super(BusinessExceptionEnum.REGISTER_EMAIL_NULL
             , BusinessExceptionEnum.REGISTER_EMAIL_VALID_ERROR
-            , email, null);
+            , email);
     }
 
     @Override
-    public Boolean isValid(String email) {
+    public Boolean isValid(String email, Object... validArgs) {
         return ReUtil.isMatch(EMAIL_PATTERN, email);
     }
 }

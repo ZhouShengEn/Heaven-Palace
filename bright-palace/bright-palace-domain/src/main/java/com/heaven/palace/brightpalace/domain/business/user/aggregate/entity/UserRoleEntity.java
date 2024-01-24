@@ -14,6 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class UserRoleEntity implements Entity<PrimaryKey> {
 
+    private static final long serialVersionUID = -1261869988830348296L;
     private PrimaryKey id;
 
     /**

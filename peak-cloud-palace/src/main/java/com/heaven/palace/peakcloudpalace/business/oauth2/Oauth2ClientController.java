@@ -1,4 +1,4 @@
-package com.heaven.palace.purplecloudpalace.oauth2;
+package com.heaven.palace.peakcloudpalace.business.oauth2;
 
 import cn.hutool.core.util.IdUtil;
 import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
@@ -8,6 +8,7 @@ import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
+import com.heaven.palace.purplecloudpalace.util.GeneralSecureUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -28,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @Author: zhoushengen
- * @Description: 统一认证客户端控制层
+ * @Description: 统一认证客户端控制层，以内部客户端授权码登录为例，第三方客户端对接统一认证时可参考
  * @DateTime: 2024/1/22 17:30
  **/
 @RestController
@@ -54,6 +55,9 @@ public class Oauth2ClientController {
     @Value("${oauth2.client.loginUrl}")
     private String loginUrl;
 
+    @Value("${oauth2.client.defaultHomePage}")
+    private String clientDefaultHomePage;
+
     @Resource
     private DefaultObjectCache defaultObjectCache;
 
@@ -61,15 +65,16 @@ public class Oauth2ClientController {
     @ApiOperation(value = "基于授权码的登录接口")
     @IgnoreUserAuth
     public void login(HttpServletRequest request, HttpServletResponse response
-        , @RequestParam(required = false) String loginFor, @RequestParam(required = false) String encryptCode) {
+        , @RequestParam(required = false) String loginFor, @RequestParam(required = false) String code,
+        @RequestParam(required = false) String stateUuid) {
 
-        if (!ObjectUtils.anyNotNull(loginFor, encryptCode)) {
+        if (!ObjectUtils.anyNotNull(loginFor, code)) {
             throw new BusinessException(CommonExceptionEnum.AUTH_REQUEST_PARAM_NULL_ERROR);
         }
 
-        if (StringUtils.isEmpty(encryptCode)) {
+        if (StringUtils.isEmpty(code)) {
             // 登录拦截，跳转至客户端对应的登录页面
-            String stateUuid = IdUtil.fastSimpleUUID();
+            stateUuid = IdUtil.fastSimpleUUID();
             // 缓存用户访问的资源页面
             defaultObjectCache.setToCache(new CacheParam(CommonCacheEnum.LOGIN_STATE_CACHE, stateUuid), loginFor);
             try {
@@ -81,7 +86,19 @@ public class Oauth2ClientController {
                 throw new BusinessException(CommonExceptionEnum.AUTH_REDIRECT_CLIENT_URL_ERROR);
             }
         } else {
-            // todo 授权码换取token
+            String loginForUrl;
+            // 授权码换取token
+            if (null == stateUuid || null == (loginForUrl = defaultObjectCache.getFromCache(
+                new CacheParam(CommonCacheEnum.LOGIN_STATE_CACHE, stateUuid), String.class))) {
+                loginForUrl = clientDefaultHomePage;
+            }
+            String encryptCode = GeneralSecureUtil.aesEncrypt(code, clientSecret);
+
+            try {
+                response.sendRedirect(loginForUrl);
+            } catch (Exception e) {
+                throw new BusinessException(CommonExceptionEnum.AUTH_REDIRECT_CLIENT_LOGIN_FOR_URL_ERROR);
+            }
 
         }
     }

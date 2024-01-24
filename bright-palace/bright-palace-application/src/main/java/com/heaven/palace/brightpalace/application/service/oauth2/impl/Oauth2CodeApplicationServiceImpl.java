@@ -1,15 +1,20 @@
 package com.heaven.palace.brightpalace.application.service.oauth2.impl;
 
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
 import com.heaven.palace.brightpalace.application.factory.auth.context.Oauth2TypeRegisterConst.ResponseTypeEnum;
 import com.heaven.palace.brightpalace.application.service.oauth2.Oauth2ApplicationService;
+import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.AuthTokenAggregate;
 import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.entity.ClientEntity;
+import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.value.Oauth2Code;
 import com.heaven.palace.brightpalace.domain.business.oauth2.repository.Oauth2Repository;
 import com.heaven.palace.brightpalace.domain.business.oauth2.service.Oauth2DomainService;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
 import com.heaven.palace.brightpalace.domain.factory.repository.MultiRepoFactory;
 import com.heaven.palace.brightpalace.domain.factory.repository.context.RepoRegisterConst;
+import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst;
 import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
@@ -39,7 +44,7 @@ import java.util.List;
 @Slf4j
 public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationService {
 
-    public static final String LOGIN_REDIRECT_TEMPLATE = "%s?%s";
+    public static final String LOGIN_REDIRECT_TEMPLATE = "%s?clientId=%s&%s";
 
     @Resource
     private MultiRepoFactory multiRepoFactory;
@@ -54,18 +59,13 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
     @Override
     public void auth(HttpServletRequest request, HttpServletResponse response, String clientId) {
 
-       Oauth2Repository oauth2Repository = (Oauth2Repository) multiRepoFactory.getMultiImplement(RepoRegisterConst.OAUTH2);
-       List<ClientEntity> clientEntities = oauth2Repository.select(new ClientEntity().setCode(clientId));
-       if (CollectionUtils.isEmpty(clientEntities)) {
-           throw new BusinessException(BusinessExceptionEnum.AUTH_CLIENT_QUERY_NULL_ERROR);
-       }
-       ClientEntity clientEntity = clientEntities.get(0);
+        ClientEntity clientEntity = getClientEntityByClientId(clientId);
         String token = AuthUtil.obtainAuthorization(request);
         // 确认token是否为空
         if (StringUtils.isEmpty(token) || null ==
             defaultObjectCache.getFromCache(new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE, token))) {
             try {
-                response.sendRedirect(String.format(LOGIN_REDIRECT_TEMPLATE, clientEntity.getLoginUrl()
+                response.sendRedirect(String.format(LOGIN_REDIRECT_TEMPLATE, clientId, clientEntity.getLoginUrl()
                         , request.getQueryString()));
             } catch (IOException e) {
                 throw new BusinessException(BusinessExceptionEnum.AUTH_REDIRECT_LOGIN_URL_ERROR);
@@ -75,11 +75,15 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
     }
 
     @Override
-    public void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String redirectUrl,
+    public void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String redirectUrl, String clientId,
         HttpServletRequest request, HttpServletResponse response) {
-        oauth2DomainService
-                .loginByPasswordAndPhone(MappingUtils.beanConvert(userLoginPhoneAndPasswordVO, UserAggregate.class));
+        AuthTokenAggregate authTokenAggregate = oauth2DomainService
+            .loginByPasswordAndPhone(MappingUtils.beanConvert(userLoginPhoneAndPasswordVO, UserAggregate.class));
         String code = UUIDUtils.generateUuid(8);
+        // token录入缓存
+        defaultObjectCache.setToCache(new CacheParam(CommonCacheConst.CommonCacheEnum.USER_AUTH_TOKEN_CACHE,
+                code.concat(":").concat(clientId)),
+            authTokenAggregate);
         try {
             String decodeUrl = URLDecoder.decode(redirectUrl, StandardCharsets.UTF_8.name());
             response.sendRedirect(decodeUrl.concat("&code=").concat(code));
@@ -88,6 +92,30 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
         }
     }
 
+    @Override
+    public Oauth2QueryTokenResVO queryToken(Oauth2QueryTokenReqVO queryTokenByCodeReqVO) {
+        String clientId = queryTokenByCodeReqVO.getClientId();
+        Oauth2Code oauth2Code = new Oauth2Code(queryTokenByCodeReqVO.getEncryptCode()
+            , getClientEntityByClientId(clientId).getSecret());
+        AuthTokenAggregate authTokenAggregate = defaultObjectCache.getFromCache(
+            new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE,
+                oauth2Code.getValue().concat(":").concat(clientId)), AuthTokenAggregate.class);
+        if (null == authTokenAggregate) {
+            throw new BusinessException(BusinessExceptionEnum.AUTH_OAUTH2_TOKEN_CACHE_NOT_HIT_ERROR);
+        }
+        // todo 获取缓存key剩余时间
+        return new Oauth2QueryTokenResVO().setAccessToken(authTokenAggregate.getClientToken().getToken());
+    }
+
+
+    private ClientEntity getClientEntityByClientId(String clientId) {
+        Oauth2Repository oauth2Repository = (Oauth2Repository) multiRepoFactory.getMultiImplement(RepoRegisterConst.OAUTH2);
+        List<ClientEntity> clientEntities = oauth2Repository.select(new ClientEntity().setCode(clientId));
+        if (CollectionUtils.isEmpty(clientEntities)) {
+            throw new BusinessException(BusinessExceptionEnum.AUTH_CLIENT_QUERY_NULL_ERROR);
+        }
+        return clientEntities.get(0);
+    }
     @Override
     public String multiIdentity() {
         return ResponseTypeEnum.CODE.getMarkIdentify();

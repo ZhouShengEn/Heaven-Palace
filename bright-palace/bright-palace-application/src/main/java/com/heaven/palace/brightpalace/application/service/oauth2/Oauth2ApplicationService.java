@@ -1,5 +1,7 @@
 package com.heaven.palace.brightpalace.application.service.oauth2;
 
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
 import com.heaven.palace.jasperpalace.base.factory.service.MultiServiceInterface;
 
@@ -25,9 +27,17 @@ public interface Oauth2ApplicationService extends MultiServiceInterface {
      * 用户登录
      * @param userLoginPhoneAndPasswordVO
      * @param redirectUrl
+     * @param clientId
      * @param request
      * @param response
      */
-    void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String redirectUrl
+    void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String redirectUrl, String clientId
         , HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 获取token
+     * @param queryTokenByCodeReqVO
+     * @return
+     */
+    Oauth2QueryTokenResVO queryToken(Oauth2QueryTokenReqVO queryTokenByCodeReqVO);
 }

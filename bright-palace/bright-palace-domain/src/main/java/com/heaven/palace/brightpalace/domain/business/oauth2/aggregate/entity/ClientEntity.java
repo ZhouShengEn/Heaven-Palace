@@ -14,6 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ClientEntity implements Entity<PrimaryKey> {
 
+    private static final long serialVersionUID = 7391818163423581468L;
     private PrimaryKey id;
     /**
      * 客户端编码

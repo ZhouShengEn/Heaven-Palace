@@ -18,7 +18,7 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
 
     private final T value;
 
-    public abstract Boolean isValid(T t);
+    public abstract Boolean isValid(T t, Object... validArgs);
 
     public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value, Callable<T> afterValid) {
         if (ObjectUtils.isEmpty(value)) {
@@ -32,6 +32,26 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value) {
+        if (ObjectUtils.isEmpty(value)) {
+            throw new BusinessException(nullResult);
+        }
+        if (!isValid(value)) {
+            throw new BusinessException(validErrorResult);
+        }
+        this.value = value;
+    }
+
+    public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value, Object... validArgs) {
+        if (ObjectUtils.isEmpty(value)) {
+            throw new BusinessException(nullResult);
+        }
+        if (!isValid(value, validArgs)) {
+            throw new BusinessException(validErrorResult);
+        }
+        this.value = value;
     }
 
     @Override

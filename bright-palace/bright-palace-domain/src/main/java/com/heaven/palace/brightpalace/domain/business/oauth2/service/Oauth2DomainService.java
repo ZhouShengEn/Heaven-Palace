@@ -1,6 +1,6 @@
 package com.heaven.palace.brightpalace.domain.business.oauth2.service;
 
-import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.AuthAggregate;
+import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.AuthTokenAggregate;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
 
 /**
@@ -14,5 +14,5 @@ public interface Oauth2DomainService {
      * 用户登录-密码&手机号
      * @param userAggregate
      */
-    AuthAggregate loginByPasswordAndPhone(UserAggregate userAggregate);
+    AuthTokenAggregate loginByPasswordAndPhone(UserAggregate userAggregate);
 }

@@ -29,6 +29,7 @@ public enum CommonExceptionEnum implements BaseResult {
     AUTH_REQUEST_CLIENT_NULL_ERROR(10001005, "认证失败，无客户端标识！"),
     AUTH_CLIENT_QUERY_NULL_ERROR(10001006, "认证失败，无效的客户端标识！"),
     AUTH_REDIRECT_CLIENT_URL_ERROR(10001007, "认证失败，客户端重定向授权链接调用失败！"),
+    AUTH_REDIRECT_CLIENT_LOGIN_FOR_URL_ERROR(10001008, "客户端重定向目标页面失败！"),
 
     ;
 

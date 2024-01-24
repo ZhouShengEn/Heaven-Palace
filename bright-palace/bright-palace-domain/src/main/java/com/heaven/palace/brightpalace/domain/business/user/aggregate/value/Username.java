@@ -21,12 +21,12 @@ public class Username extends ValidValueObject<String> {
     public Username(String username) {
         super(BusinessExceptionEnum.REGISTER_USERNAME_NULL
             , BusinessExceptionEnum.REGISTER_USERNAME_VALID_ERROR
-            , username, null);
+            , username);
     }
 
 
     @Override
-    public Boolean isValid(String username) {
+    public Boolean isValid(String username, Object... validArgs) {
         return ReUtil.isMatch(USERNAME_PATTERN, username);
     }
 }

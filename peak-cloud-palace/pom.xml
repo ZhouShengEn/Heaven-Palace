@@ -23,8 +23,8 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.heaven.palace</groupId>
-            <artifactId>jasper-palace</artifactId>
+            <groupId>com.heaven.palace.bright-palace</groupId>
+            <artifactId>bright-palace-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 

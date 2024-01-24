@@ -42,10 +42,10 @@ public class OAuth2Controller {
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户账户密码手机号双因子登录")
     public GlobalRestResponse<Void> login(@RequestBody @Valid UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO
-        , @RequestParam String responseType, @RequestParam String redirectUrl, HttpServletRequest request,
-        HttpServletResponse response) {
+        , @RequestParam String responseType, @RequestParam String redirectUrl, @RequestParam String clientId,
+        HttpServletRequest request, HttpServletResponse response) {
         multiOAuth2TypeFactory.getMultiImplement(responseType)
-                .login(userLoginPhoneAndPasswordVO, redirectUrl, request, response);
+                .login(userLoginPhoneAndPasswordVO, redirectUrl, clientId, request, response);
         return new GlobalRestResponse<>().message("登录成功！");
     }
 }

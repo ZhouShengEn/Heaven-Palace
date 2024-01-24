@@ -11,4 +11,9 @@ public interface ApiConst {
      * 用户相关api
      */
     String USER_API_PREFIX = "/user";
+
+    /**
+     * 统一认证相关api
+     */
+    String OAUTH2_API_PREFIX = "/oauth2";
 }
