@@ -7,7 +7,7 @@ import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.auth.AuthenticationException;
-import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
+import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import com.heaven.palace.purplecloudpalace.util.AuthUtil;
 import com.heaven.palace.purplecloudpalace.util.SpringContextUtils;

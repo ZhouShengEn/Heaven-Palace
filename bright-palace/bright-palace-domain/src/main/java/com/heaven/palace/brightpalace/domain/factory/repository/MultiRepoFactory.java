@@ -7,6 +7,8 @@ import com.heaven.palace.jasperpalace.base.factory.repository.MultiRepoInterface
 import com.heaven.palace.jasperpalace.business.system.context.SystemOrganizationCodeConst;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -16,6 +18,14 @@ import java.util.Optional;
  **/
 @Component
 public class MultiRepoFactory extends AbstractMultiFactory<MultiRepoInterface> {
+
+    @Resource
+    private List<MultiRepoInterface> multiInterfaces;
+
+    @Override
+    public List<MultiRepoInterface> getMultiInterfaces() {
+        return multiInterfaces;
+    }
 
     /**
      *

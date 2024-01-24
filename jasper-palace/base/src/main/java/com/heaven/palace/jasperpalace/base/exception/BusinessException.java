@@ -1,5 +1,7 @@
 package com.heaven.palace.jasperpalace.base.exception;
 
+import com.heaven.palace.jasperpalace.base.response.BaseResponse;
+
 /**
  * @author zhoushengen
  * @version 1.0
@@ -25,6 +27,11 @@ public class BusinessException extends RuntimeException implements BaseResult {
     public BusinessException(BaseResult baseResult) {
         this.message = baseResult.getMessage();
         this.statusCode = baseResult.getStatusCode();
+    }
+
+    public BusinessException(BaseResponse baseResponse) {
+        this.message = baseResponse.getMessage();
+        this.statusCode = baseResponse.getStatusCode();
     }
 
     public int getStatusCode() {

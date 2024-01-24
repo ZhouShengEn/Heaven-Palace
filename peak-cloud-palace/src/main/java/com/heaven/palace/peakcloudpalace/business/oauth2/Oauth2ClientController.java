@@ -1,14 +1,19 @@
 package com.heaven.palace.peakcloudpalace.business.oauth2;
 
 import cn.hutool.core.util.IdUtil;
+import com.heaven.palace.brightpalace.api.api.oauth2.Oauth2Api;
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
 import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
-import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
+import com.heaven.palace.jasperpalace.base.exception.EncryptException;
+import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
+import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
-import com.heaven.palace.purplecloudpalace.util.GeneralSecureUtil;
+import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -23,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -41,7 +45,7 @@ public class Oauth2ClientController {
     /**
      * 服务端重定向认证模板
      */
-    public static final String SERVER_AUTH_REDIRECT_TEMPLATE = "?clientId=%s&responseType=%sredirectUrl=%s";
+    public static final String SERVER_AUTH_REDIRECT_TEMPLATE = "?clientId=%s&responseType=%s&redirectUrl=%s";
 
     @Value("${oauth2.client.id}")
     private String clientId;
@@ -60,6 +64,9 @@ public class Oauth2ClientController {
 
     @Resource
     private DefaultObjectCache defaultObjectCache;
+
+    @Resource
+    private Oauth2Api oauth2Api;
 
     @GetMapping(value = "/login")
     @ApiOperation(value = "基于授权码的登录接口")
@@ -82,7 +89,7 @@ public class Oauth2ClientController {
                     StandardCharsets.UTF_8.name());
                 response.sendRedirect(authUrl.concat(String.format(SERVER_AUTH_REDIRECT_TEMPLATE, clientId
                         , CommonConst.Oauth2ResponseType.CODE, redirectUrl)));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new BusinessException(CommonExceptionEnum.AUTH_REDIRECT_CLIENT_URL_ERROR);
             }
         } else {
@@ -92,9 +99,23 @@ public class Oauth2ClientController {
                 new CacheParam(CommonCacheEnum.LOGIN_STATE_CACHE, stateUuid), String.class))) {
                 loginForUrl = clientDefaultHomePage;
             }
-            String encryptCode = GeneralSecureUtil.aesEncrypt(code, clientSecret);
-
+            String encryptCode = null;
             try {
+                encryptCode = RandomAESEncryptUtils.encryptForString(code, clientSecret);
+            } catch (EncryptException e) {
+                throw new RuntimeException(e);
+            }
+
+            GlobalRestResponse<Oauth2QueryTokenResVO> queryTokenRes = oauth2Api.queryToken(new Oauth2QueryTokenReqVO()
+                    .setClientId(clientId)
+                    .setEncryptCode(encryptCode)
+                    .setResponseType(CommonConst.Oauth2ResponseType.CODE));
+            if (!GlobalRestResponse.success(queryTokenRes)) {
+                throw new BusinessException(queryTokenRes);
+            }
+            String accessToken = queryTokenRes.getData().getAccessToken();
+            try {
+                response.addHeader(CommonConst.Header.AUTH_HEADER, CommonConst.Header.AUTH_HEADER_BEARER.concat(accessToken));
                 response.sendRedirect(loginForUrl);
             } catch (Exception e) {
                 throw new BusinessException(CommonExceptionEnum.AUTH_REDIRECT_CLIENT_LOGIN_FOR_URL_ERROR);

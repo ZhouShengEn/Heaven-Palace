@@ -15,7 +15,7 @@ import java.util.TimeZone;
 @EnableTransactionManagement
 @ServletComponentScan
 @ComponentScan({"com.heaven.palace"})
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.heaven.palace"})
 public class PeakCloudPalaceApplication {
 
     protected final static Logger logger = LoggerFactory.getLogger(PeakCloudPalaceApplication.class);

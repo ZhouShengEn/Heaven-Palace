@@ -4,6 +4,7 @@ import com.heaven.palace.brightpalace.api.api.oauth2.Oauth2Api;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
 import com.heaven.palace.brightpalace.application.factory.auth.MultiOAuth2TypeFactory;
+import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ public class Oauth2ApiImpl implements Oauth2Api {
     private MultiOAuth2TypeFactory multiOAuth2TypeFactory;
 
     @Override
+    @IgnoreUserAuth
     public GlobalRestResponse<Oauth2QueryTokenResVO> queryToken(Oauth2QueryTokenReqVO queryTokenByCodeReqVO) {
         return new GlobalRestResponse<>().data(multiOAuth2TypeFactory
             .getMultiImplement(queryTokenByCodeReqVO.getResponseType()).queryToken(queryTokenByCodeReqVO));

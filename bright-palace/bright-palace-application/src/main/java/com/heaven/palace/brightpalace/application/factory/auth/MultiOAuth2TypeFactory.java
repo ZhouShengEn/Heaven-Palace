@@ -7,6 +7,9 @@ import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.base.factory.AbstractMultiFactory;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * @Author: zhoushengen
  * @Description: 统一认证多类型授权工厂类
@@ -14,6 +17,14 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class MultiOAuth2TypeFactory extends AbstractMultiFactory<Oauth2ApplicationService> {
+
+    @Resource
+    private List<Oauth2ApplicationService> multiInterfaces;
+
+    @Override
+    public List<Oauth2ApplicationService> getMultiInterfaces() {
+        return multiInterfaces;
+    }
 
     public Oauth2ApplicationService getMultiImplement(String multiIdentity) {
         Oauth2ApplicationService oauth2ApplicationService = multiInterfaceMap
@@ -23,5 +34,4 @@ public class MultiOAuth2TypeFactory extends AbstractMultiFactory<Oauth2Applicati
         }
         return oauth2ApplicationService;
     }
-
 }

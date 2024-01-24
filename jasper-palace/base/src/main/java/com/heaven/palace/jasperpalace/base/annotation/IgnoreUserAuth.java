@@ -1,4 +1,4 @@
-package com.heaven.palace.purplecloudpalace.aop.annotation;
+package com.heaven.palace.jasperpalace.base.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

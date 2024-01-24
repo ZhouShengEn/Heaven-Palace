@@ -30,7 +30,6 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -44,7 +43,7 @@ import java.util.List;
 @Slf4j
 public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationService {
 
-    public static final String LOGIN_REDIRECT_TEMPLATE = "%s?clientId=%s&%s";
+    public static final String LOGIN_REDIRECT_TEMPLATE = "%s?%s";
 
     @Resource
     private MultiRepoFactory multiRepoFactory;
@@ -65,9 +64,9 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
         if (StringUtils.isEmpty(token) || null ==
             defaultObjectCache.getFromCache(new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE, token))) {
             try {
-                response.sendRedirect(String.format(LOGIN_REDIRECT_TEMPLATE, clientId, clientEntity.getLoginUrl()
+                response.sendRedirect(String.format(LOGIN_REDIRECT_TEMPLATE, clientEntity.getLoginUrl()
                         , request.getQueryString()));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new BusinessException(BusinessExceptionEnum.AUTH_REDIRECT_LOGIN_URL_ERROR);
             }
         }
@@ -87,7 +86,7 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
         try {
             String decodeUrl = URLDecoder.decode(redirectUrl, StandardCharsets.UTF_8.name());
             response.sendRedirect(decodeUrl.concat("&code=").concat(code));
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new BusinessException(BusinessExceptionEnum.AUTH_REDIRECT_CLIENT_AUTH_URL_ERROR);
         }
     }
@@ -97,14 +96,16 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
         String clientId = queryTokenByCodeReqVO.getClientId();
         Oauth2Code oauth2Code = new Oauth2Code(queryTokenByCodeReqVO.getEncryptCode()
             , getClientEntityByClientId(clientId).getSecret());
+        CacheParam userAuthCacheParam = new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE,
+                oauth2Code.getValue().concat(":").concat(clientId));
         AuthTokenAggregate authTokenAggregate = defaultObjectCache.getFromCache(
-            new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE,
-                oauth2Code.getValue().concat(":").concat(clientId)), AuthTokenAggregate.class);
+                userAuthCacheParam, AuthTokenAggregate.class);
         if (null == authTokenAggregate) {
             throw new BusinessException(BusinessExceptionEnum.AUTH_OAUTH2_TOKEN_CACHE_NOT_HIT_ERROR);
         }
-        // todo 获取缓存key剩余时间
-        return new Oauth2QueryTokenResVO().setAccessToken(authTokenAggregate.getClientToken().getToken());
+        return new Oauth2QueryTokenResVO()
+                .setAccessToken(authTokenAggregate.getClientToken().getToken())
+                .setExpireTime(defaultObjectCache.getCacheRemainToLive(userAuthCacheParam));
     }
 
 

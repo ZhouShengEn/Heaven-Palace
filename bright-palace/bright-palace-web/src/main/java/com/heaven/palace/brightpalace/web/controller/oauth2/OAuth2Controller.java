@@ -3,7 +3,7 @@ package com.heaven.palace.brightpalace.web.controller.oauth2;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
 import com.heaven.palace.brightpalace.application.factory.auth.MultiOAuth2TypeFactory;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
-import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
+import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +41,7 @@ public class OAuth2Controller {
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户账户密码手机号双因子登录")
+    @IgnoreUserAuth
     public GlobalRestResponse<Void> login(@RequestBody @Valid UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO
         , @RequestParam String responseType, @RequestParam String redirectUrl, @RequestParam String clientId,
         HttpServletRequest request, HttpServletResponse response) {

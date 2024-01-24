@@ -1,7 +1,6 @@
 package com.heaven.palace.jasperpalace.base.factory;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,12 +14,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class AbstractMultiFactory<T extends MultiInterface> {
     public final Map<String, T> multiInterfaceMap = new ConcurrentHashMap<>(1);
 
-    @Resource
-    private List<T> multiInterfaces;
+    public abstract List<T> getMultiInterfaces();
 
     @PostConstruct
     public void initMultiCloudRemoteService(){
-        for (T multiInterface : multiInterfaces) {
+        for (T multiInterface : getMultiInterfaces()) {
             Optional.ofNullable(multiInterface.multiIdentity()).ifPresent(key -> multiInterfaceMap.put(key,
                 multiInterface));
         }

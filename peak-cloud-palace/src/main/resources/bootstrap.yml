@@ -1,6 +1,8 @@
 server:
   port: 10003
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: peak-cloud-palace
   cloud:
@@ -8,7 +10,7 @@ spring:
       config:
         file-extension: yaml
         server-addr: 127.0.0.1:8848
-        namespace: d09ef493-6a2e-4476-8a43-0585fe4507c3
+        namespace: fb864f2e-04cd-4b7f-bade-c694784aa2d8
         group: Heaven
         shared-configs:
           - data-id: common.yaml
@@ -19,7 +21,7 @@ spring:
 #            refresh: true
 #            group: Heaven
       discovery:
-        namespace: d09ef493-6a2e-4476-8a43-0585fe4507c3
+        namespace: fb864f2e-04cd-4b7f-bade-c694784aa2d8
         group: Heaven
         server-addr: 127.0.0.1:8848
         # ephemeral: false # false表示开启永久实例在nocos上不会从服务列表中删除

@@ -7,6 +7,8 @@ package com.heaven.palace.brightpalace.api.enums;
  */
 public interface ApiConst {
 
+    String FEIGN_SERVICE_NAME = "bright-palace";
+
     /**
      * 用户相关api
      */
@@ -15,5 +17,5 @@ public interface ApiConst {
     /**
      * 统一认证相关api
      */
-    String OAUTH2_API_PREFIX = "/oauth2";
+    String OAUTH2_API_PREFIX = "/api/oauth2";
 }

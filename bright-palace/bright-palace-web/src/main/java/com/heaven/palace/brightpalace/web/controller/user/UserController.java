@@ -4,7 +4,7 @@ import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordV
 import com.heaven.palace.brightpalace.api.api.user.vo.UserRegisterVO;
 import com.heaven.palace.brightpalace.application.service.user.UserApplicationService;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
-import com.heaven.palace.purplecloudpalace.aop.annotation.IgnoreUserAuth;
+import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;

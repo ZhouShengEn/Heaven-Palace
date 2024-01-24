@@ -3,6 +3,7 @@ package com.heaven.palace.brightpalace.api.api.oauth2.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  **/
 @ApiModel(value = "统一认证获取token-入参")
 @Data
+@Accessors(chain = true)
 public class Oauth2QueryTokenReqVO implements Serializable {
     private static final long serialVersionUID = 1666429436058255537L;
 

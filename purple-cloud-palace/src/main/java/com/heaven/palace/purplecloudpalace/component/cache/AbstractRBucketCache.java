@@ -62,4 +62,10 @@ public abstract class AbstractRBucketCache<K extends CacheParam, V> extends Abst
     public Lock getLock(String cacheLockKey) {
         return redissonClient.getLock(cacheLockKey);
     }
+
+    @Override
+    public long getCacheRemainToLive(K cacheParam) {
+        RBucket<V> bucket = getVrBucketWithCacheParam(cacheParam);
+        return bucket.remainTimeToLive();
+    }
 }

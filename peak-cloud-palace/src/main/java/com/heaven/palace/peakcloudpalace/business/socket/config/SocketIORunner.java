@@ -4,10 +4,10 @@ import com.corundumstudio.socketio.SocketIONamespace;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.heaven.palace.purplecloudpalace.socket.context.SocketNamespaceEnum;
 import com.heaven.palace.purplecloudpalace.socket.handle.AbstractMessageEventHandler;
-import javax.annotation.Resource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @Component
 public class SocketIORunner implements CommandLineRunner {
 
-    @Resource(required = false)
+    @Resource
     private SocketIOServer server;
 
     @Resource

@@ -65,4 +65,10 @@ public abstract class AbstractRMapCache<T, K extends RMapCacheParam<T>, V> exten
     public Lock getLock(String cacheLockKey) {
         return redissonClient.getLock(cacheLockKey);
     }
+
+    @Override
+    public long getCacheRemainToLive(K cacheParam) {
+        RMapCache<T, V> map = getVrMapWithCacheParam(cacheParam);
+        return map.remainTimeToLive(cacheParam.getMapKey());
+    }
 }

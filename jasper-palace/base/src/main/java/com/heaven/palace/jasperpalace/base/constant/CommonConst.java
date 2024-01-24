@@ -56,7 +56,7 @@ public interface CommonConst {
         /**
          * 认证token前缀
          */
-        String AUTH_HEADER_BEARER = "Bearer";
+        String AUTH_HEADER_BEARER = "Bearer ";
 
     }
 

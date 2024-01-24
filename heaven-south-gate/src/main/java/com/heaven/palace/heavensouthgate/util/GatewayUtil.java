@@ -20,9 +20,9 @@ public class GatewayUtil {
         String authorization;
         if (null == request || request.getHeaders().isEmpty()
             || StringUtils.isEmpty(authorization = request.getHeaders().getFirst(CommonConst.Header.AUTH_HEADER))
-            || !authorization.startsWith(CommonConst.Header.AUTH_HEADER_BEARER.concat(" "))) {
+            || !authorization.startsWith(CommonConst.Header.AUTH_HEADER_BEARER)) {
             return null;
         }
-        return authorization.replaceFirst(CommonConst.Header.AUTH_HEADER_BEARER.concat(" "), "");
+        return authorization.replaceFirst(CommonConst.Header.AUTH_HEADER_BEARER, "");
     }
 }

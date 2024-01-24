@@ -15,8 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BaseResponse {
+
+    protected static final int SUCCESS_RESPONSE_CODE = 200;
+
     @ApiModelProperty(required = true, notes = "响应状态码：200-成功")
-    private int statusCode = 200;
+    private int statusCode = SUCCESS_RESPONSE_CODE;
     @ApiModelProperty(required = true, notes = "响应消息")
     private String message;
 }

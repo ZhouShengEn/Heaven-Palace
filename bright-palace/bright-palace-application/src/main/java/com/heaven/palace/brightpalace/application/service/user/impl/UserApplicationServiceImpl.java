@@ -64,7 +64,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
             if (StringUtils.isNotEmpty(clientEntity.getLoginUrl())) {
                 try {
                     response.sendRedirect(clientEntity.getLoginUrl().concat(query));
-                } catch (IOException e) {
+                } catch (Exception e) {
                     throw new BusinessException(BusinessExceptionEnum.AUTH_REDIRECT_CLIENT_AUTH_URL_ERROR);
                 }
             }

@@ -38,8 +38,10 @@ public class AuthFeignInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
         // 添加token
-        requestTemplate.header(CommonConst.Header.AUTH_HEADER,
-            CommonConst.Header.AUTH_HEADER_BEARER.concat(" ").concat(CurrentBaseContext.getUserToken()));
+        if (null != CurrentBaseContext.getUserToken()) {
+            requestTemplate.header(CommonConst.Header.AUTH_HEADER,
+                    CommonConst.Header.AUTH_HEADER_BEARER.concat(CurrentBaseContext.getUserToken()));
+        }
         //添加全局traceId
         requestTemplate.header(CommonConst.LOG_TRACE_ID_HEADER, MDC.get( CommonConst.LOG_TRACE_ID_HEADER));
         //添加该服务的spanId

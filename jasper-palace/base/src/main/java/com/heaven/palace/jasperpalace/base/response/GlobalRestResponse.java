@@ -36,5 +36,9 @@ public class GlobalRestResponse<T> extends BaseResponse {
         return this;
     }
 
+    public static Boolean success(GlobalRestResponse response) {
+        return SUCCESS_RESPONSE_CODE == response.getStatusCode();
+    }
+
 
 }

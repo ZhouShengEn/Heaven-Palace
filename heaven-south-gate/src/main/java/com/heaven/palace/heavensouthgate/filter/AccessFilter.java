@@ -56,7 +56,7 @@ public class AccessFilter implements GlobalFilter {
             return getVoidMono(exchange, new TokenEmptyResponse(), HttpStatus.UNAUTHORIZED);
         }
 
-        // 这里直接引入redis不使用防腐层是因为不想引入紫霄宫庞大的组件依赖影响到网关应用，但同时需要网关读取缓存分担用户中心的压力
+        // 这里直接引入redis不使用防腐层是因为不想引入紫霄宫庞大的组件依赖影响到网关，但同时需要网关读取缓存分担用户中心的压力
         RBucket<CurrentBaseContext.UserCache> bucket = redissonClient
                 .getBucket(CommonCacheConst.AUTH_TOKEN_KEY_PREFIX + token);
         CurrentBaseContext.UserCache userCache = bucket.get();

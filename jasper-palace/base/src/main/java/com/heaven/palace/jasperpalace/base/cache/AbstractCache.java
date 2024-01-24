@@ -199,6 +199,14 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
      */
     protected abstract V getFromOther(K cacheParam);
 
+    /**
+     * 获取缓存剩余存活时间
+     *
+     * @param cacheParam
+     * @return
+     */
+    public abstract long getCacheRemainToLive(K cacheParam);
+
 
     private class SetCacheTask implements Runnable {
 

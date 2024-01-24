@@ -10,6 +10,7 @@ import com.heaven.palace.brightpalace.domain.factory.repository.context.RepoRegi
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
