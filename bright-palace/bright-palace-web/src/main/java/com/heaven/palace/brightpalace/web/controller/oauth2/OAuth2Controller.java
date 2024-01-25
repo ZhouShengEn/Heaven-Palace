@@ -2,16 +2,11 @@ package com.heaven.palace.brightpalace.web.controller.oauth2;
 
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
 import com.heaven.palace.brightpalace.application.factory.auth.MultiOAuth2TypeFactory;
-import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
 import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
+import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,9 +29,10 @@ public class OAuth2Controller {
     @GetMapping(value = "/auth")
     @ApiOperation(value = "OAuth2基于授权码认证")
     @IgnoreUserAuth
-    public void login(HttpServletRequest request, HttpServletResponse response, @RequestParam String clientId
+    public GlobalRestResponse<Void> login(HttpServletRequest request, HttpServletResponse response, @RequestParam String clientId
             , @RequestParam String responseType) {
         multiOAuth2TypeFactory.getMultiImplement(responseType).auth(request, response, clientId);
+        return GlobalRestResponse.success("认证成功！");
     }
 
     @PostMapping(value = "/login")
@@ -47,6 +43,7 @@ public class OAuth2Controller {
         HttpServletRequest request, HttpServletResponse response) {
         multiOAuth2TypeFactory.getMultiImplement(responseType)
                 .login(userLoginPhoneAndPasswordVO, redirectUrl, clientId, request, response);
-        return new GlobalRestResponse<>().message("登录成功！");
+        return GlobalRestResponse.success("登录成功！");
     }
+
 }

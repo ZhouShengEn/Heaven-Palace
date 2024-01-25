@@ -17,12 +17,12 @@ import javax.validation.Valid;
  * @Description: 统一认证api
  * @DateTime: 2024/1/24 16:38
  **/
-@FeignClient(value = ApiConst.FEIGN_SERVICE_NAME, path = ApiConst.OAUTH2_API_PREFIX)
+@FeignClient(name = ApiConst.FEIGN_SERVICE_NAME)
 @Api(tags = "统一认证api")
 public interface Oauth2Api {
 
 
-    @PostMapping(value = "/queryToken")
+    @PostMapping(value = ApiConst.OAUTH2_API_PREFIX + "/queryToken")
     @ApiOperation(value = "获取token")
     GlobalRestResponse<Oauth2QueryTokenResVO> queryToken(@Valid @RequestBody Oauth2QueryTokenReqVO queryTokenByCodeReqVO);
 

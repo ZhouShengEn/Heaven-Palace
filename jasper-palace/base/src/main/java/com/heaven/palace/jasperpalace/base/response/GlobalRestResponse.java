@@ -1,8 +1,11 @@
 package com.heaven.palace.jasperpalace.base.response;
 
+import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+
+import java.util.Objects;
 
 /**
  * @author 10733
@@ -36,8 +39,24 @@ public class GlobalRestResponse<T> extends BaseResponse {
         return this;
     }
 
-    public static Boolean success(GlobalRestResponse response) {
-        return SUCCESS_RESPONSE_CODE == response.getStatusCode();
+    public static Boolean isSuccess(GlobalRestResponse response) {
+        return Objects.equals(response.getStatusCode(), SUCCESS_RESPONSE_CODE);
+    }
+
+    public static void checkAndThrow(GlobalRestResponse response) {
+        if (!isSuccess(response)) {
+            throw new BusinessException(response);
+        }
+    }
+
+    public static <T> GlobalRestResponse<T> success(T date) {
+        GlobalRestResponse<T> response = new GlobalRestResponse<>();
+        return response.setData(date);
+    }
+
+    public static <T> GlobalRestResponse<T> success(String message) {
+        GlobalRestResponse<T> response = new GlobalRestResponse<>();
+        return response.message(message);
     }
 
 

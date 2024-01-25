@@ -4,6 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.heaven.palace.brightpalace.api.api.oauth2.Oauth2Api;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
+import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
 import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
@@ -11,7 +12,6 @@ import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.EncryptException;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
-import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -37,7 +36,7 @@ import java.nio.charset.StandardCharsets;
  * @DateTime: 2024/1/22 17:30
  **/
 @RestController
-@RequestMapping(value = "/oauth2")
+@RequestMapping(value = "/client/oauth2")
 @Slf4j
 @RefreshScope
 public class Oauth2ClientController {
@@ -69,11 +68,10 @@ public class Oauth2ClientController {
     private Oauth2Api oauth2Api;
 
     @GetMapping(value = "/login")
-    @ApiOperation(value = "基于授权码的登录接口")
+    @ApiOperation(value = "基于授权码的登录接口，接收callback")
     @IgnoreUserAuth
-    public void login(HttpServletRequest request, HttpServletResponse response
-        , @RequestParam(required = false) String loginFor, @RequestParam(required = false) String code,
-        @RequestParam(required = false) String stateUuid) {
+    public GlobalRestResponse<Void> login(HttpServletResponse response, @RequestParam(required = false) String loginFor
+            , @RequestParam(required = false) String code, @RequestParam(required = false) String stateUuid) {
 
         if (!ObjectUtils.anyNotNull(loginFor, code)) {
             throw new BusinessException(CommonExceptionEnum.AUTH_REQUEST_PARAM_NULL_ERROR);
@@ -99,7 +97,7 @@ public class Oauth2ClientController {
                 new CacheParam(CommonCacheEnum.LOGIN_STATE_CACHE, stateUuid), String.class))) {
                 loginForUrl = clientDefaultHomePage;
             }
-            String encryptCode = null;
+            String encryptCode;
             try {
                 encryptCode = RandomAESEncryptUtils.encryptForString(code, clientSecret);
             } catch (EncryptException e) {
@@ -110,7 +108,7 @@ public class Oauth2ClientController {
                     .setClientId(clientId)
                     .setEncryptCode(encryptCode)
                     .setResponseType(CommonConst.Oauth2ResponseType.CODE));
-            if (!GlobalRestResponse.success(queryTokenRes)) {
+            if (!GlobalRestResponse.isSuccess(queryTokenRes)) {
                 throw new BusinessException(queryTokenRes);
             }
             String accessToken = queryTokenRes.getData().getAccessToken();
@@ -120,7 +118,8 @@ public class Oauth2ClientController {
             } catch (Exception e) {
                 throw new BusinessException(CommonExceptionEnum.AUTH_REDIRECT_CLIENT_LOGIN_FOR_URL_ERROR);
             }
-
         }
+
+        return GlobalRestResponse.success("认证成功！");
     }
 }

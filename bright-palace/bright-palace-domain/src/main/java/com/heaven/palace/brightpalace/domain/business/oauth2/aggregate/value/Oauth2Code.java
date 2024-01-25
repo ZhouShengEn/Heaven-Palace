@@ -2,7 +2,7 @@ package com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.value;
 
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
 import com.heaven.palace.jasperpalace.base.ddd.ValidValueObject;
-import com.heaven.palace.purplecloudpalace.util.GeneralSecureUtil;
+import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
 
 /**
  * @Author: zhoushengen
@@ -13,7 +13,7 @@ public class Oauth2Code extends ValidValueObject<String> {
 
     public Oauth2Code(String encryptCode, String clientSecret) {
         super(BusinessExceptionEnum.AUTH_OAUTH2_CODE_NULL_ERROR, BusinessExceptionEnum.AUTH_OAUTH2_CLIENT_DB_SECRET_NULL_ERROR
-            , encryptCode, () -> GeneralSecureUtil.aesDecrypt(encryptCode, clientSecret));
+            , encryptCode, () -> RandomAESEncryptUtils.decryptForString(encryptCode, clientSecret), clientSecret);
     }
 
 

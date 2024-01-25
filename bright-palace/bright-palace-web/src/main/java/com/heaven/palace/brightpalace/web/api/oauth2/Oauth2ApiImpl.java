@@ -24,7 +24,7 @@ public class Oauth2ApiImpl implements Oauth2Api {
     @Override
     @IgnoreUserAuth
     public GlobalRestResponse<Oauth2QueryTokenResVO> queryToken(Oauth2QueryTokenReqVO queryTokenByCodeReqVO) {
-        return new GlobalRestResponse<>().data(multiOAuth2TypeFactory
+        return GlobalRestResponse.success(multiOAuth2TypeFactory
             .getMultiImplement(queryTokenByCodeReqVO.getResponseType()).queryToken(queryTokenByCodeReqVO));
     }
 }

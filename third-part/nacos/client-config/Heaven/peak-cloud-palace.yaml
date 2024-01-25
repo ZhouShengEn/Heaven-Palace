@@ -24,7 +24,7 @@ spring:
       pool:
         max-active: 20
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/zse?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/peak-cloud-palace?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: 123456
     # 使用druid数据源application.yml
@@ -140,7 +140,7 @@ oauth2:
   client:
     id: heaven
     secret: 0123456789012345
-    loginUrl: http://127.0.0.1:10001/api/peak-cloud/oauth2/login
-    defaultHomePage: http://127.0.0.1:10001/index.html
+    loginUrl: http://127.0.0.1:10001/api/peak-cloud/client/oauth2/login
+    defaultHomePage: http://127.0.0.1:10001/homePage
   server:
     authUrl: http://127.0.0.1:10001/api/bright-palace/oauth2/auth

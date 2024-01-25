@@ -30,6 +30,9 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
         try {
             this.value = (null != afterValid ? afterValid.call() : value);
         } catch (Exception e) {
+            if (e instanceof BusinessException) {
+                throw new BusinessException(((BusinessException) e).getStatusCode(), e.getMessage());
+            }
             throw new RuntimeException(e);
         }
     }
@@ -52,6 +55,24 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
             throw new BusinessException(validErrorResult);
         }
         this.value = value;
+    }
+
+    public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value, Callable<T> afterValid, Object... validArgs) {
+
+        if (ObjectUtils.isEmpty(value)) {
+            throw new BusinessException(nullResult);
+        }
+        if (!isValid(value, validArgs)) {
+            throw new BusinessException(validErrorResult);
+        }
+        try {
+            this.value = (null != afterValid ? afterValid.call() : value);
+        } catch (Exception e) {
+            if (e instanceof BusinessException) {
+                throw new BusinessException(((BusinessException) e).getStatusCode(), e.getMessage());
+            }
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

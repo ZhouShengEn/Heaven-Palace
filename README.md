@@ -1,3 +1,9 @@
+
+<p align="center">
+ <img src="https://img.shields.io/badge/Spring%20Cloud-2021-blue.svg" alt="Coverage Status">
+ <img src="https://img.shields.io/badge/Spring%20Boot-2.7.18-blue.svg" alt="Downloads">
+</p>
+
 # Heaven-Palace —— 天宫
 ### <font color=DarkKhaki>在中国古代神话中，天宫是由众多神仙所组成的仙界，被认为是位于天空中的仙境，也是神仙们的居所和聚会地点。</font>
 
@@ -15,35 +21,74 @@
 **Purple-Cloud-Palace 紫霄宫**
 
 
-    企业化Java后端脚手架！基于SpringBoot 2.3.12.RELEASE 
+    企业化Java后端脚手架！DDD领域驱动模型 
+
+    注：此项目完全开源，支持一下点点star
 
 
-目前已添加功能：
+## 系统简介
 
-①标准业务缓存脚手架 —— com.heaven.palace.purplecloudpalace.component.cache
+* **Bright-Palace 光明宫**
 
-②自定义数据权限隔离注解 —— com.heaven.palace.purplecloudpalace.isolation.annotation.DataIsolation
 
-③基于SocketIO实现集群下通用业务websocket连接 —— com.heaven.palace.peakcloudpalace.business.socket.handler.BusinessMessageEventHandler
+    用户中心，提供认证和授权服务以及用户信息基础服务
+  
 
-④实现代码生成可视化后台接口 —— com.heaven.palace.moonpalace.modular.code.controller.GenCodeController.genCode
+* **Heaven-South-Gate 南天门**
 
-⑤实现业务api权限可视化增删改查后台接口（支持在不同数据源中切换环境，自动记录历史操作和操作sql，支持历史记录操作一键同步到不同环境）—— com.heaven.palace.moonpalace.modular.system.controller.BusinessLogController
 
-⑥IP工具，可识别多网段是否存在重叠 —— com.heaven.palace.purplecloudpalace.util.IpAddressUtils
+    网关服务
+  
 
-待完成：
-1、开发者后台集中管控低代码 前端
-2、用户中心 基于jwt redis OAuth2.0 统一认证
-3、整合阿里Sentinel组件
-4、结合阿里QLExpress、Velocity、Redis完成可视化接口机，专用于第三方平台业务接口对接，实现依靠redis的集群任务调度
-5、替换tk.mybatis 为 mybatis-flex
-6、微服务框架结合 springcloud+nacos
-7、原子级业务操作流程替代@Transactional rollback
-8、分布式rollback暂定阿里的seata
-9、部署方案暂定k8s+docker
+* **Jasper-Palace 玉清宫**
 
-更新中................................
 
+    提供基础数据结构和全局业务数据结构  
+
+* **Moon-Palace 广寒宫**
+
+
+    模板代码生成器，辅助性低代码平台
+
+* **Peak-Cloud-Palace 凌霄殿**
+
+
+    主门户业务系统
+
+* **Purple-Cloud-Palace 紫霄宫**
+
+
+    公用配置工具类支持
+
+## 项目功能
+
+① 基于SpringCLoud+Nacos+Sentinel+OpenFeign微服务化治理
+
+② 项目基础数据结构脚手架 ——Jasper-Palace
+
+③ 缓存组件防腐层，业务缓存脚手架 ——Purple-Cloud-Palace
+
+④ 基于DDD领域驱动模型实现授权码模式Oauth2.0统一认证及授权 ——Bright-Palace
+
+⑤ 实现逆向工程可视化，业务模块低代码操作，sql数据环境同步，操作记录 ——Moon-Palace
+
+⑥ IP通用工具，识别多网段是否存在重叠 ——Purple-Cloud-Palace
+
+⑦ 基于Netty-SocketIO高度抽象化的socket主动连接 ——Purple-Cloud-Palace
+
+⑧ 基于Mybatis-Flex作为持久化组件，Orika作为映射组件，Javers对象比较组件
+
+
+## OAUTH2.0 统一认证授权（支持第三方客户端对接）详细流程图
+
+![天宫统一认证流程图](/.image/天宫统一认证流程图.jpg)
+
+## 作者笔录
+
+一直想手写一个后台脚手架，也算作自己的技术积累，也想做一些开源的东西。我自己非常喜欢优美的设计模式，常常为了优雅而设计，希望各位大佬如果有更加优雅的实现方式或者代码可以分享或者贡献在此开源项目里哈。
+
+**天宫** 这个名字，起源于老东家使用西方众神来命名项目。那时候我就想整一套中国风的架构命名，我国的古代神话和宫殿名要更加传神，且更形似一种架构体系。
+
+各位大佬喜欢的话可以点点star，之后还会一直更新下去，将会推出更多更实用更强大的功能，有建议或者需求可以联系我微信（zz1073378933，备注：天宫）
 
 
