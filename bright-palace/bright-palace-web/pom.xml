@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.heaven.palace</groupId>
         <artifactId>bright-palace</artifactId>
-        <version>1.0.0</version>
+        <version>${project.version}</version>
     </parent>
     <properties>
         <java.version>1.8</java.version>

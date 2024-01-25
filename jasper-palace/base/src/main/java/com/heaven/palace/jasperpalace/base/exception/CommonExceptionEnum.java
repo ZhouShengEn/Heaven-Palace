@@ -16,7 +16,7 @@ public enum CommonExceptionEnum implements BaseResult {
     /**
      * 错误的请求
      */
-    REQUEST_NULL(400, "请求有错误"),
+    REQUEST_NULL(404, "请求不存在！"),
     SERVER_ERROR(500, "服务器内部异常！请联系客服人员。"),
 
     /**

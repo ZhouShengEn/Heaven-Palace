@@ -1,5 +1,6 @@
 package com.heaven.palace.jasperpalace.base.exception.auth;
 
+import com.heaven.palace.jasperpalace.base.exception.BaseResult;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 
 /**
@@ -13,5 +14,9 @@ public class AuthenticationException extends BusinessException {
 
     public AuthenticationException(int statusCode, String message) {
         super(statusCode, message);
+    }
+
+    public AuthenticationException(BaseResult baseResult) {
+        super(baseResult);
     }
 }

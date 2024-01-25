@@ -17,5 +17,5 @@ public interface ApiConst {
     /**
      * 统一认证相关api
      */
-    String OAUTH2_API_PREFIX = "/api/oauth2";
+    String OAUTH2_API_PREFIX = "/oauth2";
 }

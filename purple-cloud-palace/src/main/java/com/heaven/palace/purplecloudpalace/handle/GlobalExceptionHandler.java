@@ -3,6 +3,7 @@ package com.heaven.palace.purplecloudpalace.handle;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
+import com.heaven.palace.jasperpalace.base.exception.ErrorRequestException;
 import com.heaven.palace.jasperpalace.base.exception.auth.AuthenticationException;
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
@@ -16,6 +17,7 @@ import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
@@ -35,6 +37,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestControllerAdvice({"com.heaven.palace"})
+@ControllerAdvice
 public class GlobalExceptionHandler {
     /**
      * 处理自定义的业务异常
@@ -221,6 +224,19 @@ public class GlobalExceptionHandler {
     public BaseResponse exceptionHandler(HttpServletResponse response, AuthenticationException e) {
         log.error("认证异常！原因是：", e);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return new BaseResponse(e.getStatusCode(), e.getMessage());
+    }
+
+    /**
+     * 处理错误请求异常
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = ErrorRequestException.class)
+    public BaseResponse exceptionHandler(HttpServletResponse response, ErrorRequestException e) {
+        log.error("请求资源不存在：", e);
+        response.setStatus(HttpStatus.NOT_FOUND.value());
         return new BaseResponse(e.getStatusCode(), e.getMessage());
     }
 
