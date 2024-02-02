@@ -18,8 +18,8 @@
     <dependencies>
         <!-- 项目依赖 -->
         <dependency>
-            <groupId>com.heaven.palace.jasper-palace</groupId>
-            <artifactId>base</artifactId>
+            <groupId>com.heaven.palace.bright-palace</groupId>
+            <artifactId>bright-palace-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -64,10 +64,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
         </dependency>
     </dependencies>
 

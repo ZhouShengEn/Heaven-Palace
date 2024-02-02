@@ -3,6 +3,7 @@ package com.heaven.palace.jasperpalace.base.cache;
 
 import com.heaven.palace.jasperpalace.base.cache.constants.CacheLockConst;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
+import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -64,7 +65,10 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
             }
             return v;
 
-        } catch (Exception e) {
+        }catch (Exception e) {
+            if (e instanceof BusinessException) {
+                throw (BusinessException)e;
+            }
             Integer retryTimes = retryThreadLocal.get();
             log.error("get cache error! primaryKey:{}, retryTimes:{}", cacheParam.getPrimaryKey(), retryTimes);
             if (retryTimes > MAX_RETRY_TIMES){
@@ -134,6 +138,9 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
             return (V) SerializationUtils.clone((Serializable) value);
         } catch (Exception e) {
             log.info("cache get and set error！cachePrimaryKey:{}", getPrimaryCacheKey(cacheParam), e);
+            if (e instanceof BusinessException) {
+                throw (BusinessException)e;
+            }
             return null;
         }
     }
@@ -149,6 +156,9 @@ public abstract class AbstractCache<K extends CacheParam, V> implements ICache<K
             return this.getFromOther(cacheParam);
         } catch (Exception e) {
             log.info("cache get from DB error！cachePrimaryKey:{}", getPrimaryCacheKey(cacheParam), e);
+            if (e instanceof BusinessException) {
+                throw (BusinessException)e;
+            }
             return null;
         }
 

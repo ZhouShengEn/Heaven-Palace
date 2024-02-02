@@ -1,5 +1,6 @@
 package com.heaven.palace.brightpalace.application.service.oauth2.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
@@ -14,10 +15,14 @@ import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggrega
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
 import com.heaven.palace.brightpalace.domain.factory.repository.MultiRepoFactory;
 import com.heaven.palace.brightpalace.domain.factory.repository.context.RepoRegisterConst;
-import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst;
-import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
+import com.heaven.palace.brightpalace.infrastructure.cache.oauth2.Oauth2Cache;
+import com.heaven.palace.brightpalace.infrastructure.cache.oauth2.consts.Oauth2CacheConst.Oauth2CacheEnum;
+import com.heaven.palace.brightpalace.infrastructure.cache.oauth2.param.Oauth2CacheParam;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
+import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
+import com.heaven.palace.jasperpalace.business.system.context.SystemOrganizationCodeConst;
+import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import com.heaven.palace.purplecloudpalace.util.AuthUtil;
 import com.heaven.palace.purplecloudpalace.util.MappingUtils;
@@ -51,6 +56,12 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
     @Resource
     private DefaultObjectCache defaultObjectCache;
 
+    /**
+     * 这里由于并未设计token持久化，所以可以直接使用缓存防腐层获取数据，如果存在持久化这里需要从领域层调取接口
+     */
+    @Resource
+    private Oauth2Cache oauth2Cache;
+
     @Resource
     private Oauth2DomainService oauth2DomainService;
 
@@ -62,7 +73,7 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
         String token = AuthUtil.obtainAuthorization(request);
         // 确认token是否为空
         if (StringUtils.isEmpty(token) || null ==
-            defaultObjectCache.getFromCache(new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE, token))) {
+            defaultObjectCache.getFromCache(new CacheParam(AuthCacheEnum.USER_AUTH_TOKEN_CACHE, token))) {
             try {
                 response.sendRedirect(String.format(LOGIN_REDIRECT_TEMPLATE, clientEntity.getLoginUrl()
                         , request.getQueryString()));
@@ -76,13 +87,19 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
     @Override
     public void login(UserLoginPhoneAndPasswordVO userLoginPhoneAndPasswordVO, String redirectUrl, String clientId,
         HttpServletRequest request, HttpServletResponse response) {
+        log.info("oauth2 service login start username:{}, clientId:{}, redirectUrl:{}, userLoginPhoneAndPasswordVO:{}",
+            userLoginPhoneAndPasswordVO.getUsername(), clientId, redirectUrl, JSON.toJSONString(userLoginPhoneAndPasswordVO));
         AuthTokenAggregate authTokenAggregate = oauth2DomainService
             .loginByPasswordAndPhone(MappingUtils.beanConvert(userLoginPhoneAndPasswordVO, UserAggregate.class));
+        UserAggregate userAggregate = authTokenAggregate.getUserAggregate();
+        // todo 重复登录校验！
         String code = UUIDUtils.generateUuid(8);
-        // token录入缓存
-        defaultObjectCache.setToCache(new CacheParam(CommonCacheConst.CommonCacheEnum.USER_AUTH_TOKEN_CACHE,
-                code.concat(":").concat(clientId)),
-            authTokenAggregate);
+        // 客户端授权码token录入缓存
+        oauth2Cache.setToCache(new Oauth2CacheParam(Oauth2CacheEnum.OAUTH2_CODE_CACHE, clientId, code), authTokenAggregate);
+        // 用户token录入缓存
+        defaultObjectCache.setToCache(new CacheParam(AuthCacheEnum.USER_AUTH_TOKEN_CACHE
+                , authTokenAggregate.getAccessToken().getToken()),
+            new UserCache().setUserId(userAggregate.getId().getId()).setUsername(userAggregate.getUsername().getValue()));
         try {
             String decodeUrl = URLDecoder.decode(redirectUrl, StandardCharsets.UTF_8.name());
             response.sendRedirect(decodeUrl.concat("&code=").concat(code));
@@ -94,18 +111,22 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
     @Override
     public Oauth2QueryTokenResVO queryToken(Oauth2QueryTokenReqVO queryTokenByCodeReqVO) {
         String clientId = queryTokenByCodeReqVO.getClientId();
-        Oauth2Code oauth2Code = new Oauth2Code(queryTokenByCodeReqVO.getEncryptCode()
-            , getClientEntityByClientId(clientId).getSecret());
-        CacheParam userAuthCacheParam = new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE,
-                oauth2Code.getValue().concat(":").concat(clientId));
-        AuthTokenAggregate authTokenAggregate = defaultObjectCache.getFromCache(
-                userAuthCacheParam, AuthTokenAggregate.class);
+        ClientEntity clientEntity = getClientEntityByClientId(clientId);
+        Oauth2Code oauth2Code = new Oauth2Code(queryTokenByCodeReqVO.getEncryptCode(), clientEntity.getSecret());
+        Oauth2CacheParam oauth2CacheParam = new Oauth2CacheParam(Oauth2CacheEnum.OAUTH2_CODE_CACHE, clientId,
+            oauth2Code.getValue());
+        AuthTokenAggregate authTokenAggregate = oauth2Cache.getFromCache(oauth2CacheParam);
         if (null == authTokenAggregate) {
             throw new BusinessException(BusinessExceptionEnum.AUTH_OAUTH2_TOKEN_CACHE_NOT_HIT_ERROR);
         }
+        // 内部客户端和第三方客户端返回不同token，第三方客户端token应走openapi网关，目前暂未设计
+        String accessToken = SystemOrganizationCodeConst.HEAVEN_PALACE.equals(clientEntity.getOrgCode())
+            ? authTokenAggregate.getAccessToken().getToken()
+            : authTokenAggregate.getClientToken().getToken();
         return new Oauth2QueryTokenResVO()
-                .setAccessToken(authTokenAggregate.getClientToken().getToken())
-                .setExpireTime(defaultObjectCache.getCacheRemainToLive(userAuthCacheParam));
+                .setAccessToken(accessToken)
+                .setRefreshToken(authTokenAggregate.getFreshToken().getToken())
+                .setExpireTime(oauth2Cache.getCacheRemainToLive(oauth2CacheParam));
     }
 
 

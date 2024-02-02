@@ -2,7 +2,7 @@ package com.heaven.palace.purplecloudpalace.interceptor;
 
 
 import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
-import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
+import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
@@ -47,7 +47,7 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
             throw new AuthenticationException(CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR);
         }
         DefaultObjectCache defaultObjectCache = SpringContextUtils.getBean(DefaultObjectCache.class);
-        UserCache userCache = defaultObjectCache.getFromCache(new CacheParam(CommonCacheEnum.USER_AUTH_TOKEN_CACHE, token),
+        UserCache userCache = defaultObjectCache.getFromCache(new CacheParam(AuthCacheEnum.USER_AUTH_TOKEN_CACHE, token),
             UserCache.class);
         if (null == userCache) {
             throw new AuthenticationException(CommonExceptionEnum.AUTH_TOKEN_EXPIRE_ERROR);

@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * @Description: 统一认证api
  * @DateTime: 2024/1/24 16:38
  **/
-@FeignClient(name = ApiConst.FEIGN_SERVICE_NAME)
+@FeignClient(name = ApiConst.LOAD_BALANCE_SERVICE_NAME)
 @Api(tags = "统一认证api")
 public interface Oauth2Api {
 

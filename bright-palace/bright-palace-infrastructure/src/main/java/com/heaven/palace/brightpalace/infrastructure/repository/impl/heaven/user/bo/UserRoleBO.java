@@ -1,4 +1,4 @@
-package com.heaven.palace.brightpalace.infrastructure.bo;
+package com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.user.bo;
 
 import lombok.Data;
 

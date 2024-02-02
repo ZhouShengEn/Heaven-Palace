@@ -1,7 +1,5 @@
 package com.heaven.palace.purplecloudpalace.util;
 
-import com.heaven.palace.jasperpalace.base.exception.BusinessException;
-import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +23,7 @@ public class SHAPasswordEncoder implements PasswordEncoder {
             return new String(Base64.encodeBase64(digest));
         } catch (Exception e) {
             log.error("encode password failed.", e);
-            throw new BusinessException(CommonExceptionEnum.AUTH_PASSWORD_ENCODE_ERROR);
+            throw new RuntimeException("encode password failed.");
         }
     }
 

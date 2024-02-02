@@ -7,6 +7,9 @@ package com.heaven.palace.jasperpalace.business.system.context;
  **/
 public interface SystemOrganizationCodeConst {
 
-    String HEAVEN_PALACE = "HeavenPalace";
+    /**
+     * 天宫组织
+     */
+    String HEAVEN_PALACE = "heaven";
 
 }

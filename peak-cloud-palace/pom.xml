@@ -54,6 +54,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <exclusions>
+                <!--     UnknownHostException SpringCloud2021.0.1.0 版本及以上不使用netflix 用loadbalancer  -->
                 <exclusion>
                     <groupId>org.springframework.cloud</groupId>
                     <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>

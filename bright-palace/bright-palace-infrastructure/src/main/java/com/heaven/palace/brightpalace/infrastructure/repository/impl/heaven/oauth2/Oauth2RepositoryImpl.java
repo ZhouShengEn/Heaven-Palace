@@ -1,4 +1,4 @@
-package com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven;
+package com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.oauth2;
 
 import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.entity.ClientEntity;
 import com.heaven.palace.brightpalace.domain.business.oauth2.repository.Oauth2Repository;

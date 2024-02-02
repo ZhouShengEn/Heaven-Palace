@@ -1,5 +1,6 @@
 package com.heaven.palace.jasperpalace.base.response;
 
+import com.heaven.palace.jasperpalace.base.exception.BaseResult;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -22,4 +23,9 @@ public class BaseResponse {
     private int statusCode = SUCCESS_RESPONSE_CODE;
     @ApiModelProperty(required = true, notes = "响应消息")
     private String message;
+
+    public BaseResponse(BaseResult baseResult) {
+        this.statusCode = baseResult.getStatusCode();
+        this.message = baseResult.getMessage();
+    }
 }

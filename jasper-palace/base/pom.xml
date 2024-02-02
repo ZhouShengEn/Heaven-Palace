@@ -11,4 +11,10 @@
     <version>1.0.0</version>
     <name>jasper-palace-base</name>
     <description>基础数据结构</description>
+    <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+    </dependencies>
 </project>

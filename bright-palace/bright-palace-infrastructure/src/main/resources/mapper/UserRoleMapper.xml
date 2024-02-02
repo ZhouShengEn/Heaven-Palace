@@ -16,8 +16,8 @@
         <result column="update_by" property="updateBy" />
         <result column="update_time" property="updateTime" />
     </resultMap>
-    <select id="select" resultType="com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO"
-            parameterType="com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO">
+    <select id="select" resultType="com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.user.bo.UserRoleBO"
+            parameterType="com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.user.bo.UserRoleBO">
         SELECT ur.*, uo.id as orgId, uo.name as orgName, uo.code as orgCode, uo.parent_id as orgParentId
         FROM user_role ur LEFT JOIN user_organization uo ON ur.org_id = uo.id
         <where>

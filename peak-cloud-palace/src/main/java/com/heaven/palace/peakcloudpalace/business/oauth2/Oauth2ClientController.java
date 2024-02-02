@@ -5,7 +5,7 @@ import com.heaven.palace.brightpalace.api.api.oauth2.Oauth2Api;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
 import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
-import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst.CommonCacheEnum;
+import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
@@ -81,7 +81,7 @@ public class Oauth2ClientController {
             // 登录拦截，跳转至客户端对应的登录页面
             stateUuid = IdUtil.fastSimpleUUID();
             // 缓存用户访问的资源页面
-            defaultObjectCache.setToCache(new CacheParam(CommonCacheEnum.LOGIN_STATE_CACHE, stateUuid), loginFor);
+            defaultObjectCache.setToCache(new CacheParam(AuthCacheEnum.LOGIN_STATE_CACHE, stateUuid), loginFor);
             try {
                 String redirectUrl = URLEncoder.encode(loginUrl.concat("?stateUuid=").concat(stateUuid),
                     StandardCharsets.UTF_8.name());
@@ -94,7 +94,7 @@ public class Oauth2ClientController {
             String loginForUrl;
             // 授权码换取token
             if (null == stateUuid || null == (loginForUrl = defaultObjectCache.getFromCache(
-                new CacheParam(CommonCacheEnum.LOGIN_STATE_CACHE, stateUuid), String.class))) {
+                new CacheParam(AuthCacheEnum.LOGIN_STATE_CACHE, stateUuid), String.class))) {
                 loginForUrl = clientDefaultHomePage;
             }
             String encryptCode;

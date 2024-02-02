@@ -5,8 +5,6 @@ import com.corundumstudio.socketio.HandshakeData;
 import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
 import com.heaven.palace.purplecloudpalace.socket.auth.SocketAuthService;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RedissonClient;
-import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,9 +18,6 @@ public class DefaultSocketAuthServiceImpl implements SocketAuthService {
 
 
     private final static String TOKEN = "Authorization";
-
-    @Resource
-    private RedissonClient redissonClient;
 
     @Override
     public boolean auth(HandshakeData handshakeData, String token) {

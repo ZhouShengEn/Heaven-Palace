@@ -1,10 +1,10 @@
-package com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven;
+package com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.user;
 
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.entity.UserRoleEntity;
 import com.heaven.palace.brightpalace.domain.business.user.repository.UserRepository;
 import com.heaven.palace.brightpalace.domain.factory.repository.context.RepoRegisterConst;
-import com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO;
+import com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.user.bo.UserRoleBO;
 import com.heaven.palace.brightpalace.infrastructure.entity.BaseUserDO;
 import com.heaven.palace.brightpalace.infrastructure.entity.UserMemberRelateDO;
 import com.heaven.palace.brightpalace.infrastructure.mapper.BaseUserMapper;

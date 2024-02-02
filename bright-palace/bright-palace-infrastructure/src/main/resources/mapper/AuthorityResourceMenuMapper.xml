@@ -17,4 +17,23 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
+    <select id="selectResourceByRoleIds"
+            resultType="com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.permission.bo.UserRoleResourceBO">
+        SELECT arm.role_id as roleId, sr.id as resourceId, sr.code as resourceCode
+             , sr.name as resourceName, sr.value as resourceValue, sr.type as resourceType
+             , sr.status as resourceStatus
+        FROM
+        authority_resource_menu arm
+        LEFT JOIN
+        system_resource sr on
+        arm.element_type = 0 and
+        arm.element_id = sr.id
+        <where>
+            arm.is_delete = 0 AND arm.is_delete = 0
+            and arm.role_id in
+            <foreach collection="roleIds" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+        </where>
+    </select>
 </mapper>

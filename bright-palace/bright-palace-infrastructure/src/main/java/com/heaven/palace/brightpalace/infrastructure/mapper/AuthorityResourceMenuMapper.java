@@ -1,8 +1,11 @@
 package com.heaven.palace.brightpalace.infrastructure.mapper;
 
 import com.heaven.palace.brightpalace.infrastructure.entity.AuthorityResourceMenuDO;
+import com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.permission.bo.UserRoleResourceBO;
 import com.mybatisflex.core.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * AuthorityResourceMenuMapper
@@ -12,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AuthorityResourceMenuMapper extends BaseMapper<AuthorityResourceMenuDO> {
+
+    List<UserRoleResourceBO> selectResourceByRoleIds(List<Long> roleIds);
 
 }

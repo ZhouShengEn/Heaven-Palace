@@ -1,0 +1,7 @@
+INSERT INTO `user_organization`(`id`, `name`, `code`, `description`) VALUES (1, 'HeavenPalace', 'heaven', '天宫');
+
+INSERT INTO `user_organization`(`id`, `name`, `code`, `parent_id`, `description`) VALUES (2, 'HeavenPalace-WEB', 'heaven-web', 1, '天宫web端');
+
+INSERT INTO `user_role`(`id`, `role_name`, `code`, `org_id`, `description`) VALUES (1, '用户', 'BaseUser', 1, '基础用户');
+
+INSERT INTO `auth_client`(`id`, `code`, `secret`, `login_url`, `org_code`, `description`) VALUES (1, 'peak-cloud-palace', '0123456789012345', 'http://127.0.0.1:10001/loginPage', 'heaven', '凌霄殿');

@@ -21,19 +21,17 @@ public enum BusinessExceptionEnum implements BaseResult {
     SERVER_ERROR(500, "服务器异常"),
 
     /**
-     * 注册错误
+     * Value Object Valid Error
      */
-    REGISTER_USERNAME_NULL(11001001, "用户名不能为空!"),
-    REGISTER_USERNAME_VALID_ERROR(11001002, "用户名必须符合字符长度为6~20，可包含数字、中文、字母、连字符(-)、下划线(_)"),
-    REGISTER_PASSWORD_NULL(11001003, "密码不能为空!"),
-    REGISTER_PASSWORD_VALID_ERROR(11001004, "密码需要符合限制为8-15个字符，同时包含数字、英文、特殊符"),
-    REGISTER_MOBILE_PHONE_NULL(11001005, "手机号不能为空！"),
-    REGISTER_MOBILE_PHONE_VALID_ERROR(11001006, "手机号不符合规范！"),
-    REGISTER_EMAIL_NULL(11001007, "邮箱不能为空！"),
-    REGISTER_EMAIL_VALID_ERROR(11001008, "邮箱不符合规范！"),
-    REGISTER_ROLE_OR_ORG_QUERY_NULL_ERROR(11001009, "未查询到相关信息，请联系工作人员！"),
-    REGISTER_USER_NAME_REPEAT_ERROR(11001010, "名称已使用！"),
-    REGISTER_USER_PHONE_REPEAT_ERROR(11001011, "手机号已使用！"),
+    VALID_USERNAME_NULL_ERROR(11001001, "用户名不能为空!"),
+    VALID_USERNAME_ERROR(11001002, "用户名必须符合字符长度为6~20，可包含数字、中文、字母、连字符(-)、下划线(_)"),
+    VALID_PASSWORD_NULL_ERROR(11001003, "密码不能为空!"),
+    VALID_PASSWORD_ERROR(11001004, "密码需要符合限制为8-15个字符，同时包含数字、英文、特殊符"),
+    VALID_MOBILE_PHONE_NULL_ERROR(11001005, "手机号不能为空！"),
+    VALID_MOBILE_PHONE_ERROR(11001006, "手机号不符合规范！"),
+    VALID_EMAIL_NULL_ERROR(11001007, "邮箱不能为空！"),
+    VALID_EMAIL_ERROR(11001008, "邮箱不符合规范！"),
+    VALID_SYSTEM_RESOURCE_TYPE_NULL_ERROR(11001009, "未识别的资源类型！"),
 
     /**
      * 认证错误
@@ -48,12 +46,24 @@ public enum BusinessExceptionEnum implements BaseResult {
     AUTH_OAUTH2_CODE_NULL_ERROR(11002008, "授权码不能为空！"),
     AUTH_OAUTH2_CLIENT_DB_SECRET_NULL_ERROR(11002009, "客户端配置异常！"),
     AUTH_OAUTH2_TOKEN_CACHE_NOT_HIT_ERROR(11002010, "客户端未授权！"),
+    AUTH_OAUTH2_CLIENT_SECRET_DECRYPT_ERROR(11002011, "客户端核验失败！"),
 
     /**
      * 登录错误
      */
     LOGIN_USER_QUERY_NULL_ERROR(11003001, "密码输入不正确！"),
 
+    /**
+     * 注册错误
+     */
+    REGISTER_ROLE_OR_ORG_QUERY_NULL_ERROR(11004001, "未查询到相关信息，请联系工作人员！"),
+    REGISTER_USER_NAME_REPEAT_ERROR(11004002, "名称已使用！"),
+    REGISTER_USER_PHONE_REPEAT_ERROR(11004003, "手机号已使用！"),
+
+    /**
+     * 权限相关
+     */
+    PERMISSION_UNKNOWN_EXCEPTION_ERROR(11005001, "权限校验流程异常！"),
 
     ;
 

@@ -21,6 +21,9 @@ public class Oauth2QueryTokenResVO implements Serializable {
     @ApiModelProperty(notes = "访问令牌")
     private String accessToken;
 
+    @ApiModelProperty(notes = "刷新令牌")
+    private String refreshToken;
+
     @ApiModelProperty(notes = "剩余过期时间,单位：毫秒")
     private Long expireTime;
 

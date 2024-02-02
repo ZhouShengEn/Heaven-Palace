@@ -4,7 +4,7 @@
 DROP TABLE IF EXISTS `system_resource`;
 CREATE TABLE `system_resource`  (
     `id` bigint NOT NULL AUTO_INCREMENT,
-    `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL NOT NULL COMMENT '资源编码',
+    `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '资源编码',
     `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL NOT NULL COMMENT '资源名称',
     `value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL NOT NULL COMMENT '资源数据',
     `type` tinyint(3) NOT NULL COMMENT '资源类型：0-uri',

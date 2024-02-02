@@ -26,8 +26,8 @@ management:
 
 # 白名单控制
 gate:
-  ignore:
-    startWith: /auth/jwt, /auth/verify
+  permission:
+    checkType: 0
 
 spring:
   application:
@@ -36,13 +36,6 @@ spring:
     timeout-per-shutdown-phase: 10s # 缓冲期 对应优雅停机 超时无论线程是否执行完毕都会立即停机
   codec:
     max-in-memory-size: -1 # 网关获取body时设置可以缓冲的字节数限制，-1表示无限制
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    jedis:
-      pool:
-        max-active: 20
   cloud:
     gateway:
       default-filters:

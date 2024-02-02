@@ -22,7 +22,6 @@ public interface BaseUserConst {
             this.desc = desc;
             this.code = code;
         }
-
     }
 
 }

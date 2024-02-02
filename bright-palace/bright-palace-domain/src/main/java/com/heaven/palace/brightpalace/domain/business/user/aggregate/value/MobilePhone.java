@@ -2,7 +2,7 @@ package com.heaven.palace.brightpalace.domain.business.user.aggregate.value;
 
 import cn.hutool.core.util.ReUtil;
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
-import com.heaven.palace.jasperpalace.base.ddd.ValidValueObject;
+import com.heaven.palace.jasperpalace.base.ddd.Value.ValidValueObject;
 
 /**
  * @Author: zhoushengen
@@ -11,11 +11,13 @@ import com.heaven.palace.jasperpalace.base.ddd.ValidValueObject;
  **/
 public class MobilePhone extends ValidValueObject<String> {
 
+    private static final long serialVersionUID = -8653329965698391358L;
+
     public final static String PHONE_NUMBER_PATTERN = "^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$";
 
     public MobilePhone(String phoneNumber) {
         // todo 手机号解密
-        super(BusinessExceptionEnum.REGISTER_MOBILE_PHONE_NULL, BusinessExceptionEnum.REGISTER_MOBILE_PHONE_VALID_ERROR,
+        super(BusinessExceptionEnum.VALID_MOBILE_PHONE_NULL_ERROR, BusinessExceptionEnum.VALID_MOBILE_PHONE_ERROR,
             phoneNumber);
     }
 

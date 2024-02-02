@@ -27,6 +27,11 @@ public class AuthClientDO extends BaseEntity {
      */
     private String code;
     /**
+     * 组织编码
+     *
+     */
+    private String orgCode;
+    /**
      * 服务密钥
      *
      */

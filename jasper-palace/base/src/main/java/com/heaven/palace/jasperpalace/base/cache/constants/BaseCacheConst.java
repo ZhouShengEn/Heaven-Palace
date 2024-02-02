@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class BaseCacheConst {
 
-    
+    /**
+     * 用于服务内部缓存，不对外
+     */
     public static String BASE_APPLICATION_CACHE_PRE_KEY;
     
     @Value("${spring.application.name}")

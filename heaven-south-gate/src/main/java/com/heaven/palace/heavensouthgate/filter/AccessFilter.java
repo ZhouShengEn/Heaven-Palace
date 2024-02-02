@@ -1,18 +1,20 @@
 package com.heaven.palace.heavensouthgate.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.heaven.palace.brightpalace.api.api.permission.vo.CheckPermissionVO;
+import com.heaven.palace.brightpalace.api.enums.ApiConst;
 import com.heaven.palace.heavensouthgate.enums.GlobalFilterConst;
 import com.heaven.palace.heavensouthgate.util.GatewayUtil;
-import com.heaven.palace.jasperpalace.base.cache.constants.CommonCacheConst;
-import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext;
+import com.heaven.palace.jasperpalace.base.constant.CommonConst;
+import com.heaven.palace.jasperpalace.base.constant.CommonConst.Header;
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
+import com.heaven.palace.jasperpalace.base.response.auth.AuthorityNoPermissionResponse;
 import com.heaven.palace.jasperpalace.base.response.auth.TokenEmptyResponse;
-import com.heaven.palace.jasperpalace.base.response.auth.TokenExpireResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RBucket;
-import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -23,7 +25,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashSet;
 
 /**
  * @Author: zhoushengen
@@ -37,8 +41,8 @@ public class AccessFilter implements GlobalFilter {
     @Resource
     private WebClient.Builder webClientBuilder;
 
-    @Resource
-    private RedissonClient redissonClient;
+    @Value("${gate.permission.checkType}")
+    private String checkType;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -49,27 +53,42 @@ public class AccessFilter implements GlobalFilter {
         }
 
         ServerHttpRequest request = exchange.getRequest();
+        LinkedHashSet<URI> uriLinkedHashSet = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
+        // 获取原请求路径
+        String path = uriLinkedHashSet.iterator().next().getPath();
 
-        // token获取
-        String token;
-        if (null == (token = GatewayUtil.obtainAuthorization(request))) {
+        // 校验token是否携带
+        if (null == GatewayUtil.obtainAuthorization(request)) {
             return getVoidMono(exchange, new TokenEmptyResponse(), HttpStatus.UNAUTHORIZED);
         }
 
-        // 这里直接引入redis不使用防腐层是因为不想引入紫霄宫庞大的组件依赖影响到网关，但同时需要网关读取缓存分担用户中心的压力
-        RBucket<CurrentBaseContext.UserCache> bucket = redissonClient
-                .getBucket(CommonCacheConst.AUTH_TOKEN_KEY_PREFIX + token);
-        CurrentBaseContext.UserCache userCache = bucket.get();
-        if (null == userCache) {
-            return getVoidMono(exchange, new TokenExpireResponse(), HttpStatus.UNAUTHORIZED);
-        }
+        // token校验 -> 嵌入在每个微服务里的UserAuthInterceptor中进行
 
-        // token认证+授权校验
-        Mono<Boolean> booleanMono = webClientBuilder
-            .build().get().uri("http://bright-palace/api/user/auth").headers(headers -> request.getHeaders())
-            .retrieve().bodyToMono(Boolean.class);
+        // 授权校验
+       return checkPermission(request, path).doOnError(error -> {
+           log.error("check permission error!", error);
+       }).flatMap(checkPermissionVO -> {
+           if (null != checkPermissionVO.getErrorResult()) {
+               return getVoidMono(exchange, new BaseResponse(checkPermissionVO.getErrorResult()),
+                   HttpStatus.INTERNAL_SERVER_ERROR);
+           }
+            if (checkPermissionVO.getHasPermission()) {
+                return chain.filter(exchange);
+            } else {
+                return getVoidMono(exchange, new AuthorityNoPermissionResponse(), HttpStatus.FORBIDDEN);
+            }
+            });
+    }
 
-        return chain.filter(exchange);
+    private Mono<CheckPermissionVO> checkPermission(ServerHttpRequest request, String path) {
+        return webClientBuilder
+            .build().get().uri(ApiConst.HTTP_LOAD_BALANCE_SERVICE_PREFIX
+                .concat(ApiConst.USER_CHECK_PERMISSION_PREFIX)
+                .concat("?resourceValue=").concat(path)
+                .concat("&resourceType=").concat(checkType))
+                .headers(headers
+                    -> headers.add(Header.AUTH_HEADER, request.getHeaders().getFirst(CommonConst.Header.AUTH_HEADER)))
+                .retrieve().bodyToMono(CheckPermissionVO.class);
     }
 
 

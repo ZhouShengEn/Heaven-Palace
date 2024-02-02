@@ -15,18 +15,17 @@ public class MapperFactorConfiguration extends AbstractMapperFactoryConfiguratio
     @Override
     protected void addFluidMapper() {
         getMapperFactory().classMap(UserAggregate.class, BaseUserDO.class)
-            .field("id.id", "id")
-            .field("username.value", "username")
-            .field("password.value", "password")
-            .field("mobilePhone.value", "mobilePhone")
-            .field("email.value", "email")
+            .fieldAToB("id.id", "id")
+            .fieldAToB("username.value", "username")
+            .fieldAToB("password.value", "password")
+            .fieldAToB("mobilePhone.value", "mobilePhone")
+            .fieldAToB("email.value", "email")
+            .fieldBToA("id", "id")
+            .fieldBToA("username", "username")
+            // .fieldBToA("password", "password")
+            .fieldBToA("mobilePhone", "mobilePhone")
+            .fieldBToA("email", "email")
             .byDefault().register();
-        // getMapperFactory().classMap(UserRegisterVO.class, UserAggregate.class)
-        //     .field("username", "username.value")
-        //     .field("password", "password.value")
-        //     .field("mobilePhone", "mobilePhone.value")
-        //     .field("email", "email.value")
-        //     .byDefault().register();
     }
 
     @Override

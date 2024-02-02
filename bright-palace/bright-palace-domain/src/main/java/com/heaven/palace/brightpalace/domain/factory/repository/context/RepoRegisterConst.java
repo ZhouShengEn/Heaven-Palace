@@ -14,4 +14,5 @@ public interface RepoRegisterConst {
 
     String USER = "user" + REPO_REGISTER_SUFFIX;
     String OAUTH2 = "oauth2" + REPO_REGISTER_SUFFIX;
+    String PERMISSION = "permission" + REPO_REGISTER_SUFFIX;
 }

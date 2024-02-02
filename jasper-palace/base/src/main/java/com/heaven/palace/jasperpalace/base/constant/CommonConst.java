@@ -45,6 +45,11 @@ public interface CommonConst {
     String LOG_SPAN_ID_HEADER = "spanId";
 
     /**
+     * 数据库默认顶层父级id
+     */
+    Long DB_DEFAULT_TOP_PARENT_ID = -1L;
+
+    /**
      * 请求头枚举
      */
     interface Header {

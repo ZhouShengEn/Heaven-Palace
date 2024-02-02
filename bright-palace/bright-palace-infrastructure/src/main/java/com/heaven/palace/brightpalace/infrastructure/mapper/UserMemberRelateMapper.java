@@ -1,8 +1,11 @@
 package com.heaven.palace.brightpalace.infrastructure.mapper;
 
 import com.heaven.palace.brightpalace.infrastructure.entity.UserMemberRelateDO;
+import com.heaven.palace.brightpalace.infrastructure.entity.UserRoleDO;
 import com.mybatisflex.core.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * UserMemberRelateMapper
@@ -12,4 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMemberRelateMapper extends BaseMapper<UserMemberRelateDO> {
+
+    List<UserRoleDO> selectByUserId(Long userId);
 }

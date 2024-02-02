@@ -1,12 +1,14 @@
 package com.heaven.palace.jasperpalace.base.exception;
 
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
+import lombok.NoArgsConstructor;
 
 /**
  * @author zhoushengen
  * @version 1.0
  * @date 2023/2/20 10:31
  */
+@NoArgsConstructor
 public class BusinessException extends RuntimeException implements BaseResult {
     private static final long serialVersionUID = -2320033886855622442L;
     /**

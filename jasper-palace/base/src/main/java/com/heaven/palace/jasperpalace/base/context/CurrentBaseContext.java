@@ -22,13 +22,18 @@ public class CurrentBaseContext {
     }
     
     public static void set(String key, Object value){
-        THREAD_LOCAL.get().put(key, value);
+        Map<String, Object> map = THREAD_LOCAL.get();
+        if (map == null) {
+            map = new HashMap<>(1);
+            THREAD_LOCAL.set(map);
+        }
+        map.put(key, value);
     }
 
     public static Object get(String key) {
         Map<String, Object> map = THREAD_LOCAL.get();
         if (map == null) {
-            map = new HashMap<String, Object>();
+            map = new HashMap<>(1);
             THREAD_LOCAL.set(map);
         }
         return map.get(key);
@@ -56,16 +61,16 @@ public class CurrentBaseContext {
         return (String)get(CommonConst.KEY_USER_TOKEN);
     }
     public static void setUserToken(String userToken){
-        THREAD_LOCAL.get().put(CommonConst.KEY_USER_TOKEN, userToken);
+        set(CommonConst.KEY_USER_TOKEN, userToken);
     }
     public static void setUserCache(UserCache userCache){
-        THREAD_LOCAL.get().put(CommonConst.KEY_USER_CACHE, userCache);
+        set(CommonConst.KEY_USER_CACHE, userCache);
     }
     public static void setClientId(String clientId){
-        THREAD_LOCAL.get().put(CommonConst.KEY_CLIENT_ID, clientId);
+        set(CommonConst.KEY_CLIENT_ID, clientId);
     }
     public static void setOrgCode(String orgCode){
-        THREAD_LOCAL.get().put(CommonConst.KEY_ORGANIZATION_CODE, orgCode);
+        set(CommonConst.KEY_ORGANIZATION_CODE, orgCode);
     }
 
     public static void clear() {

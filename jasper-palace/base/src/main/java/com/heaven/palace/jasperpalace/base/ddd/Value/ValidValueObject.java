@@ -1,6 +1,5 @@
-package com.heaven.palace.jasperpalace.base.ddd;
+package com.heaven.palace.jasperpalace.base.ddd.Value;
 
-import com.heaven.palace.jasperpalace.base.ddd.Value.ValueObject;
 import com.heaven.palace.jasperpalace.base.exception.BaseResult;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import lombok.Getter;
@@ -16,11 +15,13 @@ import java.util.concurrent.Callable;
 @Getter
 public abstract class ValidValueObject<T> implements ValueObject<T> {
 
+    private static final long serialVersionUID = -3350427360984629334L;
     private final T value;
 
     public abstract Boolean isValid(T t, Object... validArgs);
 
-    public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value, Callable<T> afterValid) {
+    public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, BaseResult afterCallErrorResult,
+        T value, Callable<T> afterValid) {
         if (ObjectUtils.isEmpty(value)) {
             throw new BusinessException(nullResult);
         }
@@ -30,10 +31,7 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
         try {
             this.value = (null != afterValid ? afterValid.call() : value);
         } catch (Exception e) {
-            if (e instanceof BusinessException) {
-                throw new BusinessException(((BusinessException) e).getStatusCode(), e.getMessage());
-            }
-            throw new RuntimeException(e);
+            throw new BusinessException(afterCallErrorResult);
         }
     }
 
@@ -57,7 +55,8 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
         this.value = value;
     }
 
-    public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value, Callable<T> afterValid, Object... validArgs) {
+    public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult
+        , BaseResult afterCallErrorResult, T value, Callable<T> afterValid, Object... validArgs) {
 
         if (ObjectUtils.isEmpty(value)) {
             throw new BusinessException(nullResult);
@@ -68,10 +67,7 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
         try {
             this.value = (null != afterValid ? afterValid.call() : value);
         } catch (Exception e) {
-            if (e instanceof BusinessException) {
-                throw new BusinessException(((BusinessException) e).getStatusCode(), e.getMessage());
-            }
-            throw new RuntimeException(e);
+           throw new BusinessException(afterCallErrorResult);
         }
     }
 

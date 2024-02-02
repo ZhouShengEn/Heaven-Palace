@@ -1,6 +1,6 @@
 package com.heaven.palace.brightpalace.infrastructure.mapper;
 
-import com.heaven.palace.brightpalace.infrastructure.bo.UserRoleBO;
+import com.heaven.palace.brightpalace.infrastructure.repository.impl.heaven.user.bo.UserRoleBO;
 import com.heaven.palace.brightpalace.infrastructure.entity.UserRoleDO;
 import com.mybatisflex.core.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
