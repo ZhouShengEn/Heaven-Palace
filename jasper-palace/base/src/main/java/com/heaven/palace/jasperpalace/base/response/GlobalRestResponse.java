@@ -59,5 +59,10 @@ public class GlobalRestResponse<T> extends BaseResponse {
         return response.message(message);
     }
 
+    public static <T> GlobalRestResponse<T> success(T date, String message) {
+        GlobalRestResponse<T> response = new GlobalRestResponse<>();
+        return response.message(message).data(date);
+    }
+
 
 }

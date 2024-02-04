@@ -10,3 +10,8 @@ spring:
       matching-strategy: ant_path_matcher
   main:
     allow-bean-definition-overriding: true # 允许bean被重写
+
+header:
+  context:
+    # 请求头上下文加密密钥
+    secret: 123456

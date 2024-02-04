@@ -10,6 +10,7 @@
         <result column="org_code" property="orgCode" />
         <result column="secret" property="secret" />
         <result column="login_url" property="loginUrl" />
+        <result column="refresh_new" property="refreshNew" />
         <result column="description" property="description" />
         <result column="is_delete" property="isDelete" />
         <result column="create_by" property="createBy" />

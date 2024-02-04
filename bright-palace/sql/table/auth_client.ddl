@@ -8,6 +8,7 @@ CREATE TABLE `auth_client`  (
     `secret` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL NOT NULL COMMENT '服务密钥',
     `login_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL NOT NULL COMMENT '系统登录入口',
     `org_code` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL NOT NULL COMMENT '组织编码',
+    `refresh_new` tinyint(1) DEFAULT 0 COMMENT 'true-每次token刷新生成新的refresh_token，false-每次token刷新延续旧的refresh_token',
     `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
     `is_delete` tinyint(1) DEFAULT 0 COMMENT 'true-已删除，false-未删除',
     `create_by` bigint DEFAULT NULL COMMENT '创建人',

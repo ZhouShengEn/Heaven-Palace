@@ -97,3 +97,7 @@ logging:
 inner:
   access:
     keyMap: {serverName: nkhLyBFs96bKeCpLj3bl6KKjH1GYymj1f/+yL/041rM=}
+
+oauth2:
+  code:
+    size: 8

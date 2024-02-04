@@ -36,6 +36,12 @@ public class BusinessException extends RuntimeException implements BaseResult {
         this.statusCode = baseResponse.getStatusCode();
     }
 
+    public static void throwWith(boolean verify, BaseResult baseResult) {
+        if(verify) {
+            throw new BusinessException(baseResult);
+        }
+    }
+
     public int getStatusCode() {
         return statusCode;
     }

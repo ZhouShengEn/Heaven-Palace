@@ -22,12 +22,8 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
 
     public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, BaseResult afterCallErrorResult,
         T value, Callable<T> afterValid) {
-        if (ObjectUtils.isEmpty(value)) {
-            throw new BusinessException(nullResult);
-        }
-        if (!isValid(value)) {
-            throw new BusinessException(validErrorResult);
-        }
+        BusinessException.throwWith(ObjectUtils.isEmpty(value), nullResult);
+        BusinessException.throwWith(!isValid(value), validErrorResult);
         try {
             this.value = (null != afterValid ? afterValid.call() : value);
         } catch (Exception e) {
@@ -36,34 +32,21 @@ public abstract class ValidValueObject<T> implements ValueObject<T> {
     }
 
     public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value) {
-        if (ObjectUtils.isEmpty(value)) {
-            throw new BusinessException(nullResult);
-        }
-        if (!isValid(value)) {
-            throw new BusinessException(validErrorResult);
-        }
+        BusinessException.throwWith(ObjectUtils.isEmpty(value), nullResult);
+        BusinessException.throwWith(!isValid(value), validErrorResult);
         this.value = value;
     }
 
     public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult, T value, Object... validArgs) {
-        if (ObjectUtils.isEmpty(value)) {
-            throw new BusinessException(nullResult);
-        }
-        if (!isValid(value, validArgs)) {
-            throw new BusinessException(validErrorResult);
-        }
+        BusinessException.throwWith(ObjectUtils.isEmpty(value), nullResult);
+        BusinessException.throwWith(!isValid(value, validArgs), validErrorResult);
         this.value = value;
     }
 
     public ValidValueObject(BaseResult nullResult, BaseResult validErrorResult
         , BaseResult afterCallErrorResult, T value, Callable<T> afterValid, Object... validArgs) {
-
-        if (ObjectUtils.isEmpty(value)) {
-            throw new BusinessException(nullResult);
-        }
-        if (!isValid(value, validArgs)) {
-            throw new BusinessException(validErrorResult);
-        }
+        BusinessException.throwWith(ObjectUtils.isEmpty(value), nullResult);
+        BusinessException.throwWith(!isValid(value, validArgs), validErrorResult);
         try {
             this.value = (null != afterValid ? afterValid.call() : value);
         } catch (Exception e) {

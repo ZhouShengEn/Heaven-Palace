@@ -8,6 +8,7 @@ import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.Mobil
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.Password;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.value.Username;
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
+import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
 import com.heaven.palace.jasperpalace.base.ddd.AggregateRoot;
 import com.heaven.palace.jasperpalace.base.ddd.PrimaryKey;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
@@ -75,5 +76,13 @@ public class UserAggregate implements AggregateRoot<PrimaryKey> {
      */
     public void changeStatus(BaseUserConst.Status status) {
         this.status = status.getCode();
+    }
+
+    /**
+     * 转换用户缓存
+     * @return
+     */
+    public UserCache convert2UserCache() {
+        return new UserCache().setUserId(id.getId()).setUsername(username.getValue());
     }
 }

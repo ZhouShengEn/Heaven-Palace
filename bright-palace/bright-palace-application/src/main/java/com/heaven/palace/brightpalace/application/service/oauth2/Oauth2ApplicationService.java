@@ -2,11 +2,15 @@ package com.heaven.palace.brightpalace.application.service.oauth2;
 
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2RefreshTokenReqVO;
+import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2RefreshTokenResVO;
 import com.heaven.palace.brightpalace.api.api.user.vo.UserLoginPhoneAndPasswordVO;
 import com.heaven.palace.jasperpalace.base.factory.service.MultiServiceInterface;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 /**
  * @Author: zhoushengen
@@ -40,4 +44,11 @@ public interface Oauth2ApplicationService extends MultiServiceInterface {
      * @return
      */
     Oauth2QueryTokenResVO queryToken(Oauth2QueryTokenReqVO queryTokenByCodeReqVO);
+
+    /**
+     * 刷新token
+     * @param oauth2RefreshTokenReqVO
+     * @return
+     */
+    Oauth2RefreshTokenResVO refresh(@RequestBody @Valid Oauth2RefreshTokenReqVO oauth2RefreshTokenReqVO);
 }

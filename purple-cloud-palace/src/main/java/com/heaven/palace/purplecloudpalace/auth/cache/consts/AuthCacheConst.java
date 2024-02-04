@@ -17,9 +17,12 @@ public class AuthCacheConst {
     /**
      * Token缓存
      */
-    public static final String AUTH_CACHE_KEY_PREFIX = "AUTH:";
+    public static final String AUTH_CACHE_KEY_PREFIX = "auth:";
 
-    public static final String AUTH_TOKEN_KEY_PREFIX = AUTH_CACHE_KEY_PREFIX + "Token:";
+    public static final String AUTH_TOKEN_KEY_PREFIX = AUTH_CACHE_KEY_PREFIX + "token:";
+
+    public static final String AUTH_ACCESS_TOKEN_KEY_PREFIX = AUTH_TOKEN_KEY_PREFIX + "access:";
+    public static final String AUTH_REFRESH_TOKEN_KEY_PREFIX = AUTH_TOKEN_KEY_PREFIX + "refresh:";
 
     /**
      * 客户端统一认证缓存
@@ -34,9 +37,13 @@ public class AuthCacheConst {
          */
         LOGIN_STATE_CACHE(CLIENT_LOGIN_STATE_PREFIX, 5L, TimeUnit.MINUTES),
         /**
-         * token缓存
+         * access_token缓存
          */
-        USER_AUTH_TOKEN_CACHE(AUTH_TOKEN_KEY_PREFIX, 5L, TimeUnit.HOURS),
+        USER_AUTH_ACCESS_TOKEN_CACHE(AUTH_ACCESS_TOKEN_KEY_PREFIX, 5L, TimeUnit.HOURS),
+        /**
+         * refresh_token缓存
+         */
+        USER_AUTH_REFRESH_TOKEN_CACHE(AUTH_REFRESH_TOKEN_KEY_PREFIX, 1L, TimeUnit.DAYS),
 
         ;
 

@@ -62,7 +62,7 @@ public class AccessFilter implements GlobalFilter {
             return getVoidMono(exchange, new TokenEmptyResponse(), HttpStatus.UNAUTHORIZED);
         }
 
-        // token校验 -> 嵌入在每个微服务里的UserAuthInterceptor中进行
+        // token认证校验 -> 嵌入在每个微服务里的UserAuthInterceptor中进行
 
         // 授权校验
        return checkPermission(request, path).doOnError(error -> {

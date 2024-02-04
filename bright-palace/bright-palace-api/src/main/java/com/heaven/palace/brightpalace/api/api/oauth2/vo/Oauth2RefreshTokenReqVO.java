@@ -12,13 +12,13 @@ import lombok.experimental.Accessors;
  * @DateTime: 2024/1/24 17:07
  **/
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "统一认证获取token-入参")
+@ApiModel(value = "统一认证刷新token-入参")
 @Data
 @Accessors(chain = true)
-public class Oauth2QueryTokenReqVO extends Oauth2TokenReqVO {
-    private static final long serialVersionUID = 1666429436058255537L;
+public class Oauth2RefreshTokenReqVO extends Oauth2TokenReqVO {
 
-    @ApiModelProperty(notes = "加密授权码")
-    private String encryptCode;
+    private static final long serialVersionUID = -4972565051857502738L;
+    @ApiModelProperty(notes = "加密refreshToken")
+    private String encryptRefreshToken;
 
 }

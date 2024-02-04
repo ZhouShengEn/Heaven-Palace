@@ -42,6 +42,11 @@ public class AuthClientDO extends BaseEntity {
      */
     private String loginUrl;
     /**
+     * true-每次token刷新生成新的refresh_token，false-每次token刷新延续旧的refresh_token
+     *
+     */
+    private Boolean refreshNew;
+    /**
      * 描述
      *
      */

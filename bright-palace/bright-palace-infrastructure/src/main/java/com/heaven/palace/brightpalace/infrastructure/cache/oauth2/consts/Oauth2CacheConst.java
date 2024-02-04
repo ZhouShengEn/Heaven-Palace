@@ -16,7 +16,7 @@ public interface Oauth2CacheConst {
     String OAUTH2_CODE_CACHE_PREFIX = OAUTH2_CACHE_PREFIX + "code:";
 
     enum Oauth2CacheEnum implements ICacheParam {
-        OAUTH2_CODE_CACHE(OAUTH2_CODE_CACHE_PREFIX, 5L, TimeUnit.HOURS);
+        OAUTH2_CODE_CACHE(OAUTH2_CODE_CACHE_PREFIX, 5L, TimeUnit.MINUTES);
 
         private final String prefixKey;
 
