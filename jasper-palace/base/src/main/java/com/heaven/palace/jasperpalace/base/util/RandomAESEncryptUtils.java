@@ -1,4 +1,4 @@
-package com.heaven.palace.purplecloudpalace.util;
+package com.heaven.palace.jasperpalace.base.util;
 
 import com.heaven.palace.jasperpalace.base.exception.EncryptException;
 import org.apache.commons.lang3.StringUtils;
@@ -178,11 +178,17 @@ public class RandomAESEncryptUtils {
         return retSubSuffix;
     }
 
-
-
     // 时间字符串
     private static String currentTimeStamp(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMATE_FULL);
         return simpleDateFormat.format(new Date());
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println(encryptForString("1706a5d3c25d4ffe96040dc14c3870d4", "0123456789012345"));
+        } catch (EncryptException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

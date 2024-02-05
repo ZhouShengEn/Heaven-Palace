@@ -10,14 +10,15 @@ import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.ErrorRequestException;
 import com.heaven.palace.jasperpalace.base.exception.auth.AuthenticationException;
+import com.heaven.palace.jasperpalace.base.util.RandomAESEncryptUtils;
 import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import com.heaven.palace.purplecloudpalace.util.AuthUtil;
-import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
 import com.heaven.palace.purplecloudpalace.util.SpringContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
@@ -36,7 +37,6 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
     @Value("${error.path:/error}")
     private String errorPath = "/error";
 
-    @Value("${header.context.secret}")
     private String secret;
 
     @Override
@@ -50,8 +50,9 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
         if (annotation != null || handlerMethod.hasMethodAnnotation(IgnoreUserAuth.class)) {
             return AsyncHandlerInterceptor.super.preHandle(request, response, handler);
         }
-
+        initSecret();
         if (!tryInitCurrentBaseContext(request)) {
+            // todo 只有与bright-palace同一redis才拿得到token信息，所以这里不能作为全局，只能用于bright-palace
             String token = AuthUtil.obtainAuthorization(request);
             if (StringUtils.isEmpty(token)) {
                 throw new AuthenticationException(CommonExceptionEnum.AUTH_TOKEN_EMPTY_ERROR);
@@ -67,6 +68,13 @@ public class UserAuthInterceptor implements AsyncHandlerInterceptor {
         }
 
         return AsyncHandlerInterceptor.super.preHandle(request, response, handler);
+    }
+
+    private void initSecret() {
+        if (null == this.secret) {
+            Environment environment = SpringContextUtils.getBean(Environment.class);
+            this.secret = environment.getProperty("header.context.secret");
+        }
     }
 
 

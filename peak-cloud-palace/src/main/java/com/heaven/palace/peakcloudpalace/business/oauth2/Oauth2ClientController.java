@@ -5,15 +5,15 @@ import com.heaven.palace.brightpalace.api.api.oauth2.Oauth2Api;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenReqVO;
 import com.heaven.palace.brightpalace.api.api.oauth2.vo.Oauth2QueryTokenResVO;
 import com.heaven.palace.jasperpalace.base.annotation.IgnoreUserAuth;
-import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.base.exception.CommonExceptionEnum;
 import com.heaven.palace.jasperpalace.base.exception.EncryptException;
 import com.heaven.palace.jasperpalace.base.response.GlobalRestResponse;
+import com.heaven.palace.jasperpalace.base.util.RandomAESEncryptUtils;
+import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
-import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -105,9 +105,9 @@ public class Oauth2ClientController {
             }
 
             GlobalRestResponse<Oauth2QueryTokenResVO> queryTokenRes = oauth2Api.queryToken(new Oauth2QueryTokenReqVO()
-                    .setClientId(clientId)
-                    .setEncryptCode(encryptCode)
-                    .setResponseType(CommonConst.Oauth2ResponseType.CODE));
+                .setEncryptCode(encryptCode)
+                .setClientId(clientId)
+                .setResponseType(CommonConst.Oauth2ResponseType.CODE));
             if (!GlobalRestResponse.isSuccess(queryTokenRes)) {
                 throw new BusinessException(queryTokenRes);
             }

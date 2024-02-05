@@ -2,7 +2,7 @@ package com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.value;
 
 import com.heaven.palace.brightpalace.domain.exception.BusinessExceptionEnum;
 import com.heaven.palace.jasperpalace.base.ddd.Value.ValidValueObject;
-import com.heaven.palace.purplecloudpalace.util.RandomAESEncryptUtils;
+import com.heaven.palace.jasperpalace.base.util.RandomAESEncryptUtils;
 
 /**
  * @Author: zhoushengen

@@ -1,12 +1,12 @@
 package com.heaven.palace.jasperpalace.base.context;
 
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author :zhoushengen
@@ -35,7 +35,7 @@ public class CurrentBaseContext {
      */
     private static final String KEY_USER_CACHE = "currentThreadUserCache";
 
-    private static ThreadLocal<Map<String, Object>> THREAD_LOCAL = new ThreadLocal<>();
+    private static ThreadLocal<HashMap<String, Object>> THREAD_LOCAL = new ThreadLocal<>();
 
     static {{
     THREAD_LOCAL.set(new HashMap<>(1));
@@ -43,7 +43,7 @@ public class CurrentBaseContext {
     }
     
     public static void set(String key, Object value){
-        Map<String, Object> map = THREAD_LOCAL.get();
+        HashMap<String, Object> map = THREAD_LOCAL.get();
         if (map == null) {
             map = new HashMap<>(1);
             THREAD_LOCAL.set(map);
@@ -52,7 +52,7 @@ public class CurrentBaseContext {
     }
 
     public static Object get(String key) {
-        Map<String, Object> map = THREAD_LOCAL.get();
+        HashMap<String, Object> map = THREAD_LOCAL.get();
         if (map == null) {
             map = new HashMap<>(1);
             THREAD_LOCAL.set(map);
@@ -74,11 +74,15 @@ public class CurrentBaseContext {
         return (String)get(KEY_ORGANIZATION_CODE);
     }
 
-    public static Map<String, Object> getAll(){
+    public static HashMap<String, Object> getAll(){
         return THREAD_LOCAL.get();
     }
 
     public static void setAll(HashMap<String, Object> map){
+        Object userCacheObj = map.get(KEY_USER_CACHE);
+        if (null != userCacheObj) {
+            map.put(KEY_USER_CACHE, JSONObject.toJavaObject((JSONObject)userCacheObj, UserCache.class));
+        }
         THREAD_LOCAL.set(map);
     }
 

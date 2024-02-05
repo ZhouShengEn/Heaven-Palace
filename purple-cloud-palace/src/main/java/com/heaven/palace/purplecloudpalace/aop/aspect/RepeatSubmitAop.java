@@ -23,7 +23,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Author: zhoushengen
@@ -51,14 +55,21 @@ public class RepeatSubmitAop implements BeanFactoryAware {
             RequestContextHolder.getRequestAttributes())).getRequest();
         String path = URLUtil.getPath(request.getRequestURI());
         // String clientIP = ServletUtil.getClientIP(request);
-        String param = JSON.toJSONString(joinPoint.getArgs());
-        String userId = String.valueOf(CurrentBaseContext.getUserId());
+        Object[] args = joinPoint.getArgs();
+        String params = "";
+        if (null != args && args.length > 0) {
+            List<Object> filterParams = Arrays.stream(args)
+                .filter(arg -> !(arg instanceof HttpServletRequest || arg instanceof HttpServletResponse)).collect(
+                    Collectors.toList());
+            params = JSON.toJSONString(filterParams);
+        }
+        String userId = null != CurrentBaseContext.getUserId() ? String.valueOf(CurrentBaseContext.getUserId()) : "null";
         // redis 锁
         String redisKey = "prefix"
             .concat(userId).concat(":")
             .concat(path)
             // .concat(String.valueOf(Math.abs(clientIP.hashCode())))
-            .concat(String.valueOf(Math.abs(SecureUtil.md5(param).hashCode())));
+            .concat(String.valueOf(Math.abs(SecureUtil.md5(params).hashCode())));
         RLock lock = (RLock) defaultObjectCache.getLock(redisKey);
         if (lock.isLocked()) {
             throw new BusinessException(CommonExceptionEnum.REPEAT_SUBMIT_ERROR.getStatusCode(), repeatSubmit.repeatMsg());

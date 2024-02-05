@@ -1,6 +1,8 @@
 package com.heaven.palace.brightpalace.domain.business.oauth2.manage;
 
+import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.value.RefreshTokenCache;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
+import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
 import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
 import com.heaven.palace.purplecloudpalace.component.cache.DefaultObjectCache;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class Oauth2TokenManage {
      * @param token
      * @param value
      */
-    public void saveAccessToken(String token, Object value) {
+    public void saveAccessToken(String token, UserCache value) {
         defaultObjectCache.setToCache(new CacheParam(AuthCacheEnum.USER_AUTH_ACCESS_TOKEN_CACHE, token), value);
     }
 
@@ -32,7 +34,7 @@ public class Oauth2TokenManage {
      * @param token
      * @param value
      */
-    public void saveRefreshToken(String token, Object value) {
+    public void saveRefreshToken(String token, RefreshTokenCache value) {
         defaultObjectCache.setToCache(new CacheParam(AuthCacheEnum.USER_AUTH_REFRESH_TOKEN_CACHE, token), value);
     }
 
@@ -55,12 +57,11 @@ public class Oauth2TokenManage {
     /**
      * 获取refresh token
      * @param token
-     * @param zclass
      * @return
-     * @param <T>
      */
-    public <T> T getRefreshToken(String token, Class<T> zclass) {
-        return defaultObjectCache.getFromCache(new CacheParam(AuthCacheEnum.USER_AUTH_REFRESH_TOKEN_CACHE, token), zclass);
+    public RefreshTokenCache getRefreshToken(String token) {
+        return defaultObjectCache.getFromCache(new CacheParam(AuthCacheEnum.USER_AUTH_REFRESH_TOKEN_CACHE, token),
+            RefreshTokenCache.class);
     }
 
     /**

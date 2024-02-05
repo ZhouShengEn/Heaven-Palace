@@ -38,6 +38,7 @@ public class PermissionApplicationServiceImpl implements PermissionApplicationSe
                 .parallelStream().anyMatch(userRoleResource -> userRoleResource.getResourceType().equal(resourceType)
                     && userRoleResource.checkResourcePermission(resourceValue));
             checkPermissionVO.setHasPermission(hasPermission);
+            checkPermissionVO.setBaseContext(CurrentBaseContext.getAll());
         } catch (Exception e) {
             if (e instanceof BusinessException) {
                 BusinessException exception = (BusinessException) e;

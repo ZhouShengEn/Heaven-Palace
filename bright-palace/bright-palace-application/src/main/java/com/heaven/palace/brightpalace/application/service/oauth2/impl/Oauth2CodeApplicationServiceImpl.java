@@ -11,6 +11,7 @@ import com.heaven.palace.brightpalace.application.service.oauth2.Oauth2Applicati
 import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.AuthTokenAggregate;
 import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.entity.ClientEntity;
 import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.value.Oauth2ClientParam;
+import com.heaven.palace.brightpalace.domain.business.oauth2.aggregate.value.RefreshTokenCache;
 import com.heaven.palace.brightpalace.domain.business.oauth2.manage.Oauth2TokenManage;
 import com.heaven.palace.brightpalace.domain.business.oauth2.repository.Oauth2Repository;
 import com.heaven.palace.brightpalace.domain.business.oauth2.service.Oauth2DomainService;
@@ -22,6 +23,8 @@ import com.heaven.palace.brightpalace.infrastructure.cache.oauth2.Oauth2Cache;
 import com.heaven.palace.brightpalace.infrastructure.cache.oauth2.consts.Oauth2CacheConst.Oauth2CacheEnum;
 import com.heaven.palace.brightpalace.infrastructure.cache.oauth2.param.Oauth2CacheParam;
 import com.heaven.palace.jasperpalace.base.cache.param.CacheParam;
+import com.heaven.palace.jasperpalace.base.context.CurrentBaseContext.UserCache;
+import com.heaven.palace.jasperpalace.base.ddd.Token;
 import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import com.heaven.palace.jasperpalace.business.system.context.SystemOrganizationCodeConst;
 import com.heaven.palace.purplecloudpalace.auth.cache.consts.AuthCacheConst.AuthCacheEnum;
@@ -106,9 +109,13 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
         // 客户端授权码token录入缓存
         setCodeCache(clientId, authTokenAggregate, code);
         // 用户access_token录入缓存
-        oauth2TokenManage.saveAccessToken(authTokenAggregate.getAccessToken().getToken(), userAggregate.convert2UserCache());
+        UserCache userCache = userAggregate.convert2UserCache();
+        String accessToken = authTokenAggregate.getAccessToken().getToken();
+        String refreshToken = authTokenAggregate.getFreshToken().getToken();
+        oauth2TokenManage.saveAccessToken(accessToken, userCache);
         // 用户refresh_token录入缓存
-        oauth2TokenManage.saveRefreshToken(authTokenAggregate.getFreshToken().getToken(), authTokenAggregate.getAccessToken().getToken());
+        oauth2TokenManage.saveRefreshToken(refreshToken,
+            new RefreshTokenCache().setUserCache(userCache).setAccessToken(new Token(accessToken)).setRefreshToken(new Token(refreshToken)));
         try {
             String decodeUrl = URLDecoder.decode(redirectUrl, StandardCharsets.UTF_8.name());
             response.sendRedirect(decodeUrl.concat("&code=").concat(code));
@@ -148,23 +155,26 @@ public class Oauth2CodeApplicationServiceImpl implements Oauth2ApplicationServic
             clientEntity.getSecret());
         // 校验refresh token是否已过期
         String refreshToken = clientRefreshToken.getValue();
-        String accessToken = oauth2TokenManage.getRefreshToken(refreshToken, String.class);
-        BusinessException.throwWith(null == accessToken, BusinessExceptionEnum.AUTH_OAUTH2_TOKEN_CACHE_NOT_HIT_ERROR);
+        RefreshTokenCache refreshTokenCache = oauth2TokenManage.getRefreshToken(refreshToken);
+        BusinessException.throwWith(null == refreshTokenCache, BusinessExceptionEnum.AUTH_OAUTH2_TOKEN_CACHE_NOT_HIT_ERROR);
+        String accessToken = refreshTokenCache.getAccessToken().getToken();
         Oauth2RefreshTokenResVO oauth2RefreshTokenResVO = new Oauth2RefreshTokenResVO();
         // 生成新的access token
         String newAccessToken = AuthTokenAggregate.generateToken();
+        refreshTokenCache.setAccessToken(new Token(newAccessToken));
         oauth2RefreshTokenResVO.setAccessToken(newAccessToken);
-        oauth2RefreshTokenResVO.setExpireTime(oauth2TokenManage.getAccessTokenExpireTime(newAccessToken));
         if (clientEntity.getRefreshNew()) {
             // 删除旧的refresh token
             String newRefreshToken = AuthTokenAggregate.generateToken();
             oauth2RefreshTokenResVO.setRefreshToken(newRefreshToken);
-            oauth2TokenManage.saveRefreshToken(newRefreshToken, newAccessToken);
+            oauth2TokenManage.saveRefreshToken(newRefreshToken, refreshTokenCache);
             oauth2TokenManage.deleteRefreshToken(refreshToken);
         } else {
             // 更新refresh token关联的access token
-            oauth2TokenManage.saveRefreshToken(refreshToken, newAccessToken);
+            oauth2TokenManage.saveRefreshToken(refreshToken, refreshTokenCache);
         }
+        oauth2TokenManage.saveAccessToken(newAccessToken, refreshTokenCache.getUserCache());
+        oauth2RefreshTokenResVO.setExpireTime(oauth2TokenManage.getAccessTokenExpireTime(newAccessToken));
         // 删除旧的access token
         oauth2TokenManage.deleteAccessToken(accessToken);
         return oauth2RefreshTokenResVO;

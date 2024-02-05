@@ -7,9 +7,11 @@ import com.heaven.palace.heavensouthgate.enums.GlobalFilterConst;
 import com.heaven.palace.heavensouthgate.util.GatewayUtil;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst;
 import com.heaven.palace.jasperpalace.base.constant.CommonConst.Header;
+import com.heaven.palace.jasperpalace.base.exception.EncryptException;
 import com.heaven.palace.jasperpalace.base.response.BaseResponse;
 import com.heaven.palace.jasperpalace.base.response.auth.AuthorityNoPermissionResponse;
 import com.heaven.palace.jasperpalace.base.response.auth.TokenEmptyResponse;
+import com.heaven.palace.jasperpalace.base.util.RandomAESEncryptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -44,6 +46,9 @@ public class AccessFilter implements GlobalFilter {
     @Value("${gate.permission.checkType}")
     private String checkType;
 
+    @Value("${header.context.secret}")
+    private String secret;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
@@ -73,7 +78,15 @@ public class AccessFilter implements GlobalFilter {
                    HttpStatus.INTERNAL_SERVER_ERROR);
            }
             if (checkPermissionVO.getHasPermission()) {
-                return chain.filter(exchange);
+                try {
+                    ServerHttpRequest newRequest = request.mutate().header(Header.BASE_CONTEXT_HEADER,
+                        RandomAESEncryptUtils.encryptForString(JSON.toJSONString(checkPermissionVO.getBaseContext()),
+                            secret)).build();
+                    ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();
+                    return chain.filter(newExchange);
+                } catch (EncryptException e) {
+                    throw new RuntimeException();
+                }
             } else {
                 return getVoidMono(exchange, new AuthorityNoPermissionResponse(), HttpStatus.FORBIDDEN);
             }

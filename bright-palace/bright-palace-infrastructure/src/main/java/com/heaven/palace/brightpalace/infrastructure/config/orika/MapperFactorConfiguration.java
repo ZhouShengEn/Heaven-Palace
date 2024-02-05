@@ -1,5 +1,6 @@
 package com.heaven.palace.brightpalace.infrastructure.config.orika;
 
+import com.heaven.palace.brightpalace.api.api.user.vo.UserInfoResVO;
 import com.heaven.palace.brightpalace.domain.business.user.aggregate.UserAggregate;
 import com.heaven.palace.brightpalace.infrastructure.entity.BaseUserDO;
 import com.heaven.palace.purplecloudpalace.config.orika.AbstractMapperFactoryConfiguration;
@@ -25,6 +26,13 @@ public class MapperFactorConfiguration extends AbstractMapperFactoryConfiguratio
             // .fieldBToA("password", "password")
             .fieldBToA("mobilePhone", "mobilePhone")
             .fieldBToA("email", "email")
+            .byDefault().register();
+        getMapperFactory().classMap(UserAggregate.class, UserInfoResVO.class)
+            .fieldAToB("id.id", "userId")
+            .fieldAToB("username.value", "username")
+            .fieldAToB("password.value", "password")
+            .fieldAToB("mobilePhone.value", "mobilePhone")
+            .fieldAToB("email.value", "email")
             .byDefault().register();
     }
 

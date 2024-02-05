@@ -57,9 +57,10 @@ public class OAuth2Controller {
 
     @PostMapping(value = "/refresh")
     @ApiOperation(value = "token刷新")
+    @IgnoreUserAuth
     public GlobalRestResponse<Oauth2RefreshTokenResVO> refresh(@RequestBody @Valid Oauth2RefreshTokenReqVO oauth2RefreshTokenReqVO) {
         return GlobalRestResponse.success(multiOAuth2TypeFactory.getMultiImplement(oauth2RefreshTokenReqVO.getResponseType())
-            .refresh(oauth2RefreshTokenReqVO), "登录成功！");
+            .refresh(oauth2RefreshTokenReqVO), "刷新成功！");
     }
 
 }

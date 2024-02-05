@@ -4,6 +4,7 @@ import com.heaven.palace.jasperpalace.base.exception.BusinessException;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * @Author: zhoushengen
@@ -15,6 +16,8 @@ public class CheckPermissionVO implements Serializable {
     private static final long serialVersionUID = -1467896384765067862L;
 
     private Boolean hasPermission;
+
+    private HashMap<String, Object> baseContext;
 
     private BusinessException errorResult;
 }
