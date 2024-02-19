@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -45,6 +46,11 @@ public class Oauth2ClientController {
      * 服务端重定向认证模板
      */
     public static final String SERVER_AUTH_REDIRECT_TEMPLATE = "?clientId=%s&responseType=%s&redirectUrl=%s";
+
+    /**
+     * 服务端重定向认证模板
+     */
+    public static final String COOKIE_NAME_SUFFIX = "-authorization";
 
     @Value("${oauth2.client.id}")
     private String clientId;
@@ -113,7 +119,10 @@ public class Oauth2ClientController {
             }
             String accessToken = queryTokenRes.getData().getAccessToken();
             try {
-                response.addHeader(CommonConst.Header.AUTH_HEADER, CommonConst.Header.AUTH_HEADER_BEARER.concat(accessToken));
+                // 2.构造cookie并重定向
+                Cookie cookie = new Cookie(getCookieName(), CommonConst.Header.AUTH_HEADER_BEARER.concat(accessToken));
+                cookie.setPath("/");
+                response.addCookie(cookie);
                 response.sendRedirect(loginForUrl);
             } catch (Exception e) {
                 throw new BusinessException(CommonExceptionEnum.AUTH_REDIRECT_CLIENT_LOGIN_FOR_URL_ERROR);
@@ -121,5 +130,9 @@ public class Oauth2ClientController {
         }
 
         return GlobalRestResponse.success("认证成功！");
+    }
+
+    private String getCookieName() {
+        return clientId.concat(COOKIE_NAME_SUFFIX);
     }
 }
