@@ -138,7 +138,7 @@ inner:
 
 oauth2:
   client:
-    id: heaven
+    id: peak-cloud-palace
     secret: 0123456789012345
     loginUrl: http://127.0.0.1:10001/api/peak-cloud/client/oauth2/login
     defaultHomePage: http://127.0.0.1:10001/homePage

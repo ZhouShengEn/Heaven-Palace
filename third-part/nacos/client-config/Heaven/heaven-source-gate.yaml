@@ -81,12 +81,12 @@ spring:
           filters:
             # 代表路由截取路径个数，比如/api/peak-cloud-palace/hello 转发后变成/hello
             - StripPrefix=2
-        - id: peak-cloud-palace
+        - id: peak-cloud-palace-oauth2-ignore
           uri: lb://peak-cloud-palace
           order: 7999
           # 断言
           predicates:
-            - Path=/api/peak-cloud/oauth2/**
+            - Path=/api/peak-cloud/client/oauth2/**
           filters:
             # 代表路由截取路径个数，比如/api/peak-cloud-palace/hello 转发后变成/hello
             - StripPrefix=2
@@ -100,7 +100,7 @@ spring:
             - Path=/api/bright-palace/**
           filters:
             - StripPrefix=2
-        - id: bright-palace
+        - id: bright-palace-oauth-ignore
           uri: lb://bright-palace
           order: 7999
           predicates:

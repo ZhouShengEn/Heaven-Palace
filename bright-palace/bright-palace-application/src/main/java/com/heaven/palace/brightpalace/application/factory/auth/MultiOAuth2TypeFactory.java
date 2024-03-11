@@ -28,7 +28,7 @@ public class MultiOAuth2TypeFactory extends AbstractMultiFactory<Oauth2Applicati
 
     public Oauth2ApplicationService getMultiImplement(String multiIdentity) {
         Oauth2ApplicationService oauth2ApplicationService = multiInterfaceMap
-                .get(Oauth2TypeRegisterConst.ResponseTypeEnum.getByType(multiIdentity));
+                .get(Oauth2TypeRegisterConst.ResponseTypeEnum.markIdentifyByType(multiIdentity));
         if (null == oauth2ApplicationService) {
             throw new BusinessException(BusinessExceptionEnum.AUTH_RESPONSE_TYPE_SERVICE_NULL_ERROR);
         }

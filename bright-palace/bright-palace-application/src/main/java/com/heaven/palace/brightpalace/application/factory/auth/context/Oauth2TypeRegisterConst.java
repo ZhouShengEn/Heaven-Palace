@@ -44,7 +44,7 @@ public interface Oauth2TypeRegisterConst {
             this.markIdentify = markIdentify;
         }
 
-        public static String getByType(String type) {
+        public static String markIdentifyByType(String type) {
             ResponseTypeEnum responseType= Arrays.stream(ResponseTypeEnum.values())
                     .filter(responseTypeEnum -> type.equals(responseTypeEnum.type)).findFirst().orElse(null);
             if (null == responseType) {

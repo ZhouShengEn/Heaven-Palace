@@ -10,6 +10,6 @@ public interface SystemOrganizationCodeConst {
     /**
      * 天宫组织
      */
-    String HEAVEN_PALACE = "heaven";
+    String HEAVEN_PALACE = "Heaven";
 
 }

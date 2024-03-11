@@ -4,4 +4,6 @@ INSERT INTO `user_organization`(`id`, `name`, `code`, `parent_id`, `description`
 
 INSERT INTO `user_role`(`id`, `role_name`, `code`, `org_id`, `description`) VALUES (1, '用户', 'BaseUser', 1, '基础用户');
 
-INSERT INTO `auth_client`(`id`, `code`, `secret`, `login_url`, `org_code`, `description`) VALUES (1, 'peak-cloud-palace', '0123456789012345', 'http://127.0.0.1:10001/loginPage', 'heaven', '凌霄殿');
+INSERT INTO `auth_client`(`id`, `code`, `secret`, `login_url`, `org_code`, `description`) VALUES (1, 'peak-cloud-palace', '0123456789012345', 'http://localhost:3000/login', 'heaven', '凌霄殿');
+
+INSERT INTO `base_user`(`id`, `username`, `nickname`, `password`, `birthday`, `address`, `mobile_phone`, `tel_phone`, `email`, `avatar`, `sex`, `status`, `is_delete`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (2, 'zhoushengen', NULL, '7p/Y+b5WpGKS/4CVVihnuswSYFzU+/WyRKGeXWNFQcw=', NULL, NULL, '15155127953', NULL, NULL, NULL, NULL, NULL, 0, NULL, '2024-01-18 18:29:23', NULL, '2024-01-18 18:29:23');
